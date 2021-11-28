@@ -1,0 +1,8 @@
+# Project directory
+.cache
+package.json
+package-lock.json
+
+# Build directory
+/public
+.DS_Store
