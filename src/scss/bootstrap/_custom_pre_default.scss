@@ -1,0 +1,20 @@
+@import "custom_sass_values";
+
+// Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+$headings-font-family: 'Lora', 'Helvetica Neue', 'Arial', sans-serif;
+
+
+
+// COLORS
+
+//Theme colors$primary,
+$primary: $confbuddy-green;
+$secondary: $confbuddy-pink;
+$success: #28a745;
+$info: #17a2b8;
+$warning: #ffc107;
+$danger: #dc3545;
+$light: #fff;
+$dark: #343a40;

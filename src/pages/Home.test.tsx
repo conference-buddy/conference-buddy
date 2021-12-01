@@ -1,11 +1,18 @@
 import React from "react"
-import { render, screen } from "@testing-library/react"
+import { render, screen, cleanup } from "@testing-library/react"
 import { Home } from "./Home"
 
 describe("Home", () => {
-  it("works", () => {
-    render(<Home></Home>)
+  beforeAll(() => {
+    render(<Home />)
+  })
 
-    expect(screen.getByText("Hello fokkin config world!")).toBeVisible()
+  afterAll(cleanup)
+
+  it("works", () => {
+    const headline = screen.getByRole("heading", {
+      name: "Hello world, this is Conference Buddy",
+    })
+    expect(headline).toBeVisible()
   })
 })
