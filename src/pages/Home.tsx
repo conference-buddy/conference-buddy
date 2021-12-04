@@ -6,7 +6,17 @@ export function Home() {
       <header>
         <h1 className="display-1">Hello world, this is Conference Buddy</h1>
       </header>
-
+      <section>
+        <h2>Pages</h2>
+        <nav>
+          <ul>
+            <li>
+              <a href="/conference-list">Conference List</a>
+            </li>
+            <li></li>
+          </ul>
+        </nav>
+      </section>
       <button className="btn btn-secondary">test button</button>
       <section>
         <h2>Colors</h2>
