@@ -20,7 +20,10 @@ module.exports = {
   testEnvironment: "jsdom",
   testPathIgnorePatterns: ["<rootdir>/node_modules/"],
   setupFiles: [`<rootDir>/tests/setup/loadershim.js`],
-  setupFilesAfterEnv: ["<rootDir>/tests/setup/setup-after-env.ts"],
+  setupFilesAfterEnv: [
+    "<rootDir>/tests/setup/setup-files.ts",
+    "<rootDir>/tests/setup/setup-after-env.ts",
+  ],
   testMatch: ["<rootDir>/src/**/*.test.ts(x)"],
   moduleDirectories: ["node_modules", "src"],
   testURL: `http://localhost`,
