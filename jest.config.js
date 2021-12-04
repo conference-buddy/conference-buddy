@@ -1,6 +1,6 @@
 // enables our custom setup and teardown for rendering vue components
 // see: https://gitlab.com/ryter/ryter/-/blob/master/documentation/frontend/testing/03_tools-and-setup/in-depth/custom-cleanup.adoc#user-content-our-setup-and-teardown-explained
-process.env.VTL_SKIP_AUTO_CLEANUP = "true"
+process.env.RTL_SKIP_AUTO_CLEANUP = "true"
 
 module.exports = {
   rootDir: ".",
