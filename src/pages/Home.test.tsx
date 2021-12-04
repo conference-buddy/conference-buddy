@@ -15,4 +15,11 @@ describe("Home", () => {
     })
     expect(headline).toBeVisible()
   })
+
+  it("shows a button", () => {
+    const button = screen.getByRole("button", {
+      name: "test button",
+    })
+    expect(button).toBeEnabled()
+  })
 })
