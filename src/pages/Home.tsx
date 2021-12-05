@@ -1,8 +1,9 @@
 import React from "react"
+import Layout from "../templates/Layout"
 
 export function Home() {
   return (
-    <div>
+    <Layout title="Conference Buddy">
       <header>
         <h1 className="display-1">Hello world, this is Conference Buddy</h1>
       </header>
@@ -43,6 +44,6 @@ export function Home() {
           <div className="bg-dark">TESTIIIIII</div>
         </ul>
       </section>
-    </div>
+    </Layout>
   )
 }
