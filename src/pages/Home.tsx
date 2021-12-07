@@ -3,6 +3,8 @@ import Layout from "../templates/Layout"
 
 export function Home() {
   return (
+    // @TODO fix usage for layout
+    //@ts-ignore
     <Layout title="Conference Buddy">
       <header>
         <h1 className="display-1">Hello world, this is Conference Buddy</h1>
