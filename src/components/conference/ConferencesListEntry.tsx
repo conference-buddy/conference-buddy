@@ -1,14 +1,14 @@
 import React from "react"
 
-export function ConferencesListEntry() {
+export function ConferencesListEntry({title, date} : {title: string, date: string}){
   return (
     <li className="card mb-3">
       <span className="card-header small">
         <span className="me-3">📍 Frankfurt, Germany</span>
-        <span className="me-1">🗓️ 2022-10-10</span>
+        <span className="me-1">🗓️ { date }</span>
       </span>
       <span className="card-body">
-        <h5 className="card-title">A conference with a long name</h5>
+        <h5 className="card-title">{ title }</h5>
         <span className="col d-flex align-items-baseline small mb-2">
           <span className="me-2 text-primary">#JavaScript</span>
           <span className="me-2 text-primary">#Frontend</span>
@@ -32,3 +32,5 @@ export function ConferencesListEntry() {
     </li>
   )
 }
+
+
