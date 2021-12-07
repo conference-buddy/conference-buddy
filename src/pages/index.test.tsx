@@ -1,10 +1,10 @@
 import React from "react"
 import { render, screen, cleanup } from "@testing-library/react"
-import { Home } from "./Home"
+import IndexPage from "./index"
 
-describe("Home", () => {
+describe("IndexPapge", () => {
   beforeAll(() => {
-    render(<Home />)
+    render(<IndexPage />)
   })
 
   afterAll(cleanup)
@@ -20,6 +20,7 @@ describe("Home", () => {
     const button = screen.getByRole("button", {
       name: "test button",
     })
+    
     expect(button).toBeEnabled()
   })
 })

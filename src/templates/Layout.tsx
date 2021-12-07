@@ -1,11 +1,11 @@
-import React from "react"
+import React, { ReactElement } from "react"
 import Helmet from "react-helmet"
 import Header from "../components/header/Header"
 import Footer from "../components/footer/Footer"
 
 const ogImage = "https://i.imgur.com/aOqP2xB.jpg"
 
-const Layout = ({ children, title }) => (
+const Layout = ({ children, title } : { children: ReactElement, title: string }) => (
   <div>
     <Helmet>
       <title>{title}</title>
@@ -20,16 +20,16 @@ const Layout = ({ children, title }) => (
         content="tech conference, conference, tech events, programming, developing, programmer, developer, software development, software engineering, open space, barcamp, meetup, coding, coding conference"
       />
       <meta name="robots" content="index, follow" />
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="language" content="English" />
       <meta name="author" content="Mirjam Aulbach" />
 
-      <meta itemprop="name" content="Conference Buddy" />
+      <meta itemProp="name" content="Conference Buddy" />
       <meta
-        itemprop="description"
+        itemProp="description"
         content="Conference Buddy is for everyone who wants to attend a tech conference but is afraid to go alone. It's for everyone at conferences  who is not comfortable being on their own all the time.  Let's make tech events more approachable!"
       />
-      <meta itemprop="image" content={ogImage} />
+      <meta itemProp="image" content={ogImage} />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="Conference Buddy" />

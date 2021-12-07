@@ -1,6 +1,8 @@
 import React from "react"
 import { graphql } from "gatsby"
 
+// @TODO typing
+//@ts-ignore
 export default function ConferenceTemplate({ data }) {
   const { markdownRemark } = data
   const { frontmatter, html } = markdownRemark
