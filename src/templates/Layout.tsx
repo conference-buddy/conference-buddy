@@ -1,11 +1,12 @@
-import React, { ReactElement } from "react"
+import React from "react"
 import Helmet from "react-helmet"
 import Header from "../components/header/Header"
 import Footer from "../components/footer/Footer"
+import { FunctionComponent } from "react"
 
 const ogImage = "https://i.imgur.com/aOqP2xB.jpg"
 
-const Layout = ({ children, title } : { children: ReactElement, title: string }) => (
+const Layout: FunctionComponent<{ title: string }> = ({ children, title }) => (
   <div>
     <Helmet>
       <title>{title}</title>
