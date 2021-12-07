@@ -1,7 +1,7 @@
 {
-  "name": "gatsby-starter-hello-world",
-  "private": true,
-  "description": "A simplified bare-bones starter for Gatsby",
+  "name": "conference-buddy-web-app",
+  "private": false,
+  "description": "Conference Buddy 2.0. webapp",
   "version": "0.1.0",
   "license": "0BSD",
   "scripts": {
