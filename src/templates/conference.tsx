@@ -1,9 +1,18 @@
-import React from "react"
+import React, { FunctionComponent } from "react"
 import { graphql } from "gatsby"
 
-// @TODO typing
-//@ts-ignore
-export default function ConferenceTemplate({ data }) {
+const ConferenceTemplate: FunctionComponent<{
+  data: {
+    markdownRemark: {
+      html: any
+      frontmatter: {
+        date: string
+        path: string
+        title: string
+      }
+    }
+  }
+}> = ({ data }) => {
   const { markdownRemark } = data
   const { frontmatter, html } = markdownRemark
   return (
@@ -14,6 +23,8 @@ export default function ConferenceTemplate({ data }) {
     </div>
   )
 }
+
+export default ConferenceTemplate
 
 export const pageQuery = graphql`
   query ($path: String!) {
