@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { ReactElement } from "react"
 
-function Footer() {
+function Footer(): ReactElement {
   return (
     <footer>
       <div className="bg-light py-2 small text-center shadow-lg">

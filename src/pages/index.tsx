@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { ReactElement } from "react"
 import Layout from "../components/layout/Layout"
 import "../scss/main.scss"
 
-export default function IndexPage() {
+export default function IndexPage(): ReactElement {
   return (
     <div>
       <Layout title="Conference Buddy">

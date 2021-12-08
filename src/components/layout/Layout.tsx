@@ -5,7 +5,13 @@ import Footer from "../footer/Footer"
 
 const ogImage = "https://i.imgur.com/aOqP2xB.jpg"
 
-const Layout = ({ children, title } : { children: ReactElement, title: string }) => (
+const Layout = ({
+  children,
+  title,
+}: {
+  children: ReactElement
+  title: string
+}): ReactElement => (
   <div>
     <Helmet>
       <title>{title}</title>
@@ -57,10 +63,10 @@ const Layout = ({ children, title } : { children: ReactElement, title: string })
     </Helmet>
 
     <div className="min-vh-100 d-flex flex-column">
-    <Header />
-    <main className="flex-grow-1">{children}</main>
-    <Footer />
-      </div>
+      <Header />
+      <main className="flex-grow-1">{children}</main>
+      <Footer />
+    </div>
   </div>
 )
 

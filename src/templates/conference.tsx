@@ -4,7 +4,7 @@ import { graphql } from "gatsby"
 const ConferenceTemplate: FunctionComponent<{
   data: {
     markdownRemark: {
-      html: any
+      html: string
       frontmatter: {
         date: string
         path: string
