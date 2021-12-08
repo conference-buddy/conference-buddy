@@ -4,7 +4,6 @@ import Layout from "../components/layout/Layout"
 import { graphql, useStaticQuery } from "gatsby"
 
 export default function ConferenceList() {
-
   const data = useStaticQuery(graphql`
     query {
         allMarkdownRemark {
@@ -13,9 +12,9 @@ export default function ConferenceList() {
               frontmatter {
                 city
                 country
-                endDate(formatString: "MMMM DD, YYYY")
+                endDate(formatString: "MMM DD, yyyy")
                 path
-                startDate(formatString: "MMMM DD, YYYY")
+                startDate(formatString: "MMM DD, yyyy")
                 tags
                 title
                 url
@@ -27,14 +26,12 @@ export default function ConferenceList() {
 `)
   //@ts-ignore
   const conferences = data?.allMarkdownRemark?.edges.map( entry => {
-    return { title: entry.node.frontmatter.title, date: entry.node.frontmatter.date }
+    return { ...entry.node.frontmatter }
   })
-
-console.log(conferences)
 
   const listItems = conferences.map((conference: any[], index: number) => {
     //@ts-ignore
-    return <ConferencesListEntry title={conference.title} date={conference.date} key={index} />
+    return <ConferencesListEntry key={index} conference={conference} />
   })
 
   return (
