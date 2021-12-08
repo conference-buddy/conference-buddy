@@ -1,10 +1,11 @@
 import React from "react"
+import { Conference } from "../../domain/conference/conference-interface"
 
-export function ConferencesListEntry({conference } : {conference:  Record<string, string>}){
-  //@ts-ignore
-  const taglist = conference.tags.split(',').map( tag => {
+export function ConferencesListEntry({ conference} : {conference:  Conference}) {
+  const tagList = conference.tags.split(',').map( tag => {
     return <span className="me-2 text-primary">#{tag.trim()}</span>
   })
+
   return (
     <li className="card mb-3">
       <span className="card-header small d-flex flex-column flex-md-row justify-content-md-between">
@@ -14,7 +15,7 @@ export function ConferencesListEntry({conference } : {conference:  Record<string
       <span className="card-body">
         <h5 className="card-title">{ conference.title }</h5>
         <span className="d-flex align-items-baseline small mb-2">
-          {taglist}
+          {tagList}
         </span>
         <p className="card-text">
           {conference.description}
