@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders all necessary elements 1`] = `
+<DocumentFragment>
+  <header
+    class="mb-3"
+  >
+    <nav
+      class="bg-confbuddy-green px-sm-4 py-2 px-2 d-flex justify-content-between"
+    >
+      <div
+        class="d-none d-sm-block d-flex align-items-center"
+      >
+        <a
+          href="/"
+          title="Startpage"
+        >
+          <img
+            alt="Logo"
+            src="../../images/LogoConferenceBuddy_head_small.png"
+          />
+        </a>
+      </div>
+    </nav>
+  </header>
+</DocumentFragment>
+`;

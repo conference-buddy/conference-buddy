@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import { ConferencesListEntry } from "../components/conference/ConferencesListEntry"
 import Layout from "../components/layout/Layout"
 import { graphql, useStaticQuery } from "gatsby"

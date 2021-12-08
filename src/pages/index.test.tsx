@@ -1,8 +1,8 @@
-import React from "react"
+import React from 'react'
 import { render, screen, cleanup } from "@testing-library/react"
 import IndexPage from "./index"
 
-describe("IndexPapge", () => {
+describe("IndexPage", () => {
   beforeAll(() => {
     render(<IndexPage />)
   })
@@ -20,7 +20,7 @@ describe("IndexPapge", () => {
     const button = screen.getByRole("button", {
       name: "test button",
     })
-    
+
     expect(button).toBeEnabled()
   })
 })
