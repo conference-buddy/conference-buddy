@@ -12,6 +12,7 @@ export default function ConferenceList() {
               frontmatter {
                 city
                 country
+                description
                 endDate(formatString: "MMM DD, yyyy")
                 path
                 startDate(formatString: "MMM DD, yyyy")
@@ -33,7 +34,7 @@ export default function ConferenceList() {
     //@ts-ignore
     return <ConferencesListEntry key={index} conference={conference} />
   })
-
+  
   return (
     <Layout title="Conference List">
       <div className="container">

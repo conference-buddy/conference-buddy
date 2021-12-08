@@ -6,6 +6,7 @@ endDate: 2022-01-12
 city: Frankfurt
 country: Germany
 tags: javascript, frontend, testing
+description: Lorem Ipsum some conference text that is really not so long.
 path: /first-conference
 ---
 

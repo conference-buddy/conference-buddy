@@ -1,6 +1,10 @@
 import React from "react"
 
 export function ConferencesListEntry({conference } : {conference:  Record<string, string>}){
+  //@ts-ignore
+  const taglist = conference.tags.split(',').map( tag => {
+    return <span className="me-2 text-primary">#{tag.trim()}</span>
+  })
   return (
     <li className="card mb-3">
       <span className="card-header small d-flex flex-column flex-md-row justify-content-md-between">
@@ -10,12 +14,10 @@ export function ConferencesListEntry({conference } : {conference:  Record<string
       <span className="card-body">
         <h5 className="card-title">{ conference.title }</h5>
         <span className="d-flex align-items-baseline small mb-2">
-          <span className="me-2 text-primary">#JavaScript</span>
-          <span className="me-2 text-primary">#Frontend</span>
-          <span className="me-2 text-primary">#Vue</span>
+          {taglist}
         </span>
         <p className="card-text">
-          Lorem Ipsum some conference text that is really not so long.
+          {conference.description}
         </p>
         <span className="d-flex justify-content-md-between">
           <button type="button" className="btn btn-primary flex-grow-1 flex-md-grow-0 w-25 me-2">
