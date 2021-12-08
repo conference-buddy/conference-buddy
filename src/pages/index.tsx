@@ -1,5 +1,5 @@
 import * as React from "react"
-import Layout from "../templates/Layout"
+import Layout from "../components/layout/Layout"
 import "../scss/main.scss"
 
 export default function IndexPage() {

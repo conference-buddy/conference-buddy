@@ -1,6 +1,6 @@
 import React from "react"
 import { ConferencesListEntry } from "../components/conference/ConferencesListEntry"
-import Layout from "../templates/Layout"
+import Layout from "../components/layout/Layout"
 import { graphql, useStaticQuery } from "gatsby"
 
 export default function ConferenceList() {

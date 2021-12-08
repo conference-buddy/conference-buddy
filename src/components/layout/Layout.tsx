@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react"
 import Helmet from "react-helmet"
-import Header from "../components/header/Header"
-import Footer from "../components/footer/Footer"
+import Header from "../header/Header"
+import Footer from "../footer/Footer"
 
 const ogImage = "https://i.imgur.com/aOqP2xB.jpg"
 
@@ -56,10 +56,11 @@ const Layout = ({ children, title } : { children: ReactElement, title: string })
       <html lang="en" />
     </Helmet>
 
+    <div className="min-vh-100 d-flex flex-column">
     <Header />
-
-    <main>{children}</main>
+    <main className="flex-grow-1">{children}</main>
     <Footer />
+      </div>
   </div>
 )
 
