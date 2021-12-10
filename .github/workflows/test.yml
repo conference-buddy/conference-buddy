@@ -1,10 +1,10 @@
-name: Run tests and publish to GitHub pages
+name: Run tests and build the site
 
 on:
   push:
 
 jobs:
-  publish:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -28,15 +28,3 @@ jobs:
         with:
           name: conference-buddy-web-app-${{ github.sha }}
           path: public
-      - name: Publish to GitHub pages
-        if: github.ref == 'refs/heads/main'
-        run: |
-          echo "machine github.com login accesskey password ${{ secrets.GITHUB_TOKEN }}" > ~/.netrc
-          git config --global user.email "actions@example.com"
-          git config --global user.name "GitHub Actions"
-          cd public
-          git init
-          git add -A
-          git commit -m "update assets"
-          git remote add origin https://github.com/${GITHUB_REPOSITORY}.git
-          git push -f origin HEAD:gh-pages
