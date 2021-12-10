@@ -2,6 +2,7 @@ import React, { ReactElement } from "react"
 import Helmet from "react-helmet"
 import Header from "../header/Header"
 import Footer from "../footer/Footer"
+import "../../scss/main.scss"
 
 const ogImage = "https://i.imgur.com/aOqP2xB.jpg"
 
