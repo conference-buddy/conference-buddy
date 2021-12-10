@@ -6,8 +6,12 @@ export function ConferencesListEntry({
 }: {
   conference: Conference
 }): ReactElement {
-  const tagList = conference.tags.split(",").map(tag => {
-    return <span className="me-2 text-primary">#{tag.trim()}</span>
+  const tagList = conference.tags.split(",").map((tag, index) => {
+    return (
+      <span key={index} className="me-2 text-primary">
+        #{tag.trim()}
+      </span>
+    )
   })
 
   return (

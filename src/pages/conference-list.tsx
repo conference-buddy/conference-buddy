@@ -1,35 +1,19 @@
 import React, { ReactElement } from "react"
 import { ConferencesListEntry } from "../components/conference/ConferencesListEntry"
 import Layout from "../components/layout/Layout"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql } from "gatsby"
 import { Conference } from "../domain/conference/conference-interface"
 
-export default function ConferenceList(): ReactElement {
-  const data = useStaticQuery(graphql`
-    query {
-      allMarkdownRemark {
-        edges {
-          node {
-            frontmatter {
-              city
-              country
-              description
-              endDate(formatString: "MMM DD, yyyy")
-              path
-              startDate(formatString: "MMM DD, yyyy")
-              tags
-              title
-              url
-            }
-          }
-        }
-      }
-    }
-  `)
-
-  const conferences: Conference[] = data.allMarkdownRemark.edges.map(
-    (entry: { node: { frontmatter: Conference } }) => {
-      return { ...entry.node.frontmatter }
+export default function ConferenceList({
+  data,
+}: {
+  data: {
+    allMarkdownRemark: { nodes: Record<"frontmatter", Conference>[] }
+  }
+}): ReactElement {
+  const conferences: Conference[] = data.allMarkdownRemark.nodes.map(
+    (entry: { frontmatter: Conference }) => {
+      return { ...entry.frontmatter }
     }
   )
 
@@ -45,3 +29,22 @@ export default function ConferenceList(): ReactElement {
     </Layout>
   )
 }
+
+export const pageQuery = graphql`
+  {
+    allMarkdownRemark {
+      nodes {
+        frontmatter {
+          city
+          country
+          description
+          endDate(formatString: "")
+          startDate(formatString: "")
+          tags
+          title
+          url
+        }
+      }
+    }
+  }
+`
