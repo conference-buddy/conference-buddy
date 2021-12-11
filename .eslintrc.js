@@ -1,16 +1,17 @@
 module.exports = {
+  plugins: ["prettier", "testing-library", "jest-dom", "graphql", "jsx-a11y"],
   extends: [
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:jsx-a11y/recommended",
   ],
   parserOptions: {
-    ecmaVersion: 2017,
+    ecmaVersion: 2020,
     sourceType: `module`,
     ecmaFeatures: {
       jsx: true,
     },
   },
-  plugins: ["testing-library", "jest-dom"],
   overrides: [
     {
       files: ["*.test.{tsx,ts}"],

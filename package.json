@@ -7,12 +7,17 @@
   "scripts": {
     "build": "gatsby build",
     "dev": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "jest",
     "tdd": "jest --watch",
-    "lint": "eslint \"src/**/*.{tsx,ts}\""
+    "lint": "eslint . \"*.{js,jsx,ts,tsx}\" --fix",
+    "tsc": "tsc --jsx preserve",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*{js,jsx,ts,tsx,md}": "eslint \"*.{js,jsx,ts,tsx}\" --fix",
+    "*.scss": "stylelint --syntax=scss"
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.28.5",
@@ -39,13 +44,19 @@
     "bootstrap": "^5.1.3",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-config-react-app": "^6.0.0",
     "eslint-plugin-jest-dom": "^3.9.2",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-testing-library": "^3.10.2",
+    "husky": "^7.0.0",
     "jest": "^27.3.1",
     "jest-transform-stub": "^2.0.0",
+    "lint-staged": "^12.1.2",
     "prettier": "^2.4.1",
-    "ts-jest": "^27.0.7"
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.5.3"
   },
   "repository": {
     "type": "git",

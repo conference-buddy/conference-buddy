@@ -1,0 +1,4 @@
+__mocks__/
+public/
+gatsby-config.js
+gatsby-node.js
