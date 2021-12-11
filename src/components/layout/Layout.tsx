@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import React, { ReactElement, ReactNode } from "react"
 import Helmet from "react-helmet"
 import Header from "../header/Header"
 import Footer from "../footer/Footer"
@@ -10,7 +10,7 @@ const Layout = ({
   children,
   title,
 }: {
-  children: ReactElement
+  children: ReactNode
   title: string
 }): ReactElement => (
   <div>
