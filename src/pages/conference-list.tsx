@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react"
 import { ConferencesListEntry } from "../components/conference/ConferencesListEntry"
-import Layout from "../components/layout/Layout"
+import { Layout } from "../components/layout/Layout"
 import { graphql } from "gatsby"
 import { Conference } from "../domain/conference/conference-interface"
 import { useState, useEffect } from "react"

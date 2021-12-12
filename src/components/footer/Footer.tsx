@@ -19,4 +19,4 @@ function Footer(): ReactElement {
   )
 }
 
-export default Footer
+export { Footer }

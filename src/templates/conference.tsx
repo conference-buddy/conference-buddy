@@ -1,24 +1,23 @@
-import React, { FunctionComponent } from "react"
+import React, { ReactElement } from "react"
 import { graphql } from "gatsby"
+import { Conference } from "../domain/conference/conference-interface"
 
-const ConferenceTemplate: FunctionComponent<{
+type ConferenceTemplateProps = {
   data: {
     markdownRemark: {
       html: string
-      frontmatter: {
-        date: string
-        path: string
-        title: string
-      }
+      frontmatter: Conference
     }
   }
-}> = ({ data }) => {
+}
+
+function ConferenceTemplate({ data }: ConferenceTemplateProps): ReactElement {
   const { markdownRemark } = data
   const { frontmatter, html } = markdownRemark
   return (
     <div>
       <h1>{frontmatter.title}</h1>
-      <h2>{frontmatter.date}</h2>
+      <h2>{frontmatter.startDate}</h2>
       <div dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   )

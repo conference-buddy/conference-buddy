@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react"
 import { Conference } from "../../domain/conference/conference-interface"
 
-export function ConferencesListEntry({
+function ConferencesListEntry({
   conference,
 }: {
   conference: Conference
@@ -50,3 +50,5 @@ export function ConferencesListEntry({
     </li>
   )
 }
+
+export { ConferencesListEntry }
