@@ -16,9 +16,9 @@ export default function ConferenceList({
 }): ReactElement {
   const [user, setUser] = useState<User | null>(null)
   useEffect(() => {
-    /* when the app loads, check to see if the user is signed in */
+    /* when the app loads, check to see if the profile is signed in */
     checkUser()
-    /* check user on OAuth redirect */
+    /* check profile on OAuth redirect */
     window.addEventListener("hashchange", function () {
       checkUser()
     })

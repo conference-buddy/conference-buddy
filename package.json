@@ -32,6 +32,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
+    "react-query": "^3.34.5",
     "sass": "^1.44.0"
   },
   "devDependencies": {
