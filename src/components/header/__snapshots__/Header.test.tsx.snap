@@ -20,7 +20,7 @@ exports[`Header renders all necessary elements 1`] = `
             height="60"
             loading="eager"
             placeholder="none"
-            src="../../images/LogoConferenceBuddy.png"
+            src="../../assets/images/LogoConferenceBuddy.png"
           />
         </a>
       </div>

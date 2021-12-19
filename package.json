@@ -16,11 +16,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*{js,jsx,ts,tsx,md}": "eslint \"*.{js,jsx,ts,tsx}\" --fix",
-    "*.scss": "stylelint --syntax=scss",
-    "*.{md,json,yaml,yml,js}": [
-      "prettier --write"
-    ]
+    "*{js,jsx,ts,tsx}": "eslint \"*.{js,jsx,ts,tsx}\" --fix"
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.28.5",

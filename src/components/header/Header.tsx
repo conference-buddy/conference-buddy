@@ -9,7 +9,7 @@ function Header(): ReactElement {
         <div className="d-none d-sm-block d-flex align-items-center">
           <Link to="/" title="Startpage">
             <StaticImage
-              src="../../images/LogoConferenceBuddy.png"
+              src="../../assets/images/LogoConferenceBuddy.png"
               alt="Conference Buddy logo"
               height={60}
               loading="eager"
