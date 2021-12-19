@@ -16,9 +16,26 @@ exports[`Header renders all necessary elements 1`] = `
           title="Startpage"
         >
           <img
-            alt="Logo"
-            src="../../images/LogoConferenceBuddy_head_small.png"
+            alt="Conference Buddy logo"
+            height="60"
+            loading="eager"
+            placeholder="none"
+            src="../../images/LogoConferenceBuddy.png"
           />
+        </a>
+      </div>
+      <div>
+        <a
+          class="text-white  pe-5"
+          href="/"
+        >
+          Register new account
+        </a>
+        <a
+          class="text-white"
+          href="/"
+        >
+          Login
         </a>
       </div>
     </nav>

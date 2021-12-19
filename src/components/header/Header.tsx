@@ -9,9 +9,20 @@ function Header(): ReactElement {
         <div className="d-none d-sm-block d-flex align-items-center">
           <Link to="/" title="Startpage">
             <StaticImage
-              src="../../images/LogoConferenceBuddy_head_small.png"
-              alt="Logo"
+              src="../../images/LogoConferenceBuddy.png"
+              alt="Conference Buddy logo"
+              height={60}
+              loading="eager"
+              placeholder="none"
             />
+          </Link>
+        </div>
+        <div>
+          <Link to="/" className="text-white  pe-5">
+            Register new account
+          </Link>
+          <Link to="/" className="text-white">
+            Login
           </Link>
         </div>
       </nav>
