@@ -3,7 +3,7 @@ import { Layout } from "../components/layout/Layout"
 import useProfile from "../hooks/useProfile"
 import { Profile } from "../domain/profile/profile-interface"
 
-export default function Profile(): ReactElement {
+export default function MyProfile(): ReactElement {
   const { data, isLoading } = useProfile() as {
     data: Profile
     isLoading: boolean

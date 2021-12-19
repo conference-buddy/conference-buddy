@@ -8,8 +8,8 @@ export const wrapRootElement = ({ element }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <>
-        <ReactQueryDevtools initialIsOpen={true} />
         {element}
+        <ReactQueryDevtools initialIsOpen={true} />
       </>
     </QueryClientProvider>
   )
