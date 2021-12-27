@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react"
 import { Layout } from "../components/layout/Layout"
-import useCreateProfile from "../hooks/createProfile"
+import useCreateProfile from "../hooks/useCreateProfile"
 import { Profile } from "../domain/profile/profile-interface"
 import { supabase } from "../../supabaseClient"
 import { User } from "@supabase/supabase-js"

@@ -24,20 +24,12 @@ exports[`Header renders all necessary elements 1`] = `
           />
         </a>
       </div>
-      <div>
-        <a
-          class="text-white  pe-5"
-          href="/"
-        >
-          Register new account
-        </a>
-        <a
-          class="text-white"
-          href="/"
-        >
-          Login
-        </a>
-      </div>
+      <button
+        class="btn btn-light"
+        type="button"
+      >
+        Sign In
+      </button>
     </nav>
   </header>
 </DocumentFragment>

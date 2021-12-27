@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/explicit-module-boundary-types: "off" */
 import React from "react"
 import { QueryClientProvider, QueryClient } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
@@ -9,7 +10,7 @@ export const wrapRootElement = ({ element }) => {
     <QueryClientProvider client={queryClient}>
       <>
         {element}
-        <ReactQueryDevtools initialIsOpen={true} />
+        <ReactQueryDevtools initialIsOpen={false} />
       </>
     </QueryClientProvider>
   )

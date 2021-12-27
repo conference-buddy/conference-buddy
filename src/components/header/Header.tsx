@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react"
 import { StaticImage } from "gatsby-plugin-image"
 import { Link } from "gatsby"
+import { SignIn } from "../../domain/sign-in/SignIn"
 
 function Header(): ReactElement {
   return (
@@ -17,14 +18,7 @@ function Header(): ReactElement {
             />
           </Link>
         </div>
-        <div>
-          <Link to="/" className="text-white  pe-5">
-            Register new account
-          </Link>
-          <Link to="/" className="text-white">
-            Login
-          </Link>
-        </div>
+        <SignIn />
       </nav>
     </header>
   )

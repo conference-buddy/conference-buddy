@@ -15,11 +15,12 @@ const createProfile = async (profile: Profile) => {
   }
 }
 
+// eslint-disable-next-line
 export default function useCreateProfile(profile: Profile) {
   return useMutation(() => createProfile(profile), {
     onSuccess: async () => {
       const { data: insertData, error: insertError } = await supabase
-        .from("profiles")
+        .from("users")
         .update({
           first_name: profile.first_name,
           last_name: profile.last_name,
