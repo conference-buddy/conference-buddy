@@ -17,7 +17,7 @@ jobs:
           path: ~/.yarn
           key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --immutable
       - name: Compile TypeScript
         run: npx tsc
       - name: Run Unit Tests
