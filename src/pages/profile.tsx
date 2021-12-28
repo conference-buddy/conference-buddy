@@ -1,25 +1,13 @@
-import React, { ReactElement } from "react"
+import React from "react"
 import { Layout } from "../components/layout/Layout"
-import useProfile from "../hooks/useProfile"
-import { Profile } from "../domain/profile/profile-interface"
+import { UserProfile } from "../components/profile/UserProfile"
+import { isSSR } from "../utils/isSSR"
 
-export default function MyProfile(): ReactElement {
-  const { data, isLoading } = useProfile() as {
-    data: Profile
-    isLoading: boolean
-  }
-
+export default function ProfilePage() {
+  if (isSSR) return null
   return (
-    <Layout title="Conference List">
-      <div className="mb-5">
-        <h2>My Profile</h2>
-        {isLoading ? null : (
-          <>
-            <div>{data?.first_name}</div>
-            <div>{data?.last_name}</div>
-          </>
-        )}
-      </div>
+    <Layout title="Your Profile">
+      <UserProfile />
     </Layout>
   )
 }
