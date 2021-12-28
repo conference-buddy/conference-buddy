@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/explicit-module-boundary-types: "off" */
 import React from "react"
 import { QueryClientProvider, QueryClient } from "react-query"
 

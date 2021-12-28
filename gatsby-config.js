@@ -1,8 +1,4 @@
-/**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.com/docs/gatsby-config/
- */
+/* eslint @typescript-eslint/explicit-module-boundary-types: "off" */
 
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,

@@ -1,9 +1,18 @@
 module.exports = {
-  plugins: ["prettier", "testing-library", "jest-dom", "graphql", "jsx-a11y"],
+  parser: "@typescript-eslint/parser",
+  plugins: [
+    "prettier",
+    "testing-library",
+    "jest-dom",
+    "graphql",
+    "jsx-a11y",
+    "@typescript-eslint",
+  ],
   extends: [
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:jsx-a11y/recommended",
+    "plugin:react-hooks/recommended",
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -11,6 +20,9 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
+  },
+  rules: {
+    "@typescript-eslint/no-unused-vars": "error",
   },
   overrides: [
     {

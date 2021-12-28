@@ -8,9 +8,15 @@ export function useAuthUser(): User | null {
   useEffect(() => {
     setUser(supabase.auth.user())
 
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user || null)
-    })
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      async (_event, session) => {
+        setUser(session?.user ?? null)
+      }
+    )
+
+    return () => {
+      listener?.unsubscribe()
+    }
   }, [])
 
   return user

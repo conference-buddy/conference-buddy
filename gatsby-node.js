@@ -1,3 +1,5 @@
+/* eslint @typescript-eslint/explicit-module-boundary-types: "off" */
+
 const path = require(`path`)
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions

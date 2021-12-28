@@ -1,17 +1,5 @@
 import { createElement } from "react"
 
-function failOnConsole() {
-  const originalConsole = global.console.error
-  beforeAll(() => {
-    global.console.error = (message: string) => {
-      throw Error(message)
-    }
-  })
-  afterAll(() => {
-    global.console.error = originalConsole
-  })
-}
-
 function mockGatsbyImagePlugin() {
   // @TODO look if there's a better solution to handle StaticImage (etc) in tests
   // if not, add to setupAfterEnv
@@ -27,4 +15,3 @@ function mockGatsbyImagePlugin() {
 }
 
 mockGatsbyImagePlugin()
-failOnConsole()
