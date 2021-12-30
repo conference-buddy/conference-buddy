@@ -6,14 +6,6 @@ function ConferencesListEntry({
 }: {
   conference: Conference
 }): ReactElement {
-  const tagList = conference.tags.split(",").map((tag, index) => {
-    return (
-      <span key={index} className="me-2 text-primary">
-        #{tag.trim()}
-      </span>
-    )
-  })
-
   return (
     <li className="card mb-3">
       <span className="card-header small d-flex flex-column flex-md-row justify-content-md-between">
@@ -21,15 +13,19 @@ function ConferencesListEntry({
           📍 {conference.city}, {conference.country}
         </span>
         <span className="">
-          🗓️ {conference.startDate} - {conference.endDate}
+          🗓️ {conference.start_date} - {conference.end_date}
         </span>
       </span>
       <span className="card-body">
-        <h5 className="card-title">{conference.title}</h5>
-        <span className="d-flex align-items-baseline small mb-2">
-          {tagList}
-        </span>
+        <h5 className="card-title">{conference.name}</h5>
         <p className="card-text">{conference.description}</p>
+        {conference.url ? (
+          <p>
+            <a className="card-text" href={conference.url}>
+              visit conference site
+            </a>
+          </p>
+        ) : null}
         <span className="d-flex justify-content-md-between">
           <button
             type="button"

@@ -1,50 +1,29 @@
 import React, { ReactElement } from "react"
 import { ConferencesListEntry } from "../components/conference/ConferencesListEntry"
 import { Layout } from "../components/layout/Layout"
-import { graphql } from "gatsby"
+
 import { Conference } from "../domain/conference/conference-interface"
+import useConferences from "../hooks/useConferences"
 
-export default function ConferenceList({
-  data,
-}: {
-  data: {
-    allMarkdownRemark: { nodes: Record<"frontmatter", Conference>[] }
+export default function ConferenceList(): ReactElement {
+  const { data: conferences, isLoading } = useConferences() as {
+    data: Conference[]
+    isLoading: boolean
   }
-}): ReactElement {
-  const conferences: Conference[] = data.allMarkdownRemark.nodes.map(
-    (entry: { frontmatter: Conference }) => {
-      return { ...entry.frontmatter }
-    }
-  )
 
-  const listItems = conferences.map((conference: Conference, index: number) => {
+  const listItem = conferences?.map((conference: Conference, index: number) => {
     return <ConferencesListEntry key={index} conference={conference} />
   })
+
+  if (isLoading) {
+    return <div>LOADING</div>
+  }
 
   return (
     <Layout title="Conference List">
       <div className="container">
-        <ul className="list-group">{listItems}</ul>
+        <ul className="list-group">{listItem}</ul>
       </div>
     </Layout>
   )
 }
-
-export const pageQuery = graphql`
-  {
-    allMarkdownRemark {
-      nodes {
-        frontmatter {
-          city
-          country
-          description
-          endDate(formatString: "")
-          startDate(formatString: "")
-          tags
-          title
-          url
-        }
-      }
-    }
-  }
-`
