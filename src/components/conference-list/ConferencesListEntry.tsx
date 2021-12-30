@@ -29,8 +29,7 @@ function ConferencesListEntry({
         ) : null}
         <span className="d-flex justify-content-md-between">
           <Link
-            to="/conference"
-            state={{ id: conference.id }}
+            to={`/${conference.id}`}
             className="btn btn-primary flex-grow-1 flex-md-grow-0 w-25 me-2"
           >
             Details
