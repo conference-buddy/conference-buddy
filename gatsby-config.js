@@ -12,13 +12,5 @@ module.exports = {
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     "gatsby-plugin-react-helmet",
-    `gatsby-transformer-remark`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `conferences`,
-        path: `${__dirname}/content/conferences`,
-      },
-    },
   ],
 }

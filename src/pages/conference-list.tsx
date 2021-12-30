@@ -1,9 +1,8 @@
 import React, { ReactElement } from "react"
-import { ConferencesListEntry } from "../components/conference/ConferencesListEntry"
 import { Layout } from "../components/layout/Layout"
-
 import { Conference } from "../domain/conference/conference-interface"
 import useConferences from "../hooks/useConferences"
+import { ConferencesListEntry } from "../components/conference-list/ConferencesListEntry"
 
 export default function ConferenceList(): ReactElement {
   const { data: conferences, isLoading } = useConferences() as {

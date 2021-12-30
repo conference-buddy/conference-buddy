@@ -1,5 +1,6 @@
 import React, { ReactElement } from "react"
 import { Conference } from "../../domain/conference/conference-interface"
+import { Link } from "gatsby"
 
 function ConferencesListEntry({
   conference,
@@ -27,12 +28,13 @@ function ConferencesListEntry({
           </p>
         ) : null}
         <span className="d-flex justify-content-md-between">
-          <button
-            type="button"
+          <Link
+            to="/conference"
+            state={{ id: conference.id }}
             className="btn btn-primary flex-grow-1 flex-md-grow-0 w-25 me-2"
           >
             Details
-          </button>
+          </Link>
           <div>
             <button type="button" className="btn btn-outline-secondary me-2">
               👀 14

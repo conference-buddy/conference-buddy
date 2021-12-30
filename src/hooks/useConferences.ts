@@ -10,7 +10,7 @@ const getConferences = async (): Promise<Conference[]> => {
   }
 
   if (!conferences) {
-    throw new Error("User not found")
+    throw new Error("Conferences not found")
   }
 
   return conferences
