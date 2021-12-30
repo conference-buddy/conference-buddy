@@ -15,6 +15,6 @@
     "noUnusedParameters": true,
     "removeComments": false
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", "./utils/**/*.ts"],
   "exclude": ["node_modules", "setup-test-env.js"]
 }

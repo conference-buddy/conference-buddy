@@ -1,8 +1,10 @@
 import { createClient } from "@supabase/supabase-js"
+import { fromEnv } from "./utils/fromEnv"
 
-const supabaseUrl: string = process.env.GATSBY_APP_SUPABASE_URL || "empty"
-const supabaseAnonKey: string =
-  process.env.GATSBY_APP_SUPABASE_ANON_KEY || "empty"
+const { supabaseUrl, supabaseAnonKey } = fromEnv({
+  supabaseUrl: "GATSBY_APP_SUPABASE_URL",
+  supabaseAnonKey: "GATSBY_APP_SUPABASE_ANON_KEY",
+})(process.env)
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
 

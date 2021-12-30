@@ -16,7 +16,7 @@ module.exports = {
       "jest-transform-stub",
   },
   moduleNameMapper: {
-    "@/(.*)": "<rootDir>/src/$1",
+    "@/(.*)": "<rootDir>/$1",
   },
   preset: "ts-jest",
   testEnvironment: "jsdom",
@@ -26,7 +26,7 @@ module.exports = {
     "<rootDir>/tests/setup/setup-files.ts",
     "<rootDir>/tests/setup/setup-after-env.ts",
   ],
-  testMatch: ["<rootDir>/src/**/*.test.ts(x)"],
+  testMatch: ["<rootDir>/**/*.test.ts?(x)"],
   moduleDirectories: ["node_modules", "src"],
   testURL: `http://localhost`,
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
