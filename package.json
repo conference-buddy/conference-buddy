@@ -50,6 +50,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-testing-library": "^3.10.2",
+    "gatsby-source-filesystem": "^4.4.0",
     "husky": "^7.0.0",
     "jest": "^27.3.1",
     "jest-transform-stub": "^2.0.0",
