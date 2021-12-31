@@ -16,7 +16,7 @@ exports.sourceNodes = async ({
 
   conferences.forEach(conference => {
     const nodeMeta = {
-      id: createNodeId(`conference-${conference.id}`),
+      id: createNodeId(`conference/${conference.id}`),
       parent: null,
       children: [],
       internal: {

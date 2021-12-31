@@ -23,5 +23,8 @@ const getConference = async (id: string): Promise<Conference> => {
 export default function useConferences(
   id: string
 ): UseQueryResult<Conference | unknown> {
-  return useQuery("conference", () => getConference(id))
+  return useQuery("conference", () => getConference(id), {
+    retry: false,
+    refetchOnWindowFocus: false,
+  })
 }
