@@ -19,7 +19,7 @@ export default function Id({
 
   return (
     <Layout title="Conference Detail View">
-      {isError ? <div>There is no Conference with this ID</div> : null}
+      {isError ? <div>There is no Conference with this ID.</div> : null}
       {!isLoading && !isError ? <ConferenceTemplate conference={data} /> : null}
     </Layout>
   )
