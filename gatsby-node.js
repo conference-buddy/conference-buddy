@@ -1,7 +1,10 @@
 const { createClient } = require("@supabase/supabase-js")
+const { fromEnv } = require("./utils/fromEnv.js")
 
-const supabaseUrl = process.env.GATSBY_APP_SUPABASE_URL || "empty"
-const supabaseAnonKey = process.env.GATSBY_APP_SUPABASE_ANON_KEY || "empty"
+const { supabaseUrl, supabaseAnonKey } = fromEnv({
+  supabaseUrl: "GATSBY_APP_SUPABASE_URL",
+  supabaseAnonKey: "GATSBY_APP_SUPABASE_ANON_KEY",
+})(process.env)
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
@@ -16,7 +19,7 @@ exports.sourceNodes = async ({
 
   conferences.forEach(conference => {
     const nodeMeta = {
-      id: createNodeId(`conference-${conference.id}`),
+      id: createNodeId(`conference/${conference.id}`),
       parent: null,
       children: [],
       internal: {

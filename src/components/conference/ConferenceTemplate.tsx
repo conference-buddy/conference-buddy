@@ -1,11 +1,14 @@
 import React, { FunctionComponent } from "react"
-import { Conference } from "src/domain/conference/conference-interface"
+import { Conference } from "../../domain/conference/conference-interface"
 
-const ConferenceTemplate: FunctionComponent<Conference> = ({ id, name }) => (
+const ConferenceTemplate: FunctionComponent<Conference> =({
+  conference,
+}: {
+  conference: Conference
+})=> (
   <div>
     <h1>Conference Page</h1>
-    <h2>{id}</h2>
-    <h2>{name}</h2>
+    <h2>{conference.name}</h2>
   </div>
 )
 
