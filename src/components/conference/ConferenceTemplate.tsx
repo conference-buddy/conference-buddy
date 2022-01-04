@@ -1,17 +1,15 @@
-import React, { ReactElement } from "react"
+import React, { FunctionComponent } from "react"
 import { Conference } from "../../domain/conference/conference-interface"
 
-function ConferenceTemplate({
+const ConferenceTemplate: FunctionComponent<Conference> =({
   conference,
 }: {
   conference: Conference
-}): ReactElement {
-  return (
-    <div>
-      <h1>Conference Page</h1>
-      <h2>{conference.name}</h2>
-    </div>
-  )
-}
+})=> (
+  <div>
+    <h1>Conference Page</h1>
+    <h2>{conference.name}</h2>
+  </div>
+)
 
 export default ConferenceTemplate
