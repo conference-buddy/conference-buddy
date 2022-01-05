@@ -1,9 +1,21 @@
 @import "custom_sass_values";
 
+$enable-shadows: true;
+
 // Typography
 //
 // Font, line-height, and color for body text, headings, and more.
-$headings-font-family: "Lora", "Helvetica Neue", "Arial", sans-serif;
+$font-family-sans-serif: 'Rubik', sans-serif;
+$line-height-base: 1.75;
+
+$display-font-sizes: (
+  1: 4rem,
+  2: 3.5rem,
+  3: 2rem,
+  4: 1.5rem,
+  5: 1rem,
+  6: 1rem
+) ;
 
 // COLORS
 
