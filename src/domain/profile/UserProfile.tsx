@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react"
-import { ProfilePrivate } from "../../domain/profile/profile-interface"
-import useProfile from "../../hooks/useProfile"
+import { ProfilePrivate } from "./profile-interface"
+import useProfile from "../../services/hooks/profile/useProfile"
 
 export const UserProfile = (): ReactElement => {
   const { data, isLoading } = useProfile() as {

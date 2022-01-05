@@ -16,5 +16,5 @@
     "removeComments": false
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": ["node_modules", "setup-test-env.js"]
+  "exclude": ["node_modules"]
 }

@@ -1,4 +1,4 @@
-import { supabase } from "../../supabaseClient"
+import { supabase } from "../../database/supabaseClient"
 import { useEffect, useState } from "react"
 import { User } from "@supabase/supabase-js"
 

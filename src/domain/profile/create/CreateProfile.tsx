@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from "react"
-import useCreateProfile from "../../hooks/useCreateProfile"
+import useCreateProfile from "../../../services/hooks/profile/useCreateProfile"
 import { User } from "@supabase/supabase-js"
 
 export const CreateProfile = ({

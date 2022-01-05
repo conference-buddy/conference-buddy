@@ -1,18 +1,18 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { Layout } from "../../components/layout/Layout"
-import ConferenceTemplate from "../../components/conference/ConferenceTemplate"
+import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
+import ConferenceSingleTemplate from "../../domain/conference/single/ConferenceSingleTemplate"
 import { Conference } from "../../domain/conference/conference-interface"
 
 interface ConferencePageProps {
   data: { conference: Conference }
 }
 
-const ConferencePage = (props: ConferencePageProps) => {
+const ConferenceSinglePage = (props: ConferencePageProps) => {
   return (
-    <Layout title="Conference Detail View">
-      <ConferenceTemplate {...props.data} />
-    </Layout>
+    <PageLayout title="Conference Detail View">
+      <ConferenceSingleTemplate {...props.data} />
+    </PageLayout>
   )
 }
 
@@ -29,4 +29,4 @@ export const query = graphql`
   }
 `
 
-export default ConferencePage
+export default ConferenceSinglePage

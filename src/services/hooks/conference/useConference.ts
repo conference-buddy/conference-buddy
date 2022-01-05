@@ -1,5 +1,5 @@
 import { useQuery, UseQueryResult } from "react-query"
-import { supabase } from "../../supabaseClient"
+import { supabase } from "../../database/supabaseClient"
 import { Conference } from "src/domain/conference/conference-interface"
 
 const getConference = async (id: string): Promise<Conference> => {

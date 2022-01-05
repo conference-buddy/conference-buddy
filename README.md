@@ -32,3 +32,29 @@ Conference Buddy 2.0. is just beginning to become a MVP, so I still have a lot o
 - [React](https://reactjs.org/)
 - [Typescript](https://www.typescriptlang.org/)
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+
+## Directory structure
+
+The structure is inspired by [Elegant Frontend Architecture](https://michalzalecki.com/elegant-frontend-architecture/).
+
+
+### `assets`
+Contains assets like scss and images.
+
+### `domain`
+Contains different domains which are needed to describe the "Conference Buddy" application. They are specific to Conference Buddy. They are the concepts you would elaborate on when describing Conference Buddy.
+
+This includes: 
+- `conference`
+- `profile`
+
+### `pages`
+Contains every page of the application. Directory names represent the route, so the `/pages/conference/index.tsx` is rendered in `https://conferencebuddy.io/conference-list`. 
+
+See [gatsby documentation](https://www.gatsbyjs.com/docs/reference/routing/creating-routes/#define-routes-in-srcpages) for more infos. 
+
+### `services`
+Contains functionality that is used in multiple areas to reduce coupling between different layers. This includes all custom hooks and the database client.  
+
+### `ui-elements`
+Contains ui elements which are Conference Buddy agnostic and don't contain any business logic. For example a `Header`, `Footer` or `Button`.

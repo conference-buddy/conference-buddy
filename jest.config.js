@@ -21,10 +21,10 @@ module.exports = {
   preset: "ts-jest",
   testEnvironment: "jsdom",
   testPathIgnorePatterns: ["<rootdir>/node_modules/"],
-  setupFiles: [`<rootDir>/tests/setup/loadershim.js`],
+  setupFiles: [`<rootDir>/test-setup/loadershim.js`],
   setupFilesAfterEnv: [
-    "<rootDir>/tests/setup/setup-files.ts",
-    "<rootDir>/tests/setup/setup-after-env.ts",
+    "<rootDir>/test-setup/setup-files.ts",
+    "<rootDir>/test-setup/setup-after-env.ts",
   ],
   testMatch: ["<rootDir>/src/**/*.test.ts(x)"],
   moduleDirectories: ["node_modules", "src"],

@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult } from "react-query"
-import { supabase } from "../../supabaseClient"
-import { ProfilePrivate } from "../domain/profile/profile-interface"
-import { useAuthUser } from "./useAuthUser"
+import { supabase } from "../../database/supabaseClient"
+import { ProfilePrivate } from "../../../domain/profile/profile-interface"
+import { useAuthUser } from "../auth-user/useAuthUser"
 
 const getProfile = async (
   userId: string | undefined

@@ -1,6 +1,6 @@
 import { useMutation } from "react-query"
-import { supabase } from "../../supabaseClient"
-import { ProfilePrivate } from "../domain/profile/profile-interface"
+import { supabase } from "../../database/supabaseClient"
+import { ProfilePrivate } from "../../../domain/profile/profile-interface"
 
 export default function useUpdateProfile(profile: ProfilePrivate) {
   return useMutation(async () => {

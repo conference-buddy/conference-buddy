@@ -1,11 +1,11 @@
 import React, { ReactElement } from "react"
-import { Layout } from "../components/layout/Layout"
+import { PageLayout } from "../ui-elements/page-layout/PageLayout"
 import { Link } from "gatsby"
 
 export default function IndexPage(): ReactElement {
   return (
     <div>
-      <Layout title="Conference Buddy">
+      <PageLayout title="Conference Buddy">
         <>
           <header>
             <h1 className="display-1">Hello world, this is Conference Buddy</h1>
@@ -47,7 +47,7 @@ export default function IndexPage(): ReactElement {
             </ul>
           </section>
         </>
-      </Layout>
+      </PageLayout>
     </div>
   )
 }

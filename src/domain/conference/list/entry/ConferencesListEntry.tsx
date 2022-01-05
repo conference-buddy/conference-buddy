@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react"
-import { Conference } from "../../domain/conference/conference-interface"
+import { Conference } from "../../conference-interface"
 import { Link } from "gatsby"
-import useProfile from "../../hooks/useProfile"
+import useProfile from "../../../../services/hooks/profile/useProfile"
 
 function ConferencesListEntry({
   conference,

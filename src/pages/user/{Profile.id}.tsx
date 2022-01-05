@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { Layout } from "../../components/layout/Layout"
+import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
 import { ProfilePublic } from "../../domain/profile/profile-interface"
 
 interface UserProfilePageProps {
@@ -11,10 +11,10 @@ interface UserProfilePageProps {
 const UserProfilePage = (props: UserProfilePageProps) => {
   console.log(props)
   return (
-    <Layout title="Conference Detail View">
+    <PageLayout title="Conference Detail View">
       <div>Profile page</div>
       <div>{props.data.profile.name}</div>
-    </Layout>
+    </PageLayout>
   )
 }
 

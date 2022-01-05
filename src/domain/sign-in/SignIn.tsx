@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react"
-import { useAuthUser } from "../../hooks/useAuthUser"
-import { supabase } from "../../../supabaseClient"
+import { useAuthUser } from "../../services/hooks/auth-user/useAuthUser"
+import { supabase } from "../../services/database/supabaseClient"
 
 function SignIn(): ReactElement {
   const user = useAuthUser()

@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "noUnusedLocals": false,
+    "noUnusedLocals": false
   },
   "include": []
 }

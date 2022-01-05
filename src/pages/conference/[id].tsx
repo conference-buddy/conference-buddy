@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react"
-import { Layout } from "../../components/layout/Layout"
-import ConferenceTemplate from "../../components/conference/ConferenceTemplate"
+import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
+import ConferenceSingleTemplate from "../../domain/conference/single/ConferenceSingleTemplate"
 import { Conference } from "../../domain/conference/conference-interface"
-import useConference from "../../hooks/useConference"
+import useConference from "../../services/hooks/conference/useConference"
 
 export default function Id({
   params,
@@ -18,9 +18,11 @@ export default function Id({
   }
 
   return (
-    <Layout title="Conference Detail View">
+    <PageLayout title="Conference Detail View">
       {isError ? <div>There is no Conference with this ID.</div> : null}
-      {!isLoading && !isError ? <ConferenceTemplate conference={data} /> : null}
-    </Layout>
+      {!isLoading && !isError ? (
+        <ConferenceSingleTemplate conference={data} />
+      ) : null}
+    </PageLayout>
   )
 }

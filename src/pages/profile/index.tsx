@@ -1,33 +1,34 @@
 import React from "react"
-import { Layout } from "../components/layout/Layout"
-import { UserProfile } from "../components/profile/UserProfile"
-import useProfile from "../hooks/useProfile"
-import { CreateProfile } from "../components/profile/CreateProfile"
-import { ProfilePrivate } from "../domain/profile/profile-interface"
-import { useAuthUser } from "../hooks/useAuthUser"
+import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
+import { UserProfile } from "../../domain/profile/UserProfile"
+import useProfile from "../../services/hooks/profile/useProfile"
+import { CreateProfile } from "../../domain/profile/create/CreateProfile"
+import { ProfilePrivate } from "../../domain/profile/profile-interface"
+import { useAuthUser } from "../../services/hooks/auth-user/useAuthUser"
 
 export default function ProfilePage() {
   const user = useAuthUser()
+
   const { data, isLoading } = useProfile() as {
     data: ProfilePrivate
     isLoading: boolean
   }
 
   const createProfile = user ? (
-    <Layout title="Create ProfilePrivate">
+    <PageLayout title="Create ProfilePrivate">
       <CreateProfile authUser={user} />
-    </Layout>
+    </PageLayout>
   ) : null
 
   const profile = (
-    <Layout title="Your ProfilePrivate">
+    <PageLayout title="Your ProfilePrivate">
       <UserProfile />
-    </Layout>
+    </PageLayout>
   )
   const somethingWentWrong = (
-    <Layout title="Ooops">
+    <PageLayout title="Ooops">
       <div>You need to be logged in to see your profile.</div>
-    </Layout>
+    </PageLayout>
   )
 
   const userNeedsProfile = user && !data
