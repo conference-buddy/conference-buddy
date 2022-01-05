@@ -1,11 +1,11 @@
 import React, { ReactElement, useState } from "react"
-import { Profile } from "../../domain/profile/profile-interface"
+import { ProfilePrivate } from "../../domain/profile/profile-interface"
 import useUpdateProfile from "../../hooks/useUpdateProfile"
 
 export const UpdateProfile = ({
   profile,
 }: {
-  profile: Profile
+  profile: ProfilePrivate
 }): ReactElement => {
   const [name, setName] = useState(profile.name)
   const [website, setWebsite] = useState(profile.website)

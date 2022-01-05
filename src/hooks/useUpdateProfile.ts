@@ -1,8 +1,8 @@
 import { useMutation } from "react-query"
 import { supabase } from "../../supabaseClient"
-import { Profile } from "../domain/profile/profile-interface"
+import { ProfilePrivate } from "../domain/profile/profile-interface"
 
-export default function useUpdateProfile(profile: Profile) {
+export default function useUpdateProfile(profile: ProfilePrivate) {
   return useMutation(async () => {
     const { data: insertData, error: insertError } = await supabase
       .from("profiles")

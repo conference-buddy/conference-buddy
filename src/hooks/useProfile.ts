@@ -1,11 +1,11 @@
 import { useQuery, UseQueryResult } from "react-query"
 import { supabase } from "../../supabaseClient"
-import { Profile } from "../domain/profile/profile-interface"
+import { ProfilePrivate } from "../domain/profile/profile-interface"
 import { useAuthUser } from "./useAuthUser"
 
 const getProfile = async (
   userId: string | undefined
-): Promise<Profile | null> => {
+): Promise<ProfilePrivate | null> => {
   if (!userId) {
     return Promise.resolve(null)
   }
@@ -28,7 +28,7 @@ const getProfile = async (
   return data
 }
 
-export default function useProfile(): UseQueryResult<Profile | unknown> {
+export default function useProfile(): UseQueryResult<ProfilePrivate | unknown> {
   const user = useAuthUser()
 
   return useQuery(["user", user], () => getProfile(user?.id), {

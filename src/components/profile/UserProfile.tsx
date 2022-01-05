@@ -1,10 +1,10 @@
 import React, { ReactElement } from "react"
-import { Profile } from "../../domain/profile/profile-interface"
+import { ProfilePrivate } from "../../domain/profile/profile-interface"
 import useProfile from "../../hooks/useProfile"
 
 export const UserProfile = (): ReactElement => {
   const { data, isLoading } = useProfile() as {
-    data: Profile
+    data: ProfilePrivate
     isLoading: boolean
   }
 

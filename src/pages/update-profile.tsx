@@ -1,12 +1,12 @@
 import React from "react"
 import { Layout } from "../components/layout/Layout"
 import useProfile from "../hooks/useProfile"
-import { Profile } from "../domain/profile/profile-interface"
+import { ProfilePrivate } from "../domain/profile/profile-interface"
 import { UpdateProfile } from "../domain/profile/UpdateProfile"
 
 export default function UpdateProfilePage() {
   const { data, isLoading } = useProfile() as {
-    data: Profile
+    data: ProfilePrivate
     isLoading: boolean
   }
 
@@ -15,7 +15,7 @@ export default function UpdateProfilePage() {
       {isLoading ? (
         <div>loading</div>
       ) : (
-        <Layout title="Create Profile">
+        <Layout title="Create ProfilePrivate">
           <UpdateProfile profile={data} />
         </Layout>
       )}

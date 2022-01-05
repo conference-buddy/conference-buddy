@@ -7,7 +7,7 @@ export default function CreateProfilePage({ authUser }: { authUser: User }) {
   console.log("create profile page")
   console.log(authUser)
   return (
-    <Layout title="Create Profile">
+    <Layout title="Create ProfilePrivate">
       <CreateProfile authUser={authUser} />
     </Layout>
   )

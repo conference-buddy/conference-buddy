@@ -3,24 +3,24 @@ import { Layout } from "../components/layout/Layout"
 import { UserProfile } from "../components/profile/UserProfile"
 import useProfile from "../hooks/useProfile"
 import { CreateProfile } from "../components/profile/CreateProfile"
-import { Profile } from "../domain/profile/profile-interface"
+import { ProfilePrivate } from "../domain/profile/profile-interface"
 import { useAuthUser } from "../hooks/useAuthUser"
 
 export default function ProfilePage() {
   const user = useAuthUser()
   const { data, isLoading } = useProfile() as {
-    data: Profile
+    data: ProfilePrivate
     isLoading: boolean
   }
 
   const createProfile = user ? (
-    <Layout title="Create Profile">
+    <Layout title="Create ProfilePrivate">
       <CreateProfile authUser={user} />
     </Layout>
   ) : null
 
   const profile = (
-    <Layout title="Your Profile">
+    <Layout title="Your ProfilePrivate">
       <UserProfile />
     </Layout>
   )

@@ -12,11 +12,17 @@ exports.sourceNodes = async ({
 }) => {
   const { createNode } = actions
 
-  const { data: conferences, error } = await supabase.from("conferences")
+  const { data: conferences, conferenceError } = await supabase.from(
+    "conferences"
+  )
+
+  const { data: profiles, profileError } = await supabase
+    .from("profiles")
+    .select("name,username")
 
   conferences.forEach(conference => {
     const nodeMeta = {
-      id: createNodeId(`conference/${conference.id}`),
+      id: createNodeId(`conference/${conference.name}`),
       parent: null,
       children: [],
       internal: {
@@ -25,6 +31,20 @@ exports.sourceNodes = async ({
       },
     }
     const node = Object.assign({}, conference, nodeMeta)
+    createNode(node)
+  })
+
+  profiles.forEach(profile => {
+    const nodeMeta = {
+      id: createNodeId(`user/${profile.username}`),
+      parent: null,
+      children: [],
+      internal: {
+        type: `Profile`,
+        contentDigest: createContentDigest(profile),
+      },
+    }
+    const node = Object.assign({}, profile, nodeMeta)
     createNode(node)
   })
 }

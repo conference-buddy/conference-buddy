@@ -1,8 +1,8 @@
 import { useMutation } from "react-query"
 import { supabase } from "../../supabaseClient"
-import { Profile } from "../domain/profile/profile-interface"
+import { ProfilePrivate } from "../domain/profile/profile-interface"
 
-const createProfile = async (profile: Profile) => {
+const createProfile = async (profile: ProfilePrivate) => {
   // Check if username exists
   const { data: userWithUsername } = await supabase
     .from("users")
@@ -16,7 +16,7 @@ const createProfile = async (profile: Profile) => {
 }
 
 // eslint-disable-next-line
-export default function useCreateProfile(profile: Profile) {
+export default function useCreateProfile(profile: ProfilePrivate) {
   return useMutation(() => createProfile(profile), {
     onSuccess: async () => {
       const { data: insertData, error: insertError } = await supabase
