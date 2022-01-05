@@ -13,8 +13,7 @@ export const UserProfile = (): ReactElement => {
       <h2>My Profile</h2>
       {isLoading || !data ? null : (
         <>
-          <div>{data?.first_name}</div>
-          <div>{data?.last_name}</div>
+          <div>{data?.name}</div>
         </>
       )}
     </div>

@@ -16,12 +16,13 @@ const getProfile = async (
     .eq("id", userId)
     .single()
 
-  if (error) {
-    throw new Error(error.message)
+  if (!data) {
+    console.log("User not found")
+    return null
   }
 
-  if (!data) {
-    throw new Error("User not found")
+  if (error) {
+    throw new Error(error.message)
   }
 
   return data
@@ -30,5 +31,8 @@ const getProfile = async (
 export default function useProfile(): UseQueryResult<Profile | unknown> {
   const user = useAuthUser()
 
-  return useQuery(["user", user], () => getProfile(user?.id))
+  return useQuery(["user", user], () => getProfile(user?.id), {
+    refetchOnWindowFocus: false,
+    retry: false,
+  })
 }

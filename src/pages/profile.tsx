@@ -13,11 +13,12 @@ export default function ProfilePage() {
     isLoading: boolean
   }
 
-  const createProfile = (
+  const createProfile = user ? (
     <Layout title="Create Profile">
-      <CreateProfile />
+      <CreateProfile authUser={user} />
     </Layout>
-  )
+  ) : null
+
   const profile = (
     <Layout title="Your Profile">
       <UserProfile />

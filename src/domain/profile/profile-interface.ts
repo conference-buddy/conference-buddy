@@ -1,7 +1,10 @@
 export interface Profile {
   id: string
-  first_name: string
-  last_name: string
-  website?: string
+  created_at: string
+  updated_at: string
+  provider: string
+  email: string
+  name: string
   username: string
+  website?: string
 }

@@ -20,13 +20,17 @@ export default function useCreateProfile(profile: Profile) {
   return useMutation(() => createProfile(profile), {
     onSuccess: async () => {
       const { data: insertData, error: insertError } = await supabase
-        .from("users")
-        .update({
-          first_name: profile.first_name,
-          last_name: profile.last_name,
-          username: profile.username,
-        })
-        .match({ id: profile.id })
+        .from("profiles")
+        .insert([
+          {
+            provider: profile.provider,
+            email: profile.email,
+            username: profile.username,
+            name: profile.name,
+            website: profile.website,
+            id: profile.id,
+          },
+        ])
 
       if (insertError) {
         throw insertError
