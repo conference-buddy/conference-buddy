@@ -11,7 +11,7 @@ function SignIn(): ReactElement {
         provider: "github",
       },
       {
-        redirectTo: window.location.href,
+        redirectTo: `${window.location.origin}/profile`,
       }
     )
   }
