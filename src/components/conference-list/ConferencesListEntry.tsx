@@ -1,12 +1,15 @@
 import React, { ReactElement } from "react"
 import { Conference } from "../../domain/conference/conference-interface"
 import { Link } from "gatsby"
+import useProfile from "../../hooks/useProfile"
 
 function ConferencesListEntry({
   conference,
 }: {
   conference: Conference
 }): ReactElement {
+  const { data: user } = useProfile()
+
   return (
     <li className="card mb-3">
       <span className="card-header small d-flex flex-column flex-md-row justify-content-md-between">
@@ -35,12 +38,28 @@ function ConferencesListEntry({
             Details
           </Link>
           <div>
-            <button type="button" className="btn btn-outline-secondary me-2">
-              👀 14
-            </button>
-            <button type="button" className="btn btn-outline-secondary">
-              🐶 2
-            </button>
+            {user ? (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-outline-secondary me-2"
+                >
+                  👀 14
+                </button>
+                <button type="button" className="btn btn-outline-secondary">
+                  🐶 2
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="btn bg-dark bg-opacity-10 text-confbuddy-pink disabled opacity-100 me-2">
+                  👀 14
+                </div>
+                <div className="btn bg-dark bg-opacity-10 text-confbuddy-pink disabled opacity-100">
+                  🐶 2
+                </div>
+              </>
+            )}
           </div>
         </span>
       </span>
