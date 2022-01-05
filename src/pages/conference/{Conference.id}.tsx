@@ -25,6 +25,7 @@ export const query = graphql`
       description
       end_date
       start_date
+      url
     }
   }
 `
