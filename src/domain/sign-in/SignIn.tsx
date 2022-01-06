@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react"
 import { useAuthUser } from "../../services/hooks/auth-user/useAuthUser"
 import { supabase } from "../../services/database/supabaseClient"
-import { TextButton } from "../../ui-elements/text-button/TextButton"
+import { TextLink } from "../../ui-elements/text-link/TextLink"
 
 function SignIn(): ReactElement {
   const user = useAuthUser()
@@ -20,13 +20,23 @@ function SignIn(): ReactElement {
     await supabase.auth.signOut()
   }
   return user ? (
-    <TextButton handleClick={signOut} light={true}>
-      Sign out
-    </TextButton>
+    <div>
+      <TextLink
+        to="/profile"
+        internal={false}
+        light={true}
+        additionalClasses="me-3"
+      >
+        Profile
+      </TextLink>
+      <button className="btn btn-outline-light btn-sm" onClick={signOut}>
+        Sign out
+      </button>
+    </div>
   ) : (
-    <TextButton handleClick={signInWithGithub} light={true}>
+    <button className="btn btn-outline-light btn-sm" onClick={signInWithGithub}>
       Sign In
-    </TextButton>
+    </button>
   )
 }
 export { SignIn }

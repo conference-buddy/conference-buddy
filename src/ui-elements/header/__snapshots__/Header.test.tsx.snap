@@ -35,8 +35,7 @@ exports[`Header renders all necessary elements 1`] = `
         </div>
       </div>
       <button
-        class="TextButton TextButton-light"
-        type="button"
+        class="btn btn-outline-light btn-sm"
       >
         Sign In
       </button>
