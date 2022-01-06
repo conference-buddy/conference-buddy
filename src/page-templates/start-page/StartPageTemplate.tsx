@@ -36,7 +36,7 @@ function StartPageTemplate({
             internal={true}
             additionalClasses="fs-5"
           >
-            See all conferences
+            See all conferences &rarr;
           </TextLink>
         </div>
       </section>

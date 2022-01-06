@@ -22,7 +22,7 @@ function SignIn(): ReactElement {
   return user ? (
     <div>
       <TextLink
-        to="/profile"
+        to={`/profile`}
         internal={false}
         light={true}
         additionalClasses="me-3"
