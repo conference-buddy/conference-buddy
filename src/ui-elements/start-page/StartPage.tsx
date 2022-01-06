@@ -2,6 +2,7 @@ import React, { ReactElement } from "react"
 import { Conference } from "../../domain/conference/conference-interface"
 import { ConferenceList } from "../../domain/conference/list/ConferenceList"
 import { TextLink } from "../text-link/TextLink"
+import { Claim } from "../claim/Claim"
 
 function StartPage({
   conferences,
@@ -10,13 +11,7 @@ function StartPage({
 }): ReactElement {
   return (
     <article className="container">
-      <header>
-        <h1 className="display-2 my-5">
-          Let’s make tech events more approachable&nbsp;-
-          <br />
-          <strong>one Buddy at a time</strong>.
-        </h1>
-      </header>
+      <Claim />
       <p>
         Conference Buddy provides a platform to find{" "}
         <strong>companions for tech conferences</strong>. You can look for one

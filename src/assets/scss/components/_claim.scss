@@ -1,0 +1,44 @@
+ h1 .Claim-text-wrapper {
+  white-space: nowrap;
+ }
+
+ h1 span.Claim-animation::before {
+        content: "approachable";
+
+        white-space: nowrap;
+   animation: animate infinite 6s step-start;
+    }
+
+
+@keyframes animate {
+
+        0%, 100% {
+            content: "🎉 approachable";
+          color: $pink;
+        }
+
+        16.666% {
+            content: "🤗 welcoming";
+          color: $purple;
+        }
+
+        33.32% {
+            content: "👯 inclusive";
+          color: $cyan;
+        }
+
+      49.98% {
+            content: "⭐️ accessible";
+        color: $teal;
+        }
+
+  66.64% {
+            content: "💜 kind     ";
+    color: $blue;
+        }
+
+  83.31% {
+            content: "👋 inviting";
+    color: $orange;
+        }
+    }
