@@ -66,7 +66,7 @@ function PageLayout({
 
       <div className="min-vh-100 d-flex flex-column">
         <Header />
-        <main className="flex-grow-1">{children}</main>
+        <main className="flex-grow-1 py-3 py-md-4">{children}</main>
         <Footer />
       </div>
     </div>

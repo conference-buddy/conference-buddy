@@ -11,13 +11,11 @@ function StartPage({
   return (
     <article className="container">
       <header>
-        <h1 className="display-1">Conference Buddy</h1>
-        <p className="lead">
+        <h1 className="display-2 my-5">
           Let’s make tech events more approachable -{" "}
-          <em>one Buddy at a time</em>.
-        </p>
+          <strong>one Buddy at a time</strong>.
+        </h1>
       </header>
-
       <p>
         Conference Buddy provides a platform to find{" "}
         <strong>companions for tech conferences</strong>. You can look for one
