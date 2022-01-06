@@ -6,6 +6,7 @@ type TextLinkProps = {
   to: string
   children: ReactNode
   light?: boolean
+  additionalClasses?: string
 } & typeof defaultProps
 
 const defaultProps = {
@@ -19,11 +20,17 @@ function TextLink(props: TextLinkProps): ReactElement {
   return (
     <>
       {!props.internal ? (
-        <a href={props.to} className={`TextLink ${linkClass}`}>
+        <a
+          href={props.to}
+          className={`TextLink ${linkClass} ${props.additionalClasses}`}
+        >
           {props.children}
         </a>
       ) : (
-        <Link to={props.to} className={`TextLink ${linkClass}`}>
+        <Link
+          to={props.to}
+          className={`TextLink ${linkClass} ${props.additionalClasses}`}
+        >
           {props.children}
         </Link>
       )}

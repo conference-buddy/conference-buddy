@@ -12,7 +12,8 @@ function StartPage({
     <article className="container">
       <header>
         <h1 className="display-2 my-5">
-          Let’s make tech events more approachable -{" "}
+          Let’s make tech events more approachable&nbsp;-
+          <br />
           <strong>one Buddy at a time</strong>.
         </h1>
       </header>
@@ -32,11 +33,17 @@ function StartPage({
       </p>
 
       <section>
-        <h2>Upcoming Conferences</h2>
+        <h2 className="my-4">Upcoming Conferences</h2>
         <ConferenceList conferences={conferences} />
-        <TextLink to="/conference-list" internal={true}>
-          See all conferences
-        </TextLink>
+        <div className="text-center my-4">
+          <TextLink
+            to="/conference-list"
+            internal={true}
+            additionalClasses="fs-5"
+          >
+            See all conferences
+          </TextLink>
+        </div>
       </section>
     </article>
   )

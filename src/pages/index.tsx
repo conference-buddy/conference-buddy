@@ -11,6 +11,7 @@ export default function IndexPage(): ReactElement {
     {
       allConference(sort: { fields: start_date, order: ASC }, limit: 3) {
         nodes {
+          id
           city
           country
           description

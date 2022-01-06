@@ -9,7 +9,7 @@ exports[`Header renders all necessary elements 1`] = `
       class="bg-confbuddy-green px-sm-4 py-2 px-2 d-flex justify-content-between"
     >
       <div
-        class="d-none d-sm-block d-flex align-items-center"
+        class="d-flex align-items-center"
       >
         <a
           href="/"
@@ -17,15 +17,25 @@ exports[`Header renders all necessary elements 1`] = `
         >
           <img
             alt="Conference Buddy logo"
-            height="60"
+            height="50"
             loading="eager"
             placeholder="none"
             src="../../assets/images/LogoConferenceBuddy.png"
           />
         </a>
+        <div
+          class="text-white d-block d-sm-none"
+        >
+          Conference Buddy
+        </div>
+        <div
+          class="text-white d-none d-sm-block fs-3"
+        >
+          Conference Buddy
+        </div>
       </div>
       <button
-        class="btn btn-light"
+        class="TextButton TextButton-light"
         type="button"
       >
         Sign In
