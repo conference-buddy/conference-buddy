@@ -10,7 +10,6 @@ type TextLinkProps = {
 
 const defaultProps = {
   light: false,
-  secondary: false,
   internal: false,
 }
 
