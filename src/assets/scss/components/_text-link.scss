@@ -1,0 +1,36 @@
+@import "../../../../node_modules/bootstrap/scss/variables";
+
+a.TextLink {
+  text-decoration: none;
+  padding: 1px;
+  &.TextLink-primary {
+    color: $primary;
+    border-bottom: 2px solid $secondary;
+    background: linear-gradient($primary, $primary 100%) bottom no-repeat;
+    background-size: 100% 0;
+    transition: background-size 0.1s;
+
+    &:hover {
+      background-size: 100% 100%;
+      text-decoration: none;
+      color: $light;
+    }
+  }
+  &.TextLink-light {
+    color: $light;
+    border-bottom: 2px solid $light;
+    background: linear-gradient($light, $light 100%) bottom no-repeat;
+    background-size: 100% 0;
+    transition: background-size 0.1s;
+
+    &:hover {
+      border-bottom: 2px solid $secondary;
+      background-size: 100% 100%;
+      text-decoration: none;
+      color: $primary;
+    }
+  }
+}
+
+
+

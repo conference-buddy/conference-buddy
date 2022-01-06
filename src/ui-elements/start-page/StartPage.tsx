@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react"
-import { Link } from "gatsby"
 import { Conference } from "../../domain/conference/conference-interface"
 import { ConferenceList } from "../../domain/conference/list/ConferenceList"
+import { TextLink } from "../text-link/TextLink"
 
 function StartPage({
   conferences,
@@ -36,7 +36,9 @@ function StartPage({
       <section>
         <h2>Upcoming Conferences</h2>
         <ConferenceList conferences={conferences} />
-        <Link to="/conferene-list">See all conferences</Link>
+        <TextLink to="/conference-list" internal={true}>
+          See all conferences
+        </TextLink>
       </section>
     </article>
   )
