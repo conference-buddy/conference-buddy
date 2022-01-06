@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react"
-import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
-import ConferenceSingleTemplate from "../../domain/conference/single/ConferenceSingleTemplate"
+import { PageLayout } from "../../page-templates/wrapper-layout/PageLayout"
+import { ConferenceSinglePageTemplate } from "../../page-templates/conference-single/ConferenceSinglePageTemplate"
 import { Conference } from "../../domain/conference/conference-interface"
 import useConference from "../../services/hooks/conference/useConference"
 
@@ -21,7 +21,7 @@ export default function Id({
     <PageLayout title="Conference Detail View">
       {isError ? <div>There is no Conference with this ID.</div> : null}
       {!isLoading && !isError ? (
-        <ConferenceSingleTemplate conference={data} />
+        <ConferenceSinglePageTemplate conference={data} />
       ) : null}
     </PageLayout>
   )

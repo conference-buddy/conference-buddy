@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode } from "react"
 import Helmet from "react-helmet"
-import { Header } from "../header/Header"
-import { Footer } from "../footer/Footer"
+import { Header } from "../../ui-elements/header/Header"
+import { Footer } from "../../ui-elements/footer/Footer"
 import "../../assets/scss/main.scss"
 
 const ogImage = "https://i.imgur.com/aOqP2xB.jpg"

@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
-import ConferenceSingleTemplate from "../../domain/conference/single/ConferenceSingleTemplate"
+import { PageLayout } from "../../page-templates/wrapper-layout/PageLayout"
+import { ConferenceSinglePageTemplate } from "../../page-templates/conference-single/ConferenceSinglePageTemplate"
 import { Conference } from "../../domain/conference/conference-interface"
 
 interface ConferencePageProps {
@@ -11,7 +11,7 @@ interface ConferencePageProps {
 const ConferenceSinglePage = (props: ConferencePageProps) => {
   return (
     <PageLayout title="Conference Detail View">
-      <ConferenceSingleTemplate {...props.data} />
+      <ConferenceSinglePageTemplate {...props.data} />
     </PageLayout>
   )
 }

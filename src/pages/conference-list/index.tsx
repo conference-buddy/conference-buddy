@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react"
-import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
+import { PageLayout } from "../../page-templates/wrapper-layout/PageLayout"
 import { Conference } from "../../domain/conference/conference-interface"
 import { useStaticQuery, graphql } from "gatsby"
-import { ConferenceList } from "../../domain/conference/list/ConferenceList"
+import { ConferenceListPageTemplate } from "../../page-templates/conference-list/ConferenceListPageTemplate"
 
 export default function ConferenceListPage(): ReactElement {
   const data: {
@@ -26,7 +26,7 @@ export default function ConferenceListPage(): ReactElement {
 
   return (
     <PageLayout title="Conference List">
-      <ConferenceList conferences={data.allConference.nodes} />
+      <ConferenceListPageTemplate conferences={data.allConference.nodes} />
     </PageLayout>
   )
 }

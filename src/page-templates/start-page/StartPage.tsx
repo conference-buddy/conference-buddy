@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react"
 import { Conference } from "../../domain/conference/conference-interface"
 import { ConferenceList } from "../../domain/conference/list/ConferenceList"
-import { TextLink } from "../text-link/TextLink"
-import { Claim } from "../claim/Claim"
+import { TextLink } from "../../ui-elements/text-link/TextLink"
+import { Claim } from "../../ui-elements/claim/Claim"
 
 function StartPage({
   conferences,

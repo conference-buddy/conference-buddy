@@ -1,5 +1,5 @@
 import React from "react"
-import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
+import { PageLayout } from "../../page-templates/wrapper-layout/PageLayout"
 import useProfile from "../../services/hooks/profile/useProfile"
 import { ProfilePrivate } from "../../domain/profile/profile-interface"
 import { UpdateProfile } from "../../domain/profile/update/UpdateProfile"

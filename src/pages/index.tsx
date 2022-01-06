@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react"
-import { PageLayout } from "../ui-elements/page-layout/PageLayout"
+import { PageLayout } from "../page-templates/wrapper-layout/PageLayout"
 import { graphql, useStaticQuery } from "gatsby"
 import { Conference } from "../domain/conference/conference-interface"
-import { StartPage } from "../ui-elements/start-page/StartPage"
+import { StartPage } from "../page-templates/start-page/StartPage"
 
 export default function IndexPage(): ReactElement {
   const data: {

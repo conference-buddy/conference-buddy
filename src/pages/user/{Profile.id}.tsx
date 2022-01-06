@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
+import { PageLayout } from "../../page-templates/wrapper-layout/PageLayout"
 import { ProfilePublic } from "../../domain/profile/profile-interface"
 
 interface UserProfilePageProps {

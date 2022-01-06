@@ -2,20 +2,16 @@ import React, { ReactElement } from "react"
 import { Conference } from "../conference-interface"
 import { ConferencesListEntry } from "./entry/ConferencesListEntry"
 
-function ConferenceList({
-  conferences,
-}: {
+type ConferenceListProps = {
   conferences: Conference[]
-}): ReactElement {
+}
+
+function ConferenceList({ conferences }: ConferenceListProps): ReactElement {
   const listItem = conferences.map((conference: Conference, index: number) => {
     return <ConferencesListEntry key={index} conference={conference} />
   })
 
-  return (
-    <div className="container">
-      <ul className="list-group">{listItem}</ul>
-    </div>
-  )
+  return <ul className="list-group">{listItem}</ul>
 }
 
 export { ConferenceList }

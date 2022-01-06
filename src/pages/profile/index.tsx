@@ -1,5 +1,5 @@
 import React from "react"
-import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
+import { PageLayout } from "../../page-templates/wrapper-layout/PageLayout"
 import { UserProfile } from "../../domain/profile/UserProfile"
 import useProfile from "../../services/hooks/profile/useProfile"
 import { CreateProfile } from "../../domain/profile/create/CreateProfile"
