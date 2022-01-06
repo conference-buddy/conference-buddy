@@ -4,7 +4,7 @@ import { ConferenceList } from "../../domain/conference/list/ConferenceList"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
 import { Claim } from "../../ui-elements/claim/Claim"
 
-function StartPage({
+function StartPageTemplate({
   conferences,
 }: {
   conferences: Conference[]
@@ -44,4 +44,4 @@ function StartPage({
   )
 }
 
-export { StartPage }
+export { StartPageTemplate }

@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react"
-import { PageLayout } from "../page-templates/wrapper-layout/PageLayout"
+import { WrapperLayout } from "../page-templates/wrapper-layout/WrapperLayout"
 import { graphql, useStaticQuery } from "gatsby"
 import { Conference } from "../domain/conference/conference-interface"
-import { StartPage } from "../page-templates/start-page/StartPage"
+import { StartPageTemplate } from "../page-templates/start-page/StartPageTemplate"
 
 export default function IndexPage(): ReactElement {
   const data: {
@@ -26,9 +26,9 @@ export default function IndexPage(): ReactElement {
 
   return (
     <div>
-      <PageLayout title="Conference Buddy">
-        <StartPage conferences={data.allConference.nodes} />
-      </PageLayout>
+      <WrapperLayout title="Conference Buddy">
+        <StartPageTemplate conferences={data.allConference.nodes} />
+      </WrapperLayout>
     </div>
   )
 }

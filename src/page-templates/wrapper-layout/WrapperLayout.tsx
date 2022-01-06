@@ -6,7 +6,7 @@ import "../../assets/scss/main.scss"
 
 const ogImage = "https://i.imgur.com/aOqP2xB.jpg"
 
-function PageLayout({
+function WrapperLayout({
   children,
   title,
 }: {
@@ -73,4 +73,4 @@ function PageLayout({
   )
 }
 
-export { PageLayout }
+export { WrapperLayout }

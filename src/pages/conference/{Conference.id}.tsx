@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { PageLayout } from "../../page-templates/wrapper-layout/PageLayout"
+import { WrapperLayout } from "../../page-templates/wrapper-layout/WrapperLayout"
 import { ConferenceSinglePageTemplate } from "../../page-templates/conference-single/ConferenceSinglePageTemplate"
 import { Conference } from "../../domain/conference/conference-interface"
 
@@ -10,9 +10,9 @@ interface ConferencePageProps {
 
 const ConferenceSinglePage = (props: ConferencePageProps) => {
   return (
-    <PageLayout title="Conference Detail View">
+    <WrapperLayout title="Conference Detail View">
       <ConferenceSinglePageTemplate {...props.data} />
-    </PageLayout>
+    </WrapperLayout>
   )
 }
 

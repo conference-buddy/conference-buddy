@@ -1,5 +1,5 @@
 import React from "react"
-import { PageLayout } from "../../page-templates/wrapper-layout/PageLayout"
+import { WrapperLayout } from "../../page-templates/wrapper-layout/WrapperLayout"
 import { UserProfile } from "../../domain/profile/UserProfile"
 import useProfile from "../../services/hooks/profile/useProfile"
 import { CreateProfile } from "../../domain/profile/create/CreateProfile"
@@ -15,20 +15,20 @@ export default function ProfilePage() {
   }
 
   const createProfile = user ? (
-    <PageLayout title="Create ProfilePrivate">
+    <WrapperLayout title="Create ProfilePrivate">
       <CreateProfile authUser={user} />
-    </PageLayout>
+    </WrapperLayout>
   ) : null
 
   const profile = (
-    <PageLayout title="Your ProfilePrivate">
+    <WrapperLayout title="Your ProfilePrivate">
       <UserProfile />
-    </PageLayout>
+    </WrapperLayout>
   )
   const somethingWentWrong = (
-    <PageLayout title="Ooops">
+    <WrapperLayout title="Ooops">
       <div>You need to be logged in to see your profile.</div>
-    </PageLayout>
+    </WrapperLayout>
   )
 
   const userNeedsProfile = user && !data
