@@ -2,23 +2,103 @@
 
 exports[`Footer renders all necessary elements 1`] = `
 <DocumentFragment>
-  <footer>
+  <div
+    class="bg-dark pt-4 pt-md-5 pb-3"
+  >
     <div
-      class="bg-light py-2 small text-center shadow-lg"
+      class="container text-white pb-2"
     >
-      🤐
-      <a
-        class="TextLink TextLink-primary"
-        href="https://www.iubenda.com/privacy-policy/44138766"
+      <div
+        class="row justify-content-evenly"
       >
-        Privacy Policy
-      </a>
+        <div
+          class="col-12 col-md-3 text-center text-center"
+        >
+          <h5>
+            Platform
+          </h5>
+          <nav>
+            <ul
+              class="list-unstyled"
+            >
+              <li>
+                <a
+                  class="TextLink TextLink-light undefined"
+                  href="/"
+                >
+                  How does this work?
+                </a>
+              </li>
+              <li>
+                <a
+                  class="TextLink TextLink-light undefined"
+                  href="/"
+                >
+                  Support ConfBuddy
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div
+          class="col-12 col-md-3 text-center mt-3 mt-md-0"
+        >
+          <h5>
+            Social
+          </h5>
+          <nav>
+            <ul
+              class="list-unstyled"
+            >
+              <li>
+                <a
+                  class="TextLink TextLink-light undefined"
+                  href="https://www.iubenda.com/privacy-policy/44138766"
+                >
+                  Twitter
+                </a>
+              </li>
+              <li>
+                <a
+                  class="TextLink TextLink-light undefined"
+                  href="https://www.iubenda.com/privacy-policy/44138766"
+                >
+                  Github
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div
+          class="col-12 col-md-3 text-center mt-3 mt-md-0"
+        >
+          <h5>
+            About
+          </h5>
+          <nav>
+            <ul
+              class="list-unstyled"
+            >
+              <li>
+                <a
+                  class="TextLink TextLink-light undefined"
+                  href=""
+                >
+                  Privacy Policy
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </div>
-    <div
-      class="container-fluid small bg-dark text-light text-center"
-    >
-      Made with ❤️ lots of ☕️ and an awesome ⌨️
-    </div>
-  </footer>
+    <footer>
+      <div
+        class="container small bg-dark text-light text-center"
+      >
+        Made with ❤️ lots of ☕️ and an awesome ⌨️
+      </div>
+    </footer>
+  </div>
 </DocumentFragment>
 `;
