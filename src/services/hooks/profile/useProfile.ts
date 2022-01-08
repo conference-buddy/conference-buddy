@@ -1,22 +1,26 @@
 import { useQuery, UseQueryResult } from "react-query"
 import { supabase } from "../../database/supabaseClient"
 import { ProfilePrivate } from "../../../domain/profile/profile-interface"
-import { useAuthUser } from "../auth-user/useAuthUser"
+
+import { User } from "@supabase/supabase-js"
+import useAuthUserContext from "../auth-user/useAuthUserContext"
 
 const getProfile = async (
-  userId: string | undefined
+  user: User | undefined
 ): Promise<ProfilePrivate | null> => {
-  if (!userId) {
-    return Promise.resolve(null)
+  if (!user) {
+    return null
   }
 
-  const { data, error } = await supabase
+  const { data: dataSupabase, error } = await supabase
     .from("profiles")
     .select()
-    .eq("id", userId)
+    .eq("id", user.id)
     .single()
 
-  if (!data) {
+  // console.log("data", data)
+
+  if (!dataSupabase) {
     console.log("User not found")
     return null
   }
@@ -25,14 +29,15 @@ const getProfile = async (
     throw new Error(error.message)
   }
 
-  return data
+  return dataSupabase
 }
 
-export default function useProfile(): UseQueryResult<ProfilePrivate | unknown> {
-  const user = useAuthUser()
+export default function useProfile(): UseQueryResult<ProfilePrivate | null> {
+  const { user } = useAuthUserContext()
 
-  return useQuery(["user", user], () => getProfile(user?.id), {
+  return useQuery(["profile", user], () => getProfile(user), {
     refetchOnWindowFocus: false,
+    refetchOnMount: false,
     retry: false,
   })
 }

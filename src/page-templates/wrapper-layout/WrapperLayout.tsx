@@ -3,6 +3,7 @@ import Helmet from "react-helmet"
 import { Header } from "../../ui-elements/header/Header"
 import { Footer } from "../../ui-elements/footer/Footer"
 import "../../assets/scss/main.scss"
+import { CreateProfileAlert } from "../../domain/profile/create/CreateProfileAlert"
 
 const ogImage = "https://i.imgur.com/aOqP2xB.jpg"
 
@@ -66,6 +67,7 @@ function WrapperLayout({
 
       <div className="min-vh-100 d-flex flex-column">
         <Header />
+        <CreateProfileAlert />
         <main className="flex-grow-1 py-3 py-md-4">{children}</main>
         <Footer />
       </div>

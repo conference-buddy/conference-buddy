@@ -1,28 +1,26 @@
 import React, { ReactElement, useState } from "react"
 import useCreateProfile from "../../../services/hooks/profile/useCreateProfile"
-import { User } from "@supabase/supabase-js"
+import { navigate } from "gatsby"
+import useAuthUserContext from "../../../services/hooks/auth-user/useAuthUserContext"
 
-export const CreateProfile = ({
-  authUser,
-}: {
-  authUser: User
-}): ReactElement => {
-  const [name, setName] = useState(authUser.user_metadata.full_name)
+export const CreateProfile = (): ReactElement => {
+  const { user } = useAuthUserContext()
+  const [name, setName] = useState(user?.user_metadata.full_name)
   const [username, setUsername] = useState(
-    authUser.user_metadata.preferred_username
+    user?.user_metadata.preferred_username
   )
   const [website, setWebsite] = useState<string | null>(null)
 
   const createUserMutation = useCreateProfile({
     //eslint-disable-next-line
     //@ts-ignore
-    id: authUser.id,
+    id: user?.id,
     //eslint-disable-next-line
     //@ts-ignore
-    email: authUser.email,
+    email: user?.email,
     //eslint-disable-next-line
     //@ts-ignore
-    provider: authUser.app_metadata.provider,
+    provider: user?.app_metadata.provider,
     //eslint-disable-next-line
     //@ts-ignore
     name,
@@ -35,7 +33,7 @@ export const CreateProfile = ({
   })
 
   if (createUserMutation.isSuccess) {
-    alert("success")
+    navigate("/profile")
   }
 
   if (createUserMutation.isError) {

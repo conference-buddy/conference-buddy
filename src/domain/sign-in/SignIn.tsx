@@ -1,10 +1,12 @@
 import React, { ReactElement } from "react"
-import { useAuthUser } from "../../services/hooks/auth-user/useAuthUser"
-import { supabase } from "../../services/database/supabaseClient"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
+import useProfile from "../../services/hooks/profile/useProfile"
+import useAuthUserContext from "../../services/hooks/auth-user/useAuthUserContext"
+import { supabase } from "../../services/database/supabaseClient"
 
 function SignIn(): ReactElement {
-  const user = useAuthUser()
+  const { user } = useAuthUserContext()
+  const { data, isLoading } = useProfile()
 
   async function signInWithGithub() {
     await supabase.auth.signIn(
@@ -12,23 +14,36 @@ function SignIn(): ReactElement {
         provider: "github",
       },
       {
-        redirectTo: `${window.location.origin}/profile`,
+        redirectTo: `${window.location}`,
       }
     )
   }
+
   async function signOut() {
     await supabase.auth.signOut()
   }
+
   return user ? (
     <div>
-      <TextLink
-        to={`/profile`}
-        internal={false}
-        light={true}
-        additionalClasses="me-3"
-      >
-        Profile
-      </TextLink>
+      {!isLoading && !data ? (
+        <TextLink
+          to={`/profile/create`}
+          internal={true}
+          light={true}
+          additionalClasses="me-3"
+        >
+          Create Profile
+        </TextLink>
+      ) : (
+        <TextLink
+          to={`/profile`}
+          internal={true}
+          light={true}
+          additionalClasses="me-3"
+        >
+          Profile
+        </TextLink>
+      )}
       <button className="btn btn-outline-light btn-sm" onClick={signOut}>
         Sign out
       </button>

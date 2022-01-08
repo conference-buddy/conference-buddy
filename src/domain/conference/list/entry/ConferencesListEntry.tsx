@@ -8,7 +8,7 @@ function ConferencesListEntry({
 }: {
   conference: Conference
 }): ReactElement {
-  const { data: user } = useProfile()
+  const { data } = useProfile()
 
   return (
     <li className="card mb-3">
@@ -38,7 +38,7 @@ function ConferencesListEntry({
             Details
           </Link>
           <div>
-            {user ? (
+            {data ? (
               <>
                 <button
                   type="button"

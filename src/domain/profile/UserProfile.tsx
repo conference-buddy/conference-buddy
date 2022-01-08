@@ -1,21 +1,6 @@
 import React, { ReactElement } from "react"
-import { ProfilePrivate } from "./profile-interface"
-import useProfile from "../../services/hooks/profile/useProfile"
 
-export const UserProfile = (): ReactElement => {
-  const { data, isLoading } = useProfile() as {
-    data: ProfilePrivate
-    isLoading: boolean
-  }
-
-  return (
-    <div className="mb-5">
-      <h2>My Profile</h2>
-      {isLoading || !data ? null : (
-        <>
-          <div>{data?.name}</div>
-        </>
-      )}
-    </div>
-  )
+//eslint-disable-next-line
+export const UserProfile = (props: any): ReactElement => {
+  return <div>USER PAGE {props.profile?.name}</div>
 }
