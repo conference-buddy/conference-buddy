@@ -1,12 +1,12 @@
 import React from "react"
-import { WrapperLayout } from "../../page-templates/wrapper-layout/WrapperLayout"
+import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
 import useProfile from "../../services/hooks/profile/useProfile"
-import { ProfilePrivate } from "../../domain/profile/profile-interface"
+import { Profile } from "../../domain/profile/profile-interface"
 import { UpdateProfile } from "../../domain/profile/update/UpdateProfile"
 
 export default function UpdateProfilePage() {
   const { data, isLoading } = useProfile() as {
-    data: ProfilePrivate
+    data: Profile
     isLoading: boolean
   }
 
@@ -15,9 +15,9 @@ export default function UpdateProfilePage() {
       {isLoading ? (
         <div>loading</div>
       ) : (
-        <WrapperLayout title="Create ProfilePrivate">
+        <PageLayout title="Create Profile">
           <UpdateProfile profile={data} />
-        </WrapperLayout>
+        </PageLayout>
       )}
     </>
   )

@@ -1,32 +1,42 @@
-import React, { ReactElement } from "react"
-import { WrapperLayout } from "../../page-templates/wrapper-layout/WrapperLayout"
+import React from "react"
+import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
 import { Conference } from "../../domain/conference/conference-interface"
-import { useStaticQuery, graphql } from "gatsby"
-import { ConferenceListPageTemplate } from "../../page-templates/conference-list/ConferenceListPageTemplate"
+import { ConferenceList } from "../../domain/conference/list/ConferenceList"
+import { graphql } from "gatsby"
 
-export default function ConferenceListPage(): ReactElement {
-  const data: {
-    allConference: { nodes: Conference[] }
-  } = useStaticQuery(graphql`
-    {
-      allConference {
-        nodes {
-          name
-          country
-          city
-          description
-          end_date
-          id
-          start_date
-          url
-        }
-      }
-    }
-  `)
-
+type ConferenceListPage = {
+  data: { allConference: { nodes: Conference[] } }
+}
+export default function ConferenceListPage(props: ConferenceListPage) {
   return (
-    <WrapperLayout title="Conference List">
-      <ConferenceListPageTemplate conferences={data.allConference.nodes} />
-    </WrapperLayout>
+    <PageLayout title="Conference List">
+      <div className="container">
+        <h1>Conference List</h1>
+        <p>
+          If you want to be a Conference Buddy at one of these conferences,
+          click the button 🐶 and leave a comment! You are not sure you want to
+          be one, but you want to keep updated? Be a Lurker 👀 and get
+          notifications.
+        </p>
+        <ConferenceList conferences={props.data.allConference.nodes} />
+      </div>
+    </PageLayout>
   )
 }
+
+export const query = graphql`
+  {
+    allConference {
+      nodes {
+        name
+        country
+        city
+        description
+        end_date
+        id
+        start_date
+        url
+      }
+    }
+  }
+`

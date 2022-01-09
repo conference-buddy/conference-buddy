@@ -1,18 +1,26 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { WrapperLayout } from "../../page-templates/wrapper-layout/WrapperLayout"
-import { ConferenceSinglePageTemplate } from "../../page-templates/conference-single/ConferenceSinglePageTemplate"
+import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
 import { Conference } from "../../domain/conference/conference-interface"
+import { TextLink } from "../../ui-elements/text-link/TextLink"
+import { ConferenceSingle } from "../../domain/conference/single/ConferenceSingle"
 
-interface ConferencePageProps {
+type ConferencePageProps = {
   data: { conference: Conference }
 }
 
 const ConferenceSinglePage = (props: ConferencePageProps) => {
   return (
-    <WrapperLayout title="Conference Detail View">
-      <ConferenceSinglePageTemplate {...props.data} />
-    </WrapperLayout>
+    <PageLayout title="Conference Detail View">
+      <div className="container">
+        <div className="mb-3">
+          <TextLink internal={true} to={"/conference-list"}>
+            &larr; Back to Conferences
+          </TextLink>
+        </div>
+        <ConferenceSingle conference={props.data.conference} />
+      </div>
+    </PageLayout>
   )
 }
 

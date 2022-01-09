@@ -53,10 +53,6 @@ This includes:
 - `profile`
 -
 
-### `page-templates`
-
-Contains every template for a `page`. Components in `pages` should only consist of the LayoutWrapper and needed queries. This makes testing easier, because for components in `page-templates` it is not needed to mock out `WrapperLayout` and mock queries to test them.
-
 ### `pages`
 
 Contains every page of the application. Directory names represent the route, so the `/pages/conference/index.tsx` is rendered in `https://conferencebuddy.io/conference-list`. Components in `pages` should only consist of the `LayoutWrapper`, needed queries and use their representive `page-template` as a child of `LayoutWrapper`.

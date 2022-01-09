@@ -1,8 +1,7 @@
 import React, { useEffect } from "react"
-import { WrapperLayout } from "../../page-templates/wrapper-layout/WrapperLayout"
+import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
 import useProfile from "../../services/hooks/profile/useProfile"
 import { navigate } from "gatsby"
-import { UserProfile } from "../../domain/profile/UserProfile"
 
 export default function ProfilePage() {
   const { data, isLoading } = useProfile()
@@ -14,11 +13,11 @@ export default function ProfilePage() {
   }, [data, isLoading])
 
   return (
-    <WrapperLayout title="Profile">
-      <div className="mb-5">
+    <PageLayout title="Profile">
+      <div className="container">
         <h2>My Profile</h2>
-        {data && !isLoading && <UserProfile profile={data} />}
+        {data && !isLoading && <div>USER PAGE {data.name}</div>}
       </div>
-    </WrapperLayout>
+    </PageLayout>
   )
 }

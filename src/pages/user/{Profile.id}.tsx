@@ -1,20 +1,20 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { WrapperLayout } from "../../page-templates/wrapper-layout/WrapperLayout"
+import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
 import { ProfilePublic } from "../../domain/profile/profile-interface"
 
-interface UserProfilePageProps {
+type ProfilePageProps = {
   data: { profile: ProfilePublic }
 }
 
-//eslint-disable-next-line
-const UserProfilePage = (props: UserProfilePageProps) => {
+const ProfilePage = (props: ProfilePageProps) => {
   console.log(props)
   return (
-    <WrapperLayout title="Conference Detail View">
-      <div>Profile page</div>
-      <div>{props.data.profile.name}</div>
-    </WrapperLayout>
+    <PageLayout title="Conference Detail View">
+      <div className="container">
+        <h1>{props.data.profile.name} profile page</h1>
+      </div>
+    </PageLayout>
   )
 }
 
@@ -26,4 +26,4 @@ export const query = graphql`
     }
   }
 `
-export default UserProfilePage
+export default ProfilePage

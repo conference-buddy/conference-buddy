@@ -1,8 +1,9 @@
 import React, { ReactElement } from "react"
-import { WrapperLayout } from "../../page-templates/wrapper-layout/WrapperLayout"
-import { ConferenceSinglePageTemplate } from "../../page-templates/conference-single/ConferenceSinglePageTemplate"
+import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
 import { Conference } from "../../domain/conference/conference-interface"
 import useConference from "../../services/hooks/conference/useConference"
+import { TextLink } from "../../ui-elements/text-link/TextLink"
+import { ConferenceSingle } from "../../domain/conference/single/ConferenceSingle"
 
 export default function Id({
   params,
@@ -18,11 +19,16 @@ export default function Id({
   }
 
   return (
-    <WrapperLayout title="Conference Detail View">
-      {isError ? <div>There is no Conference with this ID.</div> : null}
-      {!isLoading && !isError ? (
-        <ConferenceSinglePageTemplate conference={data} />
-      ) : null}
-    </WrapperLayout>
+    <PageLayout title="Conference Detail View">
+      <div className="container">
+        <div className="mb-3">
+          <TextLink internal={true} to={"/conference-list"}>
+            &larr; Back to Conferences
+          </TextLink>
+        </div>
+        {isError && <div>There is no Conference with this ID.</div>}
+        {!isLoading && !isError && <ConferenceSingle conference={data} />}
+      </div>
+    </PageLayout>
   )
 }

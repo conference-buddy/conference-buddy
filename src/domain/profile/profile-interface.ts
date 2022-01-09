@@ -1,4 +1,4 @@
-export interface ProfilePrivate {
+export interface Profile {
   id: string
   created_at: string
   updated_at: string
@@ -10,6 +10,6 @@ export interface ProfilePrivate {
 }
 
 export type ProfilePublic = Omit<
-  ProfilePrivate,
+  Profile,
   "updated_at" | "id" | "provider" | "email"
 >

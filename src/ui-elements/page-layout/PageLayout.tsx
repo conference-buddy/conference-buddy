@@ -1,13 +1,13 @@
 import React, { ReactElement, ReactNode } from "react"
 import Helmet from "react-helmet"
-import { Header } from "../../ui-elements/header/Header"
-import { Footer } from "../../ui-elements/footer/Footer"
+import { Header } from "../header/Header"
+import { Footer } from "../footer/Footer"
 import "../../assets/scss/main.scss"
 import { CreateProfileAlert } from "../../domain/profile/create/CreateProfileAlert"
 
 const ogImage = "https://i.imgur.com/aOqP2xB.jpg"
 
-function WrapperLayout({
+function PageLayout({
   children,
   title,
 }: {
@@ -75,4 +75,4 @@ function WrapperLayout({
   )
 }
 
-export { WrapperLayout }
+export { PageLayout }
