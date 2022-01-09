@@ -1,7 +1,6 @@
 import { useQuery, UseQueryResult } from "react-query"
 import { supabase } from "../../database/supabaseClient"
 import { Profile } from "../../../domain/profile/profile-interface"
-
 import { User } from "@supabase/supabase-js"
 import useAuthUserContext from "../auth-user/useAuthUserContext"
 
@@ -16,10 +15,7 @@ const getProfile = async (user: User | undefined): Promise<Profile | null> => {
     .eq("id", user.id)
     .single()
 
-  // console.log("data", data)
-
   if (!dataSupabase) {
-    console.log("User not found")
     return null
   }
 

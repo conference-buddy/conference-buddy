@@ -16,7 +16,7 @@ exports.sourceNodes = async ({
     "conferences"
   )
 
-  const { data: profiles, profileError } = await supabase
+  const { data: publicProfiles, profileError } = await supabase
     .from("profiles")
     .select("name,username")
 
@@ -34,17 +34,17 @@ exports.sourceNodes = async ({
     createNode(node)
   })
 
-  profiles.forEach(profile => {
+  publicProfiles.forEach(user => {
     const nodeMeta = {
-      id: createNodeId(`user/${profile.username}`),
+      id: createNodeId(`user/${user.username}`),
       parent: null,
       children: [],
       internal: {
-        type: `Profile`,
-        contentDigest: createContentDigest(profile),
+        type: `User`,
+        contentDigest: createContentDigest(user),
       },
     }
-    const node = Object.assign({}, profile, nodeMeta)
+    const node = Object.assign({}, user, nodeMeta)
     createNode(node)
   })
 }

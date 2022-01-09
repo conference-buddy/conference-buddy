@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "react-query"
 import { supabase } from "../../database/supabaseClient"
 import { Profile } from "../../../domain/profile/profile-interface"
 
-const createProfile = async (profile: Profile) => {
+async function createProfile(profile: Profile) {
   // Check if username exists
   const { data: userWithUsername } = await supabase
     .from("users")
@@ -34,13 +34,10 @@ const createProfile = async (profile: Profile) => {
   return insertData
 }
 
-// eslint-disable-next-line
 export default function useCreateProfile(profile: Profile) {
   const queryClient = useQueryClient()
   return useMutation(() => createProfile(profile), {
     onSuccess: async () => {
-      // ✅ refetch the comments list for our blog post
-
       await queryClient.invalidateQueries(["profile"])
     },
   })
