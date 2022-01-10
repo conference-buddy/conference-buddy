@@ -12,17 +12,15 @@ exports.sourceNodes = async ({
 }) => {
   const { createNode } = actions
 
-  const { data: conferences, conferenceError } = await supabase.from(
-    "conferences"
-  )
+  const { data: conferences } = await supabase.from("conferences")
 
-  const { data: publicProfiles, profileError } = await supabase
+  const { data: publicProfiles } = await supabase
     .from("profiles")
     .select("name,username")
 
   conferences.forEach(conference => {
     const nodeMeta = {
-      id: createNodeId(`conference/${conference.name}`),
+      id: conference.id,
       parent: null,
       children: [],
       internal: {

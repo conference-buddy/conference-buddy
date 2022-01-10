@@ -4,6 +4,7 @@ import useConference from "../../services/hooks/conference/useConference"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
 import { ConferenceSingle } from "../../domain/conference/single/ConferenceSingle"
 import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
+import { BuddyPostList } from "../../domain/buddy-post/list/BuddyPostList"
 
 export default function Id({
   params,
@@ -29,6 +30,7 @@ export default function Id({
         {isError && <div>There is no Conference with this ID.</div>}
         {!isLoading && !isError && <ConferenceSingle conference={data} />}
       </div>
+      <BuddyPostList conferenceId={id} />
     </PageLayout>
   )
 }
