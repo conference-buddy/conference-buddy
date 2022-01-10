@@ -12,8 +12,6 @@ export default function ProfilePage() {
     }
   }, [data, isLoading])
 
-  console.log(data)
-
   return (
     <PageLayout title="Profile">
       <div className="container">

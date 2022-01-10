@@ -1,9 +1,9 @@
 import React, { ReactElement } from "react"
-import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
 import { Conference } from "../../domain/conference/conference-interface"
 import useConference from "../../services/hooks/conference/useConference"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
 import { ConferenceSingle } from "../../domain/conference/single/ConferenceSingle"
+import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
 
 export default function Id({
   params,
