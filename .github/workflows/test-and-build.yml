@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
       - name: Compile TypeScript
-        run: npx tsc
+        run: yarn tsc
       - name: Run Unit Tests
         run: yarn test
       - name: Build
