@@ -5,7 +5,7 @@ const getBuddyPosts = async (conferenceId: string): Promise<any> => {
   console.log("getBuddyPosts")
   console.log(conferenceId)
   const { data: conference, error } = await supabase
-    .from("buddy-posts")
+    .from("buddy_posts")
     .select("*")
     .eq("conference_id", conferenceId)
 
@@ -25,7 +25,7 @@ export default function useBuddyPosts(
   //eslint-disable-next-line
 ): UseQueryResult<any | unknown> {
   return useQuery(
-    ["buddy-posts", conferenceId],
+    ["buddy_posts", conferenceId],
     () => getBuddyPosts(conferenceId),
     {
       retry: false,

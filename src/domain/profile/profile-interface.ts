@@ -1,3 +1,7 @@
+type SocialLink = {
+  platform: string
+  url: string
+}
 export interface Profile {
   id: string
   created_at: string
@@ -7,6 +11,7 @@ export interface Profile {
   name: string
   username: string
   website?: string
+  social_links?: SocialLink[]
 }
 
 export type ProfilePublic = Omit<
