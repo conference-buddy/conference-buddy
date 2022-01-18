@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from "react"
 import { Profile } from "../profile-interface"
-import useUpdateProfile from "../../../services/hooks/profile/useUpdateProfile"
+import useUpdateProfile from "../../../web/services/hooks/profile/useUpdateProfile"
 
 export const UpdateProfile = ({
   profile,

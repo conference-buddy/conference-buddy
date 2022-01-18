@@ -37,15 +37,19 @@ Conference Buddy 2.0. is just beginning to become a MVP, so I still have a lot o
 
 ## Directory structure
 
-The structure is inspired by [Elegant Frontend Architecture](https://michalzalecki.com/elegant-frontend-architecture/).
+The structure is inspired in parts by [Elegant Frontend Architecture](https://michalzalecki.com/elegant-frontend-architecture/).
 
-### `assets`
+### domain
+Contains different domains which are needed to describe the "Conference Buddy" application. They are specific to Conference Buddy. They are the concepts you would elaborate on when describing Conference Buddy. 
+
+`domain` is where business logic lives and a layer between e.g. the database and `web`. 
+
+### web
+Contains everything related to the UI side of Conference Buddy. `web` consumes information from `domain` that are catered for the needs of the UI and knows nothing  for example about the database.
+
+#### `assets`
 
 Contains assets like scss and images.
-
-### `domain`
-
-Contains different domains which are needed to describe the "Conference Buddy" application. They are specific to Conference Buddy. They are the concepts you would elaborate on when describing Conference Buddy.
 
 This includes:
 
@@ -53,16 +57,18 @@ This includes:
 - `profile`
 -
 
-### `pages`
+#### `pages`
 
 Contains every page of the application. Directory names represent the route, so the `/pages/conference/index.tsx` is rendered in `https://conferencebuddy.io/conference-list`. Components in `pages` should only consist of the `LayoutWrapper`, needed queries and use their representive `page-template` as a child of `LayoutWrapper`.
 
 See [gatsby documentation](https://www.gatsbyjs.com/docs/reference/routing/creating-routes/#define-routes-in-srcpages) for more infos.
 
-### `services`
+#### `services`
 
 Contains functionality that is used in multiple areas to reduce coupling between different layers. This includes all custom hooks and the database client.
 
-### `ui-elements`
+#### `ui-elements`
 
-Contains ui elements which are Conference Buddy agnostic and don't contain any business logic. For example a `Header`, `Footer` or `Button`.
+Contains all UI elements in form of React components. More detailed structure here is still work in progress and tbc :D
+
+

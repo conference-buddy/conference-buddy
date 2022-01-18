@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react"
-import useBuddyPosts from "../../../services/hooks/buddy-post/useBuddyPosts"
+import useBuddyPosts from "../../../web/services/hooks/buddy-post/useBuddyPosts"
 import { BuddyPostSingle } from "../single/BuddyPostSingle"
 
 function BuddyPostList({

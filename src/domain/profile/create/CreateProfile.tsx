@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from "react"
-import useCreateProfile from "../../../services/hooks/profile/useCreateProfile"
+import useCreateProfile from "../../../web/services/hooks/profile/useCreateProfile"
 import { navigate } from "gatsby"
-import useAuthUserContext from "../../../services/hooks/auth-user/useAuthUserContext"
+import useAuthUserContext from "../../../web/services/hooks/auth-user/useAuthUserContext"
 
 export const CreateProfile = (): ReactElement => {
   const { user } = useAuthUserContext()

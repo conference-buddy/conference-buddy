@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react"
 import { StaticImage } from "gatsby-plugin-image"
-import { TextLink } from "../../../ui-elements/text-link/TextLink"
-import usePublicProfile from "../../../services/hooks/profile/usePublicProfile"
+import { TextLink } from "../../../web/ui-elements/text-link/TextLink"
+import usePublicProfile from "../../../web/services/hooks/profile/usePublicProfile"
 
 function BuddyPostSingle({ post }: { post: any }): ReactElement {
   const { data: publicProfile, isLoading } = usePublicProfile(post.profile_id)

@@ -2,7 +2,7 @@
 import React from "react"
 import { QueryClientProvider, QueryClient } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
-import { AuthUserProvider } from "./src/services/context-provider/AuthUserProvider"
+import { AuthUserProvider } from "./src/web/services/context-provider/AuthUserProvider"
 
 const queryClient = new QueryClient()
 

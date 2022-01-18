@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react"
-import useProfile from "../../../services/hooks/profile/useProfile"
-import { TextLink } from "../../../ui-elements/text-link/TextLink"
-import useAuthUserContext from "../../../services/hooks/auth-user/useAuthUserContext"
+import useProfile from "../../../web/services/hooks/profile/useProfile"
+import { TextLink } from "../../../web/ui-elements/text-link/TextLink"
+import useAuthUserContext from "../../../web/services/hooks/auth-user/useAuthUserContext"
 
 function CreateProfileAlert(): ReactElement {
   const { user } = useAuthUserContext()
