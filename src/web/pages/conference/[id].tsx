@@ -1,10 +1,10 @@
 import React, { ReactElement } from "react"
-import { Conference } from "../../../domain/conference/conference-interface"
+import { Conference } from "../../../domain/conferences/conference-interface"
 import useConference from "../../services/hooks/conference/useConference"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
-import { ConferenceSingle } from "../../../domain/conference/single/ConferenceSingle"
+import { ConferenceSingle } from "../../ui-elements/conferences/single/ConferenceSingle"
 import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
-import { BuddyPostList } from "../../../domain/buddy-post/list/BuddyPostList"
+import { BuddyPostList } from "../../ui-elements/buddy-posts/list/BuddyPostList"
 
 export default function Id({
   params,

@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react"
-import { Conference } from "../conference-interface"
+import { Conference } from "../../../../domain/conferences/conference-interface"
 import { ConferencesListEntry } from "./entry/ConferencesListEntry"
 
 type ConferenceListProps = {

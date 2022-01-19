@@ -1,12 +1,12 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
-import { ProfilePublic } from "../../../domain/profile/profile-interface"
 import { StaticImage } from "gatsby-plugin-image"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
+import { PublicProfile } from "../../../domain/public-profiles/public-profiles-interfaces"
 
 type UserPageProps = {
-  data: { user: ProfilePublic }
+  data: { user: PublicProfile }
 }
 
 const UserPage = (props: UserPageProps) => {

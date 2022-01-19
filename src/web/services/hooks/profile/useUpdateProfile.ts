@@ -1,22 +1,6 @@
 import { useMutation, useQueryClient } from "react-query"
-import { supabase } from "../../../../domain/database/supabaseClient"
-import { Profile } from "../../../../domain/profile/profile-interface"
-
-async function updateProfile(profile: Profile) {
-  const { data: insertData, error: insertError } = await supabase
-    .from("profiles")
-    .update({
-      username: profile.username,
-      name: profile.name,
-      website: profile.website,
-    })
-    .match({ id: profile.id })
-
-  if (insertError) {
-    throw insertError
-  }
-  return insertData
-}
+import { Profile } from "../../../../domain/profiles/profiles-interface"
+import { updateProfile } from "../../../../domain/profiles/api/profile-api"
 
 export default function useUpdateProfile(profile: Profile) {
   const queryClient = useQueryClient()

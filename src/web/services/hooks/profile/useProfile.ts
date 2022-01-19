@@ -1,35 +1,12 @@
 import { useQuery, UseQueryResult } from "react-query"
-import { supabase } from "../../../../domain/database/supabaseClient"
-import { Profile } from "../../../../domain/profile/profile-interface"
-import { User } from "@supabase/supabase-js"
+import { Profile } from "../../../../domain/profiles/profiles-interface"
 import useAuthUserContext from "../auth-user/useAuthUserContext"
-
-const getProfile = async (user: User | undefined): Promise<Profile | null> => {
-  if (!user) {
-    return null
-  }
-
-  const { data: dataSupabase, error } = await supabase
-    .from("profiles")
-    .select()
-    .eq("id", user.id)
-    .single()
-
-  if (!dataSupabase) {
-    return null
-  }
-
-  if (error) {
-    throw new Error(error.message)
-  }
-
-  return dataSupabase
-}
+import { getProfile } from "../../../../domain/profiles/api/profile-api"
 
 export default function useProfile(): UseQueryResult<Profile | null> {
-  const { user } = useAuthUserContext()
+  const { authUser } = useAuthUserContext()
 
-  return useQuery(["profile", user], () => getProfile(user), {
+  return useQuery(["profile", authUser], () => getProfile(authUser), {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     retry: false,

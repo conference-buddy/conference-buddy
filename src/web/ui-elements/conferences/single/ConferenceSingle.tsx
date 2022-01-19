@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react"
-import { Conference } from "../conference-interface"
+import { Conference } from "../../../../domain/conferences/conference-interface"
 
 type ConferenceSingleProps = {
   conference: Conference

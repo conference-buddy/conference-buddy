@@ -1,24 +1,5 @@
 import { useQuery, UseQueryResult } from "react-query"
-import { supabase } from "../../../../domain/database/supabaseClient"
-
-const getBuddyPosts = async (conferenceId: string): Promise<any> => {
-  console.log("getBuddyPosts")
-  console.log(conferenceId)
-  const { data: conference, error } = await supabase
-    .from("buddy_posts")
-    .select("*")
-    .eq("conference_id", conferenceId)
-
-  if (error) {
-    throw new Error(error.message)
-  }
-
-  if (!conference) {
-    throw new Error("Buddy posts not found")
-  }
-
-  return conference
-}
+import { getBuddyPosts } from "../../../../domain/buddy-posts/api/buddy-posts-api"
 
 export default function useBuddyPosts(
   conferenceId: string
@@ -29,7 +10,7 @@ export default function useBuddyPosts(
     () => getBuddyPosts(conferenceId),
     {
       retry: false,
-      // refetchOnWindowFocus: false,
+      refetchOnWindowFocus: false,
     }
   )
 }

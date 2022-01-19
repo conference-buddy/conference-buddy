@@ -1,24 +1,6 @@
 import { useQuery, UseQueryResult } from "react-query"
-import { supabase } from "../../../../domain/database/supabaseClient"
-import { Conference } from "src/domain/conference/conference-interface"
-
-const getConference = async (id: string): Promise<Conference> => {
-  const { data: conference, error } = await supabase
-    .from("conferences")
-    .select()
-    .eq("id", id)
-    .single()
-
-  if (error) {
-    throw new Error(error.message)
-  }
-
-  if (!conference) {
-    throw new Error("Conference not found")
-  }
-
-  return conference
-}
+import { Conference } from "src/domain/conferences/conference-interface"
+import { getConference } from "../../../../domain/conferences/api/conferences-api"
 
 export default function useConferences(
   id: string

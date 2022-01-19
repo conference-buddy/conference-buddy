@@ -13,8 +13,3 @@ export interface Profile {
   website?: string
   social_links?: SocialLink[]
 }
-
-export type ProfilePublic = Omit<
-  Profile,
-  "updated_at" | "id" | "provider" | "email"
->

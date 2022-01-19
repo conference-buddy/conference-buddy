@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react"
 import { PageLayout } from "../ui-elements/page-layout/PageLayout"
 import { graphql } from "gatsby"
-import { Conference } from "../../domain/conference/conference-interface"
-import { ConferenceList } from "../../domain/conference/list/ConferenceList"
+import { Conference } from "../../domain/conferences/conference-interface"
+import { ConferenceList } from "../ui-elements/conferences/list/ConferenceList"
 import { Claim } from "../ui-elements/claim/Claim"
 import { TextLink } from "../ui-elements/text-link/TextLink"
 

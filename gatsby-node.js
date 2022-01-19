@@ -1,9 +1,9 @@
-const { createClient } = require("@supabase/supabase-js")
-
-const supabaseUrl = process.env.GATSBY_APP_SUPABASE_URL || "empty"
-const supabaseAnonKey = process.env.GATSBY_APP_SUPABASE_ANON_KEY || "empty"
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
+require("ts-node").register({
+  compilerOptions: {
+    module: "commonjs",
+    target: "es2017",
+  },
+})
 
 exports.sourceNodes = async ({
   actions,
@@ -12,11 +12,11 @@ exports.sourceNodes = async ({
 }) => {
   const { createNode } = actions
 
-  const { data: conferences } = await supabase.from("conferences")
+  const conferences = await (exports.getConferences =
+    require("./src/domain/conferences/api/conferences-api.ts").getConferences())
 
-  const { data: publicProfiles } = await supabase
-    .from("profiles")
-    .select("name,username")
+  const publicProfiles = await (exports.getConferences =
+    require("./src/domain/public-profiles/api/public-profiles-api.ts").getPublicProfiles())
 
   conferences.forEach(conference => {
     const nodeMeta = {
@@ -32,17 +32,17 @@ exports.sourceNodes = async ({
     createNode(node)
   })
 
-  publicProfiles.forEach(user => {
+  publicProfiles.forEach(publicProfile => {
     const nodeMeta = {
-      id: createNodeId(`user/${user.username}`),
+      id: createNodeId(`user/${publicProfile.username}`),
       parent: null,
       children: [],
       internal: {
         type: `User`,
-        contentDigest: createContentDigest(user),
+        contentDigest: createContentDigest(publicProfile),
       },
     }
-    const node = Object.assign({}, user, nodeMeta)
+    const node = Object.assign({}, publicProfile, nodeMeta)
     createNode(node)
   })
 }

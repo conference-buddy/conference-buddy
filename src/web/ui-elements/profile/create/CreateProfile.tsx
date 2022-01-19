@@ -1,35 +1,33 @@
 import React, { ReactElement, useState } from "react"
-import useCreateProfile from "../../../web/services/hooks/profile/useCreateProfile"
+import useCreateProfile from "../../../services/hooks/profile/useCreateProfile"
 import { navigate } from "gatsby"
-import useAuthUserContext from "../../../web/services/hooks/auth-user/useAuthUserContext"
+import useAuthUserContext from "../../../services/hooks/auth-user/useAuthUserContext"
 
 export const CreateProfile = (): ReactElement => {
-  const { user } = useAuthUserContext()
-  const [name, setName] = useState(user?.user_metadata.full_name)
+  const { authUser } = useAuthUserContext()
+  const [name, setName] = useState(authUser?.user_metadata.full_name)
   const [username, setUsername] = useState(
-    user?.user_metadata.preferred_username
+    authUser?.user_metadata.preferred_username
   )
-  const [website, setWebsite] = useState<string | null>(null)
 
+  //eslint-disable-next-line
+  //@ts-ignore
   const createUserMutation = useCreateProfile({
     //eslint-disable-next-line
     //@ts-ignore
-    id: user?.id,
+    id: authUser?.id,
     //eslint-disable-next-line
     //@ts-ignore
-    email: user?.email,
+    email: authUser?.email,
     //eslint-disable-next-line
     //@ts-ignore
-    provider: user?.app_metadata.provider,
+    provider: authUser?.app_metadata.provider,
     //eslint-disable-next-line
     //@ts-ignore
     name,
     //eslint-disable-next-line
     //@ts-ignore
     username,
-    //eslint-disable-next-line
-    //@ts-ignore
-    website,
   })
 
   if (createUserMutation.isSuccess) {
@@ -47,7 +45,6 @@ export const CreateProfile = (): ReactElement => {
       <form
         onSubmit={event => {
           event.preventDefault()
-          console.log(name)
           createUserMutation.mutate()
         }}
       >
@@ -73,15 +70,6 @@ export const CreateProfile = (): ReactElement => {
           />
         </label>
         <br />
-        <br />
-        <label>
-          Website
-          <input
-            type="text"
-            onChange={e => setWebsite(e.target.value)}
-            placeholder="Username"
-          />
-        </label>
         <br />
         <button
           type="submit"

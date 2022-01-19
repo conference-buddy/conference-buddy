@@ -1,29 +1,17 @@
 import React, { ReactElement } from "react"
-import { TextLink } from "../../web/ui-elements/text-link/TextLink"
-import useProfile from "../../web/services/hooks/profile/useProfile"
-import useAuthUserContext from "../../web/services/hooks/auth-user/useAuthUserContext"
-import { supabase } from "../database/supabaseClient"
+import { TextLink } from "../text-link/TextLink"
+import useProfile from "../../services/hooks/profile/useProfile"
+import useAuthUserContext from "../../services/hooks/auth-user/useAuthUserContext"
+import {
+  signInWithGithub,
+  signOut,
+} from "../../../domain/auth-user/api/auth-user-api"
 
 function SignIn(): ReactElement {
-  const { user } = useAuthUserContext()
+  const { authUser } = useAuthUserContext()
   const { data, isLoading } = useProfile()
 
-  async function signInWithGithub() {
-    await supabase.auth.signIn(
-      {
-        provider: "github",
-      },
-      {
-        redirectTo: `${window.location}`,
-      }
-    )
-  }
-
-  async function signOut() {
-    await supabase.auth.signOut()
-  }
-
-  return user ? (
+  return authUser ? (
     <div>
       {!isLoading && !data ? (
         <TextLink

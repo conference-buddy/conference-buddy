@@ -1,8 +1,8 @@
 import React from "react"
 import { PageLayout } from "../../../ui-elements/page-layout/PageLayout"
-import { UpdateProfile } from "../../../../domain/profile/update/UpdateProfile"
+import { UpdateProfile } from "../../../ui-elements/profile/update/UpdateProfile"
 import useProfile from "../../../services/hooks/profile/useProfile"
-import { Profile } from "../../../../domain/profile/profile-interface"
+import { Profile } from "../../../../domain/profiles/profiles-interface"
 
 export default function UpdateProfilePage() {
   const { data, isLoading } = useProfile() as {

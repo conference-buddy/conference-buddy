@@ -3,7 +3,7 @@ import Helmet from "react-helmet"
 import { Header } from "../header/Header"
 import { Footer } from "../footer/Footer"
 import "../../assets/scss/main.scss"
-import { CreateProfileAlert } from "../../../domain/profile/create/CreateProfileAlert"
+import { CreateProfileAlert } from "../profile/create/CreateProfileAlert"
 
 const ogImage = "https://i.imgur.com/aOqP2xB.jpg"
 

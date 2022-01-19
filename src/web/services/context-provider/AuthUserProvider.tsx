@@ -6,37 +6,35 @@ import React, {
   useState,
 } from "react"
 import { User as SupaBaseUser } from "@supabase/supabase-js"
-import { supabase } from "../../../domain/database/supabaseClient"
+import {
+  getAuthUser,
+  handleAuthUserEvents,
+} from "../../../domain/auth-user/api/auth-user-api"
 
 //eslint-disable-next-line
 export const AuthUserContext = createContext<any>({})
 
 export function AuthUserProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<SupaBaseUser | null>(null)
-
+  const [authUser, setAuthUser] = useState<SupaBaseUser | null>(null)
   useEffect(() => {
     async function initAuth() {
-      const supabaseUser = await supabase.auth.user()
-      setUser(supabaseUser)
+      const authUser = await getAuthUser()
+      //eslint-disable-next-line
+      //@ts-ignore
+      setAuthUser(authUser)
     }
     initAuth()
 
-    const { data: listener } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
-        setUser(session?.user ?? null)
-      }
-    )
-
-    return () => {
-      listener?.unsubscribe()
-    }
+    handleAuthUserEvents(async (_event, session) => {
+      setAuthUser(session?.user ?? null)
+    })
   }, [])
 
   const memoedValue = useMemo(
     () => ({
-      user,
+      authUser,
     }),
-    [user]
+    [authUser]
   )
 
   return (
