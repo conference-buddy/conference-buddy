@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "react-query"
-import { Profile } from "../../../../domain/profiles/profiles-interface"
+import { Profile } from "../../../../domain/profiles"
 import { updateProfile } from "../../../../domain/profiles/api/profile-api"
 
 export default function useUpdateProfile(profile: Profile) {

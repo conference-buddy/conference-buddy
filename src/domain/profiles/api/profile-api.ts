@@ -1,19 +1,20 @@
 import { User } from "@supabase/supabase-js"
 import { Profile } from "../types/types-profiles"
 import { supabase } from "../../database/supabaseClient"
+import { transformProfile } from "../utils/transform-data"
 
 const getProfile = async (user: User | undefined): Promise<Profile | null> => {
   if (!user) {
     return null
   }
 
-  const { data: profiles, error } = await supabase
+  const { data: profile, error } = await supabase
     .from("profiles")
     .select()
     .eq("id", user.id)
     .single()
 
-  if (!profiles) {
+  if (!profile) {
     return null
   }
 
@@ -21,7 +22,7 @@ const getProfile = async (user: User | undefined): Promise<Profile | null> => {
     throw new Error(error.message)
   }
 
-  return profiles
+  return transformProfile(profile)
 }
 
 async function createProfile(profile: Profile) {

@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from "react"
-import { Profile } from "../../../../domain/profiles/profiles-interface"
+import { Profile } from "../../../../domain/profiles"
 import useUpdateProfile from "../../../services/hooks/profile/useUpdateProfile"
 
 export const UpdateProfile = ({

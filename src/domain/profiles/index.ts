@@ -1,4 +1,2 @@
-import { getProfile, updateProfile, createProfile } from "./api/profile-api"
-import { Profile } from "./types/types-profiles"
-
-export { getProfile, createProfile, updateProfile, Profile }
+export { getProfile, updateProfile, createProfile } from "./api/profile-api"
+export type { Profile } from "./types/types-profiles"

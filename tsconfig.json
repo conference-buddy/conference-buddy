@@ -12,8 +12,10 @@
     "esModuleInterop": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "removeComments": false
+    "removeComments": false,
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["eslint"]
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx"]
 }

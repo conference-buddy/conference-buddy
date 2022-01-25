@@ -2,7 +2,6 @@ import { definitions } from "../../database/types/supabase"
 
 export type ProfileDB = definitions["profiles"]
 export type SocialLinksDB = definitions["profiles_social_links"]
-
 export type SocialLink = Record<keyof Omit<SocialLinksDB, "id">, string>
 
 export interface Profile {

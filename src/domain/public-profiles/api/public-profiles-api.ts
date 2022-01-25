@@ -1,6 +1,6 @@
-import { Profile } from "../../profiles/profiles-interface"
 import { supabase } from "../../database/supabaseClient"
 import { PublicProfile } from "../public-profiles-interfaces"
+import { Profile } from "../../profiles"
 
 const getPublicProfile = async (
   profileId: string | undefined
