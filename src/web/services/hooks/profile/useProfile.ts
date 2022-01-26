@@ -7,7 +7,7 @@ export default function useProfile(): UseQueryResult<Profile | null> {
   const { authUser } = useAuthUserContext()
 
   return useQuery(["profile", authUser], () => getProfile(authUser), {
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
     refetchOnMount: false,
     retry: false,
   })
