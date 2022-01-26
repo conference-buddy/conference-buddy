@@ -5,5 +5,5 @@
     "noUnusedLocals": false,
     "types": ["jest", "testing-library__jest-dom", "react-dom"]
   },
-  "include": []
+  "include": ["./src/**/*.test.ts", "./src/**/*.test.tsx"]
 }

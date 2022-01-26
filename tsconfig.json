@@ -14,8 +14,8 @@
     "noUnusedParameters": true,
     "removeComments": false,
     "typeRoots": ["./node_modules/@types"],
-    "types": ["eslint"]
+    "types": ["eslint", "jest", "testing-library__jest-dom", "react-dom"]
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx"]
+  "exclude": ["node_modules"]
 }
