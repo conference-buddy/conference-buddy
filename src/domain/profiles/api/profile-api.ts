@@ -2,7 +2,7 @@ import { User } from "@supabase/supabase-js"
 import { Profile, ProfileDB, SocialLinksDB } from "../types/types-profiles"
 import { supabase } from "../../_database/supabaseClient"
 import { transformProfile } from "../utils/transform-data"
-import { getAllSocialLinks } from "../../_social-links/get-all-social-links"
+import { createSocialLinks } from "../../_social-links/social-links-api"
 
 const getProfile = async (user: User | undefined): Promise<Profile | null> => {
   if (!user) {
@@ -48,7 +48,6 @@ const getProfile = async (user: User | undefined): Promise<Profile | null> => {
 }
 
 async function createProfile(newProfile: Profile) {
-  // Check if username exists
   const { data: userWithUsername } = await supabase
     .from<ProfileDB>("users")
     .select("*")
@@ -69,12 +68,18 @@ async function createProfile(newProfile: Profile) {
     },
   ])
 
-  const socialLinks = getAllSocialLinks(newProfile.id)
+  const socialLinks = createSocialLinks({
+    profileId: newProfile.id,
+    //eslint-disable-next-line
+    //@ts-ignore
+    socialLinks: newProfile.social_links,
+  })
 
   return Promise.all([profile, socialLinks]).then(([profile, socialLinks]) => {
     const { data: profileData, error: profilesError } = profile
     const { data: socialLinksData, error: socialLinksError } = socialLinks
 
+    debugger
     if (profilesError || socialLinksError) {
       throw Error(profilesError?.message || socialLinksError?.message)
     }
