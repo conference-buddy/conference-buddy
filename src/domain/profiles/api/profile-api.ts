@@ -1,7 +1,8 @@
 import { User } from "@supabase/supabase-js"
 import { Profile, ProfileDB, SocialLinksDB } from "../types/types-profiles"
-import { supabase } from "../../database/supabaseClient"
+import { supabase } from "../../_database/supabaseClient"
 import { transformProfile } from "../utils/transform-data"
+import { getAllSocialLinks } from "../../_social-links/get-all-social-links"
 
 const getProfile = async (user: User | undefined): Promise<Profile | null> => {
   if (!user) {
@@ -68,14 +69,7 @@ async function createProfile(newProfile: Profile) {
     },
   ])
 
-  const socialLinks = supabase
-    .from<SocialLinksDB>("profiles_social_links")
-    .insert([
-      {
-        id: newProfile.id,
-        twitter: "Twitter Name",
-      },
-    ])
+  const socialLinks = getAllSocialLinks(newProfile.id)
 
   return Promise.all([profile, socialLinks]).then(([profile, socialLinks]) => {
     const { data: profileData, error: profilesError } = profile

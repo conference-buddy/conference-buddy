@@ -1,5 +1,5 @@
 import { Conference } from "../conference-interface"
-import { supabase } from "../../database/supabaseClient"
+import { supabase } from "../../_database/supabaseClient"
 
 const getConferences = async (): Promise<Conference[]> => {
   const { data: conferences, error } = await supabase.from("conferences")

@@ -1,4 +1,4 @@
-import { supabase } from "../../database/supabaseClient"
+import { supabase } from "../../_database/supabaseClient"
 import { PublicProfile } from "../public-profiles-interfaces"
 import { Profile } from "../../profiles"
 

@@ -11,7 +11,7 @@ require("dotenv").config({
 const url = process.env.GATSBY_APP_SUPABASE_URL
 const apiKey = process.env.GATSBY_APP_SUPABASE_ANON_KEY
 
-const command = `yarn openapi-typescript ${url}/rest/v1/\\?apikey\\=${apiKey} --output src/domain/database/types/supabase.ts`
+const command = `yarn openapi-typescript ${url}/rest/v1/\\?apikey\\=${apiKey} --output src/domain/_database/types/supabase.ts`
 
 exec(command, (err, stdout, stderr) => {
   if (err) {

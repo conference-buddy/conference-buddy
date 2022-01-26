@@ -3,7 +3,7 @@ import {
   Session,
   User as SupaBaseUser,
 } from "@supabase/supabase-js"
-import { supabase } from "../../database/supabaseClient"
+import { supabase } from "../../_database/supabaseClient"
 
 type authUserEventCallback = {
   (_event: AuthChangeEvent, session: Session | null): void
