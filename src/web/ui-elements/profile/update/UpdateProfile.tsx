@@ -2,24 +2,17 @@ import React, { ReactElement, useState } from "react"
 import { Profile } from "../../../../domain/profiles"
 import useUpdateProfile from "../../../services/hooks/profile/useUpdateProfile"
 
-export const UpdateProfile = ({
-  profile,
-}: {
-  profile: Profile
-}): ReactElement => {
+// @TODO implement update profile components
+function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
   const [name, setName] = useState(profile.name)
-  //eslint-disable-next-line
-  //@ts-ignore
-  const updateUserMutation = useUpdateProfile({
-    //eslint-disable-next-line
-    //@ts-ignore
-    id: profile.id,
-    //eslint-disable-next-line
-    //@ts-ignore
-    //eslint-disable-next-line
-    //@ts-ignore
-    name,
-  })
+  const updateUserMutation = useUpdateProfile(
+    // eslint-disable-next-line
+    // @ts-ignore
+    {
+      id: profile.id,
+      name,
+    }
+  )
 
   if (updateUserMutation.isSuccess) {
     alert("success")
@@ -60,3 +53,5 @@ export const UpdateProfile = ({
     </div>
   )
 }
+
+export { UpdateProfile }

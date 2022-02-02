@@ -4,7 +4,8 @@ import { navigate } from "gatsby"
 import useAuthUserContext from "../../../services/hooks/auth-user/useAuthUserContext"
 import { SocialLink } from "../../../../domain/profiles/types/types-profiles"
 
-export const CreateProfile = (): ReactElement => {
+// @TODO split functionality/components to build social links
+function CreateProfile(): ReactElement {
   const socialLinksAvailable = [{ twitter: "Twitter" }]
   const { authUser } = useAuthUserContext()
   const [name, setName] = useState(authUser?.user_metadata.full_name)
@@ -109,3 +110,5 @@ export const CreateProfile = (): ReactElement => {
     </div>
   )
 }
+
+export { CreateProfile }

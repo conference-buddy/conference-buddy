@@ -30,9 +30,6 @@ const socialLinksFromDB: SocialLinksDB[] = [
     github: undefined,
     gitlab: undefined,
     twitter: "Twitter Name",
-    yotube: undefined,
-    instagramm: undefined,
-    tiktok: undefined,
     linkedin: undefined,
   },
   {
@@ -41,9 +38,6 @@ const socialLinksFromDB: SocialLinksDB[] = [
     github: undefined,
     gitlab: undefined,
     twitter: "Twitter Name",
-    yotube: undefined,
-    instagramm: undefined,
-    tiktok: undefined,
     linkedin: undefined,
   },
 ]

@@ -1,6 +1,15 @@
 import { supabase } from "../_database/supabaseClient"
 import { SocialLink, SocialLinksDB } from "../profiles/types/types-profiles"
 
+function flattenSocialLinks(
+  socialLinks: SocialLink[]
+): Omit<SocialLinksDB, "id"> {
+  return socialLinks.reduce((acc, val) => {
+    Object.assign(acc, val)
+    return acc
+  }, {})
+}
+
 function createSocialLinks({
   profileId,
   socialLinks,
@@ -8,25 +17,21 @@ function createSocialLinks({
   profileId: string
   socialLinks: SocialLink[]
 }) {
-  const socialLinksForDB = {}
+  const socialLinksForDB: SocialLinksDB = {
+    id: profileId,
+    ...flattenSocialLinks(socialLinks),
+  }
 
-  socialLinks.forEach(link => {
-    //eslint-disable-next-line
-    //@ts-ignore
-    socialLinksForDB[Object.entries(link)[0][0]] = Object.entries(link)[0][1]
-  })
-  return supabase.from<SocialLinksDB>("profiles_social_links").insert([
-    {
-      id: profileId,
-      ...socialLinksForDB,
-    },
-  ])
+  return supabase
+    .from<SocialLinksDB>("profiles_social_links")
+    .insert([socialLinksForDB])
 }
 
 function getAllSocialLinks() {
   return supabase.from<SocialLinksDB>("profiles_social_links")
 }
 
+// @TODO should social link stuff outside of this directory always return SocialLinks or does it make sense to have SocialLinksDB returned in some cases?
 function getSocialLinksProfile(profileId: string) {
   return supabase
     .from<SocialLinksDB>("profiles_social_links")
