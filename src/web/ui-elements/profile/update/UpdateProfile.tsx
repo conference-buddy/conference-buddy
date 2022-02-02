@@ -8,8 +8,6 @@ export const UpdateProfile = ({
   profile: Profile
 }): ReactElement => {
   const [name, setName] = useState(profile.name)
-  const [website, setWebsite] = useState(profile.website)
-
   //eslint-disable-next-line
   //@ts-ignore
   const updateUserMutation = useUpdateProfile({
@@ -18,7 +16,6 @@ export const UpdateProfile = ({
     id: profile.id,
     //eslint-disable-next-line
     //@ts-ignore
-    website,
     //eslint-disable-next-line
     //@ts-ignore
     name,
@@ -52,16 +49,6 @@ export const UpdateProfile = ({
           />
         </label>
         <br />
-        <br />
-
-        <label>
-          Website
-          <input
-            type="text"
-            onChange={e => setWebsite(e.target.value)}
-            placeholder="Username"
-          />
-        </label>
         <br />
         <button
           type="submit"

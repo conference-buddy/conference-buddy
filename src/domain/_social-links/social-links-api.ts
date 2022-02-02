@@ -23,4 +23,16 @@ function createSocialLinks({
   ])
 }
 
-export { createSocialLinks }
+function getAllSocialLinks() {
+  return supabase.from<SocialLinksDB>("profiles_social_links")
+}
+
+function getSocialLinksProfile(profileId: string) {
+  return supabase
+    .from<SocialLinksDB>("profiles_social_links")
+    .select()
+    .eq("id", profileId)
+    .single()
+}
+
+export { createSocialLinks, getAllSocialLinks, getSocialLinksProfile }

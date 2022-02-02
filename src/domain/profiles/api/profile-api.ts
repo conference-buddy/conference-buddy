@@ -2,7 +2,7 @@ import { User } from "@supabase/supabase-js"
 import { Profile, ProfileDB, SocialLinksDB } from "../types/types-profiles"
 import { supabase } from "../../_database/supabaseClient"
 import { transformProfile } from "../utils/transform-data"
-import { createSocialLinks } from "../../_social-links/social-links-api"
+import { getSocialLinksProfile } from "../../_social-links/social-links-api"
 
 const getProfile = async (user: User | undefined): Promise<Profile | null> => {
   if (!user) {
@@ -68,12 +68,7 @@ async function createProfile(newProfile: Profile) {
     },
   ])
 
-  const socialLinks = createSocialLinks({
-    profileId: newProfile.id,
-    //eslint-disable-next-line
-    //@ts-ignore
-    socialLinks: newProfile.social_links,
-  })
+  const socialLinks = getSocialLinksProfile(newProfile.id)
 
   return Promise.all([profile, socialLinks]).then(([profile, socialLinks]) => {
     const { data: profileData, error: profilesError } = profile
@@ -89,7 +84,7 @@ async function createProfile(newProfile: Profile) {
     }
 
     const profileFromDB: ProfileDB = profileData[0]
-    const socialLinksFromDB: SocialLinksDB = socialLinksData[0]
+    const socialLinksFromDB: SocialLinksDB = socialLinksData
     return transformProfile({
       profileFromDB,
       socialLinksFromDB,
@@ -103,7 +98,6 @@ async function updateProfile(profile: Profile) {
     .update({
       username: profile.username,
       name: profile.name,
-      website: profile.website,
     })
     .match({ id: profile.id })
 

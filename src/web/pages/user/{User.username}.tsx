@@ -3,7 +3,7 @@ import { graphql } from "gatsby"
 import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
 import { StaticImage } from "gatsby-plugin-image"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
-import { PublicProfile } from "../../../domain/public-profiles/public-profiles-interfaces"
+import { PublicProfile } from "../../../domain/public-profiles"
 
 type UserPageProps = {
   data: { user: PublicProfile }

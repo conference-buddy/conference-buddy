@@ -3,4 +3,7 @@ public/
 gatsby-config.js
 gatsby-node.js
 .cache
+.yarn
+.node_modules
+.public
 src/domain/_database/types/supabase.ts

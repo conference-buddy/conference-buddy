@@ -6,14 +6,6 @@ export type SocialLink = Partial<
   Record<keyof Omit<SocialLinksDB, "id">, string>
 >
 
-export interface Profile {
-  id: string
-  created_at: string
-  updated_at?: string
-  provider: string
-  email: string
-  name: string
-  username: string
-  website?: string
+export interface Profile extends ProfileDB {
   social_links?: SocialLink[]
 }

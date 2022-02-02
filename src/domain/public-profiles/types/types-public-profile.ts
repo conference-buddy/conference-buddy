@@ -1,4 +1,4 @@
-import { Profile } from "../profiles"
+import { Profile } from "../../profiles"
 
 export type PublicProfile = Omit<
   Profile,
