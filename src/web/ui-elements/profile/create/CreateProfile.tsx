@@ -3,29 +3,42 @@ import useCreateProfile from "../../../services/hooks/profile/useCreateProfile"
 import { navigate } from "gatsby"
 import useAuthUserContext from "../../../services/hooks/auth-user/useAuthUserContext"
 import { SocialLink } from "../../../../domain/profiles/types/types-profiles"
+import { TextInput } from "../../text-input/TextInput"
+import { SocialLinkInputs } from "../../social-link-inputs/SocialLinkInputs"
+import { platform } from "os"
+
+const socialLinkFormMap = [
+  { platform: "website", platformName: "Website", linkForm: "url" },
+  { platform: "github", platformName: "Github", linkForm: "username" },
+  { platform: "gitlab", platformName: "Gitlab", linkForm: "username" },
+  { platform: "instagram", platformName: "Instagram", linkForm: "username" },
+  { platform: "linkedin", platformName: "LinkedIn", linkForm: "username" },
+  { platform: "twitter", platformName: "Twitter", linkForm: "username" },
+]
+
+const socialLinksStart = socialLinkFormMap.map(entry => {
+  return { [entry.platform]: undefined }
+})
 
 // @TODO split functionality/components to build social links
 function CreateProfile(): ReactElement {
-  const socialLinksAvailable = [{ twitter: "Twitter" }]
   const { authUser } = useAuthUserContext()
   const [name, setName] = useState(authUser?.user_metadata.full_name)
   const [username, setUsername] = useState(
     authUser?.user_metadata.preferred_username
   )
-  const [socialLinks, setSocialLinks] =
-    useState<SocialLink[]>(socialLinksAvailable)
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>(socialLinksStart)
 
-  const updateSocialLink =
-    (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      const newArr = [...socialLinks]
-      newArr[index] = { twitter: e?.target?.value }
+  const updateSocialLinks = (
+    platform: string,
+    value: string,
+    index: number
+  ) => {
+    const newArray = [...socialLinks]
+    newArray[index] = { [platform]: value }
+    setSocialLinks(newArray)
+  }
 
-      setSocialLinks(newArr)
-    }
-
-  useEffect(() => {
-    console.log(socialLinks)
-  })
   //eslint-disable-next-line
   //@ts-ignore
   const createUserMutation = useCreateProfile({
@@ -56,58 +69,52 @@ function CreateProfile(): ReactElement {
   }
 
   return (
-    <div className="mb-5">
-      <h2>Create Profile</h2>
+    <form
+      onSubmit={event => {
+        event.preventDefault()
+        createUserMutation.mutate()
+      }}
+    >
+      <TextInput
+        onChange={e => setName(e.target.value)}
+        label={"Full Name"}
+        placeholder="Your full name"
+        required={true}
+      />
 
-      <form
-        onSubmit={event => {
-          event.preventDefault()
-          createUserMutation.mutate()
-        }}
-      >
-        <label>
-          Full name
-          <input
-            required
-            type="text"
-            onChange={e => setName(e.target.value)}
-            placeholder="Full name"
-          />
-        </label>
-        <br />
-        <br />
-        <label>
-          Username
-          <input
-            required
-            type="text"
-            defaultValue={username}
-            onChange={e => setUsername(e.target.value)}
-            placeholder="Username"
-          />
-        </label>
-        <br />
-        <br />
+      <TextInput
+        onChange={e => setUsername(e.target.value)}
+        label={"Username"}
+        placeholder="Your preferred username"
+        required={true}
+      />
 
-        <label>
-          Twitter
-          <input
-            type="text"
-            onChange={updateSocialLink(0)}
-            placeholder="Username"
-          />
-        </label>
-        <br />
-        <br />
+      <SocialLinkInputs
+        socialLinkFormMap={socialLinkFormMap}
+        onChange={updateSocialLinks}
+      />
 
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-8 py-2 rounded w-full"
-        >
+      {/*<div className="row mb-5">*/}
+      {/*  /!*eslint-disable-next-line*!/*/}
+      {/*  <label className="form-label col-m-2 col-sm-3 col-form-label col-form-label-lg">*/}
+      {/*    Twitter*/}
+      {/*  </label>*/}
+      {/*  <div className="col-m-10 col-sm-9">*/}
+      {/*    <input*/}
+      {/*      type="text"*/}
+      {/*      className="form-control form-control-lg"*/}
+      {/*      onChange={updateSocialLink(0)}*/}
+      {/*      placeholder="Twitter"*/}
+      {/*    />*/}
+      {/*  </div>*/}
+      {/*</div>*/}
+
+      <div className="text-center">
+        <button type="submit" className="btn btn-confbuddy-green">
           Submit Form
         </button>
-      </form>
-    </div>
+      </div>
+    </form>
   )
 }
 
