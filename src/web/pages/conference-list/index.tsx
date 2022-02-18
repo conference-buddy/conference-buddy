@@ -1,6 +1,6 @@
 import React from "react"
 import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
-import { Conference } from "../../../domain/conferences/conference-interface"
+import { Conference } from "../../../domain/conferences/types/conference-interface"
 import { ConferenceList } from "../../ui-elements/conferences/list/ConferenceList"
 import { graphql } from "gatsby"
 

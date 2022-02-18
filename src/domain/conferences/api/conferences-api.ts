@@ -1,4 +1,4 @@
-import { Conference } from "../conference-interface"
+import { Conference } from "../types/conference-interface"
 import { supabase } from "../../_database/supabaseClient"
 
 const getConferences = async (): Promise<Conference[]> => {

@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react"
-import { Conference } from "../../../domain/conferences/conference-interface"
+import { Conference } from "../../../domain/conferences/types/conference-interface"
 import useConference from "../../services/hooks/conference/useConference"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
 import { ConferenceSingle } from "../../ui-elements/conferences/single/ConferenceSingle"

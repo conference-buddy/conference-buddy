@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
-import { Conference } from "../../../domain/conferences/conference-interface"
+import { Conference } from "../../../domain/conferences/types/conference-interface"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
 import { ConferenceSingle } from "../../ui-elements/conferences/single/ConferenceSingle"
 import { BuddyPostList } from "../../ui-elements/buddy-posts/list/BuddyPostList"
