@@ -9,6 +9,6 @@ export default function useProfile(): UseQueryResult<Profile | null> {
   return useQuery(["profile", authUser], () => getProfile(authUser), {
     refetchOnWindowFocus: false,
     refetchOnMount: true,
-    retry: true,
+    retry: false,
   })
 }

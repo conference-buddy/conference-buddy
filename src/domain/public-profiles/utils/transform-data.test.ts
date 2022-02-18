@@ -1,6 +1,10 @@
-import { transformPublicProfiles } from "./transform-data"
-import { ProfileDB, SocialLinksDB } from "../../profiles/types/types-profiles"
+import {
+  transformPublicProfile,
+  transformPublicProfiles,
+} from "./transform-data"
+import { ProfileDB } from "../../profiles/types/types-profiles"
 import { PublicProfile } from "../types/types-public-profile"
+import { SocialLinksDB } from "../../_social-links/types/types-social-links"
 
 const profilesFromDB: ProfileDB[] = [
   {
@@ -33,36 +37,158 @@ const socialLinksFromDB: SocialLinksDB[] = [
     linkedin: undefined,
   },
   {
-    id: "nothere",
+    id: "anothersuserid",
     website: undefined,
+    github: "someusername",
+    gitlab: undefined,
+    twitter: undefined,
+    linkedin: undefined,
+  },
+  {
+    id: "934233523523-234234-234234--2351fgk",
+    website: "nicewebsite.de",
     github: undefined,
     gitlab: undefined,
-    twitter: "Twitter Name",
+    twitter: undefined,
     linkedin: undefined,
   },
 ]
 
-const expectedOutcome: PublicProfile[] = [
-  {
-    created_at: "2022-01-26T04:10:45.15264+00:00",
-    name: "Mirjam",
-    username: "programmiri",
-    social_links: [{ twitter: "Twitter Name" }],
-  },
-  {
-    created_at: "2022-01-26T04:10:45.15264+00:00",
-    name: "Not Mirjam",
-    username: "progranono",
-  },
-]
-
 describe("transform-data", () => {
-  it("transforms all profiles from DB for web", () => {
-    const result = transformPublicProfiles({
-      profilesFromDB,
-      socialLinksFromDB,
-    })
+  describe("transformPublicProfiles", () => {
+    const expectedOutcome: PublicProfile[] = [
+      {
+        created_at: "2022-01-26T04:10:45.15264+00:00",
+        name: "Mirjam",
+        username: "programmiri",
+        social_links: [
+          {
+            platform: "website",
+            platformName: "Website",
+            linkForm: "url",
+            value: undefined,
+          },
+          {
+            platform: "github",
+            platformName: "GitHub",
+            linkForm: "username",
+            value: undefined,
+          },
+          {
+            platform: "gitlab",
+            platformName: "GitLab",
+            linkForm: "username",
+            value: undefined,
+          },
+          {
+            platform: "twitter",
+            platformName: "Twitter",
+            linkForm: "username",
+            value: "Twitter Name",
+          },
+          {
+            platform: "linkedin",
+            platformName: "LinkedIn",
+            linkForm: "username",
+            value: undefined,
+          },
+        ],
+      },
+      {
+        created_at: "2022-01-26T04:10:45.15264+00:00",
+        name: "Not Mirjam",
+        username: "progranono",
+        social_links: [
+          {
+            platform: "website",
+            platformName: "Website",
+            linkForm: "url",
+            value: "nicewebsite.de",
+          },
+          {
+            platform: "github",
+            platformName: "GitHub",
+            linkForm: "username",
+            value: undefined,
+          },
+          {
+            platform: "gitlab",
+            platformName: "GitLab",
+            linkForm: "username",
+            value: undefined,
+          },
+          {
+            platform: "twitter",
+            platformName: "Twitter",
+            linkForm: "username",
+            value: undefined,
+          },
+          {
+            platform: "linkedin",
+            platformName: "LinkedIn",
+            linkForm: "username",
+            value: undefined,
+          },
+        ],
+      },
+    ]
 
-    expect(result).toStrictEqual(expectedOutcome)
+    it("transforms all profiles from DB as PublicProfiles", () => {
+      const result = transformPublicProfiles({
+        profilesFromDB,
+        socialLinksFromDB,
+      })
+
+      expect(result).toStrictEqual(expectedOutcome)
+    })
+  })
+
+  describe("transformPublicProfile", () => {
+    const expectedOutcome: PublicProfile = {
+      created_at: "2022-01-26T04:10:45.15264+00:00",
+      name: "Mirjam",
+      username: "programmiri",
+      social_links: [
+        {
+          platform: "website",
+          platformName: "Website",
+          linkForm: "url",
+          value: undefined,
+        },
+        {
+          platform: "github",
+          platformName: "GitHub",
+          linkForm: "username",
+          value: undefined,
+        },
+        {
+          platform: "gitlab",
+          platformName: "GitLab",
+          linkForm: "username",
+          value: undefined,
+        },
+        {
+          platform: "twitter",
+          platformName: "Twitter",
+          linkForm: "username",
+          value: "Twitter Name",
+        },
+        {
+          platform: "linkedin",
+          platformName: "LinkedIn",
+          linkForm: "username",
+          value: undefined,
+        },
+      ],
+    }
+
+    it("transforms one profile from DB as PublicProfiles", () => {
+      const result = transformPublicProfile({
+        profileFromDB: profilesFromDB[0],
+        socialLinksFromDB: socialLinksFromDB[0],
+      })
+
+      expect(result).toStrictEqual(expectedOutcome)
+    })
   })
 })

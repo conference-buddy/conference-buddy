@@ -1,6 +1,7 @@
-import { ProfileDB, SocialLinksDB } from "../types/types-profiles"
+import { ProfileDB } from "../types/types-profiles"
 import { Profile } from "../types/types-profiles"
-import { createSocialLinks } from "../../_social-links/create-social-links-for-profile"
+import { generateSocialLinks } from "../../_social-links/helper/generate-social-links-for-profile"
+import { SocialLinksDB } from "../../_social-links/types/types-social-links"
 
 function transformProfile({
   profileFromDB,
@@ -9,13 +10,13 @@ function transformProfile({
   profileFromDB: ProfileDB
   socialLinksFromDB: SocialLinksDB
 }): Profile {
-  const socialLinks = createSocialLinks(socialLinksFromDB)
+  const socialLinks = generateSocialLinks(socialLinksFromDB)
   if (profileFromDB.id === undefined) {
     throw Error("no profile id")
   }
   return {
     ...profileFromDB,
-    ...(socialLinks && { social_links: socialLinks }),
+    social_links: socialLinks,
   }
 }
 

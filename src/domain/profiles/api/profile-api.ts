@@ -1,13 +1,9 @@
 import { User } from "@supabase/supabase-js"
-import {
-  Profile,
-  ProfileDB,
-  SocialLink,
-  SocialLinksDB,
-} from "../types/types-profiles"
+import { Profile, ProfileDB } from "../types/types-profiles"
 import { supabase } from "../../_database/supabaseClient"
 import { transformProfile } from "../utils/transform-data"
-import { createSocialLinks } from "../../_social-links/social-links-api"
+import { createSocialLinks } from "../../_social-links/api/social-links-api"
+import { SocialLinksDB } from "src/domain/_social-links/types/types-social-links"
 
 const getProfile = async (user: User | undefined): Promise<Profile | null> => {
   if (!user) {
@@ -20,7 +16,7 @@ const getProfile = async (user: User | undefined): Promise<Profile | null> => {
     .eq("id", user.id)
     .single()
 
-  const socialLinks = supabase
+  const socialLinks = await supabase
     .from<SocialLinksDB>("profiles_social_links")
     .select()
     .eq("id", user.id)
@@ -33,8 +29,9 @@ const getProfile = async (user: User | undefined): Promise<Profile | null> => {
     if (!profileData) {
       return null
     }
+
     if (profilesError || socialLinksError) {
-      throw Error(profilesError?.message || socialLinksError?.message)
+      throw new Error(profilesError?.message || socialLinksError?.message)
     }
 
     if (profileData && socialLinksData) {
@@ -92,7 +89,7 @@ async function createProfile(newProfile: Profile) {
     }
 
     const profileFromDB: ProfileDB = profileData[0]
-    const socialLinksFromDB: SocialLinksDB = socialLinksData
+    const socialLinksFromDB: SocialLinksDB = socialLinksData[0]
     return transformProfile({
       profileFromDB,
       socialLinksFromDB,

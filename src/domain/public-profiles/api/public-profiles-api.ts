@@ -5,27 +5,43 @@ import {
   transformPublicProfiles,
   transformPublicProfile,
 } from "../utils/transform-data"
-import { getAllSocialLinks } from "../../_social-links/social-links-api"
+import {
+  getAllSocialLinks,
+  getSocialLinksProfile,
+} from "../../_social-links/api/social-links-api"
 
 const getPublicProfile = async (
   profileId: string | undefined
 ): Promise<PublicProfile | null> => {
   if (!profileId) return null
-  const { data: profile, error } = await supabase
-    .from("profiles")
+
+  const profile = supabase
+    .from<ProfileDB>("profiles")
     .select("name,username")
     .eq("id", profileId)
     .single()
 
-  if (!profile) {
-    return null
-  }
+  const socialLinks = getSocialLinksProfile(profileId)
 
-  if (error) {
-    throw new Error(error.message)
-  }
+  //eslint-disable-next-line
+  //@ts-ignore
+  return Promise.all([profile, socialLinks]).then(([profile, socialLinks]) => {
+    const { data: profileData, error: profileError } = profile
+    const { data: socialLinksData, error: socialLinksError } = socialLinks
 
-  return transformPublicProfile(profile)
+    if (profileError || socialLinksError) {
+      throw Error(profileError?.message || socialLinksError?.message)
+    }
+
+    if (!profileData || !socialLinksData) {
+      throw Error("No profile or social links created in DB")
+    }
+
+    return transformPublicProfile({
+      profileFromDB: profileData,
+      socialLinksFromDB: socialLinksData,
+    })
+  })
 }
 
 const getPublicProfiles = async (): Promise<PublicProfile[] | undefined> => {

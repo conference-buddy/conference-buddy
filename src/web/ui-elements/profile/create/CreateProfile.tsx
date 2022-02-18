@@ -1,33 +1,21 @@
-import React, { ReactElement, useEffect, useState } from "react"
+import React, { ReactElement, useState } from "react"
 import useCreateProfile from "../../../services/hooks/profile/useCreateProfile"
 import { navigate } from "gatsby"
 import useAuthUserContext from "../../../services/hooks/auth-user/useAuthUserContext"
-import { SocialLink } from "../../../../domain/profiles/types/types-profiles"
 import { TextInput } from "../../text-input/TextInput"
 import { SocialLinkInputs } from "../../social-link-inputs/SocialLinkInputs"
-import { platform } from "os"
+import { generateEmptySocialLinks } from "../../../../domain/_social-links/helper/generate-social-links-for-profile"
+import { SocialLink } from "../../../../domain/_social-links/types/types-social-links"
 
-const socialLinkFormMap = [
-  { platform: "website", platformName: "Website", linkForm: "url" },
-  { platform: "github", platformName: "Github", linkForm: "username" },
-  { platform: "gitlab", platformName: "Gitlab", linkForm: "username" },
-  { platform: "instagram", platformName: "Instagram", linkForm: "username" },
-  { platform: "linkedin", platformName: "LinkedIn", linkForm: "username" },
-  { platform: "twitter", platformName: "Twitter", linkForm: "username" },
-]
-
-const socialLinksStart = socialLinkFormMap.map(entry => {
-  return { [entry.platform]: undefined }
-})
-
-// @TODO split functionality/components to build social links
 function CreateProfile(): ReactElement {
   const { authUser } = useAuthUserContext()
   const [name, setName] = useState(authUser?.user_metadata.full_name)
   const [username, setUsername] = useState(
     authUser?.user_metadata.preferred_username
   )
-  const [socialLinks, setSocialLinks] = useState<SocialLink[]>(socialLinksStart)
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>(
+    generateEmptySocialLinks()
+  )
 
   const updateSocialLinks = (
     platform: string,
@@ -35,7 +23,7 @@ function CreateProfile(): ReactElement {
     index: number
   ) => {
     const newArray = [...socialLinks]
-    newArray[index] = { [platform]: value }
+    newArray[index] = { [platform]: value } as SocialLink
     setSocialLinks(newArray)
   }
 
@@ -90,24 +78,9 @@ function CreateProfile(): ReactElement {
       />
 
       <SocialLinkInputs
-        socialLinkFormMap={socialLinkFormMap}
+        socialLinks={socialLinks}
         onChange={updateSocialLinks}
       />
-
-      {/*<div className="row mb-5">*/}
-      {/*  /!*eslint-disable-next-line*!/*/}
-      {/*  <label className="form-label col-m-2 col-sm-3 col-form-label col-form-label-lg">*/}
-      {/*    Twitter*/}
-      {/*  </label>*/}
-      {/*  <div className="col-m-10 col-sm-9">*/}
-      {/*    <input*/}
-      {/*      type="text"*/}
-      {/*      className="form-control form-control-lg"*/}
-      {/*      onChange={updateSocialLink(0)}*/}
-      {/*      placeholder="Twitter"*/}
-      {/*    />*/}
-      {/*  </div>*/}
-      {/*</div>*/}
 
       <div className="text-center">
         <button type="submit" className="btn btn-confbuddy-green">

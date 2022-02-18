@@ -3,6 +3,7 @@ import { StaticImage } from "gatsby-plugin-image"
 import { TextLink } from "../../text-link/TextLink"
 import usePublicProfile from "../../../services/hooks/public-profile/usePublicProfile"
 
+//eslint-disable-next-line  @typescript-eslint/no-explicit-any
 function BuddyPostSingle({ post }: { post: any }): ReactElement {
   const { data: publicProfile, isLoading } = usePublicProfile(post.profile_id)
 

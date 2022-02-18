@@ -10,14 +10,14 @@
     "clean": "gatsby clean",
     "test": "jest",
     "tdd": "jest --watch",
-    "lint": "eslint . \"*.{js,jsx,ts,tsx}\" --fix",
+    "lint": "eslint . \"*.{js,jsx,ts,tsx}\"",
     "tsc": "tsc --jsx preserve",
     "prepare": "husky install",
     "update-types": "node scripts/update-types.js"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint \"*.{js,jsx,ts,tsx}\" --fix",
+      "eslint \"*.{js,jsx,ts,tsx}\"",
       "prettier --write"
     ],
     "*.{md,json,yaml,yml,html}": [

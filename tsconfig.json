@@ -13,9 +13,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "removeComments": false,
-    "typeRoots": ["./node_modules/@types"],
-    "types": ["eslint", "jest", "testing-library__jest-dom", "react-dom"]
+    "skipLibCheck": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "./src/domain/_type-declarations",
+      "./src/global.d.ts"
+    ]
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "./src/**/*.test.ts", "./src/**/*.test.tsx"]
 }

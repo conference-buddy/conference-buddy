@@ -1,11 +1,8 @@
 import { definitions } from "../../_database/types/supabase"
+import { SocialLink } from "../../_social-links/types/types-social-links"
 
 export type ProfileDB = definitions["profiles"]
-export type SocialLinksDB = definitions["profiles_social_links"]
-export type SocialLink = Partial<
-  Record<keyof Omit<SocialLinksDB, "id">, string>
->
 
 export interface Profile extends ProfileDB {
-  social_links?: SocialLink[]
+  social_links: SocialLink[]
 }

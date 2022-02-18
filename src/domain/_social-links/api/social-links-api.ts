@@ -1,5 +1,5 @@
-import { supabase } from "../_database/supabaseClient"
-import { SocialLink, SocialLinksDB } from "../profiles/types/types-profiles"
+import { supabase } from "../../_database/supabaseClient"
+import { SocialLink, SocialLinksDB } from "../types/types-social-links"
 
 function flattenSocialLinks(
   socialLinks: SocialLink[]

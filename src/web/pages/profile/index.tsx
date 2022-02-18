@@ -7,6 +7,7 @@ export default function ProfilePage() {
   const { data, isLoading } = useProfile()
 
   useEffect(() => {
+    console.log("data", data)
     if (!isLoading && !data) {
       navigate("/")
     }
