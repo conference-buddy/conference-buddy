@@ -12,11 +12,17 @@ exports.sourceNodes = async ({
 }) => {
   const { createNode } = actions
 
-  const conferences = await (exports.getConferences =
-    require("./src/domain/conferences/api/conferences-api.ts").getConferences())
+  let conferences = []
+  let publicProfiles = []
+  try {
+    conferences = await (exports.getConferences =
+      require("./src/domain/conferences").getConferences())
 
-  const publicProfiles = await (exports.getConferences =
-    require("./src/domain/public-profiles/api/public-profiles-api.ts").getPublicProfiles())
+    publicProfiles = await (exports.getConferences =
+      require("./src/domain/public-profiles").getPublicProfiles())
+  } catch (error) {
+    throw Error(error)
+  }
 
   conferences.forEach(conference => {
     const nodeMeta = {
