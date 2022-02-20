@@ -1,10 +1,10 @@
 import React, { ReactElement } from "react"
+import { SocialLink } from "../../../domain/_social-links/types/types-social-links"
 
 type SocialLinkInputsProps = {
-  onChange: (platform: string, value: string, index: number) => void
+  onChange: (value: string | undefined, index: number) => void
   disabled?: boolean
-  //eslint-disable-next-line
-  socialLinks: any[]
+  socialLinks: SocialLink[]
 }
 
 function SocialLinkInputs(props: SocialLinkInputsProps): ReactElement {
@@ -26,9 +26,7 @@ function SocialLinkInputs(props: SocialLinkInputsProps): ReactElement {
             disabled={disabled}
             type="text"
             className="form-control form-control-lg"
-            onChange={e =>
-              onChange(availableSocialLink.platform, e.target.value, index)
-            }
+            onChange={e => onChange(e.target.value, index)}
             placeholder={placeholder}
           />
         </div>

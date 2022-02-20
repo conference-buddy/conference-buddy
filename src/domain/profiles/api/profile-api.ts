@@ -31,7 +31,10 @@ const getProfile = async (user: User | undefined): Promise<Profile | null> => {
     }
 
     if (profilesError || socialLinksError) {
-      throw new Error(profilesError?.message || socialLinksError?.message)
+      console.error(
+        "something went wrong while getting a profile with social links",
+        profilesError?.message || socialLinksError?.message
+      )
     }
 
     if (profileData && socialLinksData) {
@@ -43,13 +46,15 @@ const getProfile = async (user: User | undefined): Promise<Profile | null> => {
         socialLinksFromDB,
       })
     } else {
-      console.error("No profile or social links created in DB")
+      console.error("No profile or social links found.")
       return null
     }
   })
 }
 
-async function createProfile(newProfile: Profile) {
+async function createProfile(newProfile: Omit<Profile, "created_at">) {
+  console.log(newProfile)
+  debugger
   const { data: userWithUsername } = await supabase
     .from<ProfileDB>("users")
     .select("*")

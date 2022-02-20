@@ -6,6 +6,7 @@ import { TextInput } from "../../text-input/TextInput"
 import { SocialLinkInputs } from "../../social-link-inputs/SocialLinkInputs"
 import { generateEmptySocialLinks } from "../../../../domain/_social-links/helper/generate-social-links-for-profile"
 import { SocialLink } from "../../../../domain/_social-links/types/types-social-links"
+import { TextAreaInput } from "../../textarea-input/TextAreaInput"
 
 function CreateProfile(): ReactElement {
   const { authUser } = useAuthUserContext()
@@ -16,36 +17,24 @@ function CreateProfile(): ReactElement {
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>(
     generateEmptySocialLinks()
   )
+  const [aboutMeText, setAboutMeText] = useState(
+    authUser?.user_metadata.about_text
+  )
 
-  const updateSocialLinks = (
-    platform: string,
-    value: string,
-    index: number
-  ) => {
+  const updateSocialLinks = (value: string | undefined, index: number) => {
     const newArray = [...socialLinks]
-    newArray[index] = { [platform]: value } as SocialLink
+    newArray[index] = { ...socialLinks[index], value }
     setSocialLinks(newArray)
   }
 
-  //eslint-disable-next-line
-  //@ts-ignore
   const createUserMutation = useCreateProfile({
-    //eslint-disable-next-line
-    //@ts-ignore
-    id: authUser?.id,
-    //eslint-disable-next-line
-    //@ts-ignore
+    about_text: aboutMeText,
     email: authUser?.email,
-    //eslint-disable-next-line
-    //@ts-ignore
-    provider: authUser?.app_metadata.provider,
-    //eslint-disable-next-line
-    //@ts-ignore
+    id: authUser?.id,
     name,
-    //eslint-disable-next-line
-    //@ts-ignore
-    username,
+    provider: authUser?.app_metadata.provider,
     social_links: socialLinks,
+    username,
   })
 
   if (createUserMutation.isSuccess) {
@@ -81,7 +70,12 @@ function CreateProfile(): ReactElement {
         socialLinks={socialLinks}
         onChange={updateSocialLinks}
       />
-
+      <TextAreaInput
+        onChange={e => setAboutMeText(e.target.value)}
+        label={"About me"}
+        placeholder="Tell others a bit about yourself."
+        required={false}
+      />
       <div className="text-center">
         <button type="submit" className="btn btn-confbuddy-green">
           Submit Form
