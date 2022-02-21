@@ -2,8 +2,8 @@ import React from "react"
 import { graphql } from "gatsby"
 import { PageLayout } from "../../ui-elements/page-layout/PageLayout"
 import { StaticImage } from "gatsby-plugin-image"
-import { TextLink } from "../../ui-elements/text-link/TextLink"
 import { PublicProfile } from "../../../domain/public-profiles"
+import MarkdownPreview from "@uiw/react-markdown-preview"
 
 type UserPageProps = {
   data: { user: PublicProfile }
@@ -27,26 +27,7 @@ const UserPage = (props: UserPageProps) => {
             />
           </div>
           <div className="col-8">
-            <h2>About me</h2>
-            <p>
-              This is a placeholder text for {props.data.user.name} profile
-              page.{" "}
-            </p>
-            <h3>You can find me</h3>
-            <ul>
-              <li>
-                <TextLink to="">website</TextLink>
-              </li>
-              <li>
-                <TextLink to="">github</TextLink>
-              </li>
-              <li>
-                <TextLink to="">gitlab</TextLink>
-              </li>
-              <li>
-                <TextLink to="">twitter</TextLink>
-              </li>
-            </ul>
+            <MarkdownPreview source={props.data.user.about_text} />
           </div>
         </div>
       </div>
@@ -73,7 +54,14 @@ const UserPage = (props: UserPageProps) => {
 export const query = graphql`
   query ($username: String) {
     user(username: { eq: $username }) {
+      about_text
       name
+      social_links {
+        linkForm
+        platform
+        platformName
+        value
+      }
       username
     }
   }

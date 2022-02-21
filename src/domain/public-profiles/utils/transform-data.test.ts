@@ -15,6 +15,7 @@ const profilesFromDB: ProfileDB[] = [
     provider: "github",
     email: "me@programmiri.rocks",
     created_at: "2022-01-26T04:10:45.15264+00:00",
+    about_text: "#About me",
   },
   {
     id: "934233523523-234234-234234--2351fgk",
@@ -24,6 +25,7 @@ const profilesFromDB: ProfileDB[] = [
     provider: "github",
     email: "me@programmiri.rocks",
     created_at: "2022-01-26T04:10:45.15264+00:00",
+    about_text: "More text about me",
   },
 ]
 
@@ -58,6 +60,7 @@ describe("transform-data", () => {
   describe("transformPublicProfiles", () => {
     const expectedOutcome: PublicProfile[] = [
       {
+        about_text: "#About me",
         created_at: "2022-01-26T04:10:45.15264+00:00",
         name: "Mirjam",
         username: "programmiri",
@@ -95,6 +98,7 @@ describe("transform-data", () => {
         ],
       },
       {
+        about_text: "More text about me",
         created_at: "2022-01-26T04:10:45.15264+00:00",
         name: "Not Mirjam",
         username: "progranono",
@@ -145,6 +149,7 @@ describe("transform-data", () => {
 
   describe("transformPublicProfile", () => {
     const expectedOutcome: PublicProfile = {
+      about_text: "#About me",
       created_at: "2022-01-26T04:10:45.15264+00:00",
       name: "Mirjam",
       username: "programmiri",

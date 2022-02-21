@@ -53,8 +53,6 @@ const getProfile = async (user: User | undefined): Promise<Profile | null> => {
 }
 
 async function createProfile(newProfile: Omit<Profile, "created_at">) {
-  console.log(newProfile)
-  debugger
   const { data: userWithUsername } = await supabase
     .from<ProfileDB>("users")
     .select("*")
@@ -84,7 +82,6 @@ async function createProfile(newProfile: Omit<Profile, "created_at">) {
     const { data: profileData, error: profilesError } = profile
     const { data: socialLinksData, error: socialLinksError } = socialLinks
 
-    debugger
     if (profilesError || socialLinksError) {
       throw Error(profilesError?.message || socialLinksError?.message)
     }

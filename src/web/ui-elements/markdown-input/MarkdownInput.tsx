@@ -34,7 +34,6 @@ function MarkdownInput(props: MarkDownInputProps): ReactElement {
           preview="edit"
           commandsFilter={cmd => removeCommands(cmd)}
         />
-        <MDEditor.Markdown source={value} rehypePlugins={[[rehypeSanitize]]} />
       </div>
     </>
   )

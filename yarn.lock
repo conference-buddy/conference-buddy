@@ -3653,7 +3653,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uiw/react-markdown-preview@npm:3.4.7":
+"@uiw/react-markdown-preview@npm:3.4.7, @uiw/react-markdown-preview@npm:^3.4.7":
   version: 3.4.7
   resolution: "@uiw/react-markdown-preview@npm:3.4.7"
   dependencies:
@@ -5837,6 +5837,7 @@ __metadata:
     "@types/uuid": ^8.3.4
     "@typescript-eslint/eslint-plugin": ^5.8.1
     "@typescript-eslint/parser": ^5.8.1
+    "@uiw/react-markdown-preview": ^3.4.7
     "@uiw/react-md-editor": ^3.9.5
     bootstrap: ^5.1.3
     dotenv: ^14.2.0

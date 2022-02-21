@@ -10,6 +10,7 @@ function mapProfileToPublicProfile(
   profileFromDB: ProfileDB
 ): Omit<PublicProfile, "social_links"> {
   return {
+    about_text: profileFromDB.about_text,
     created_at: profileFromDB.created_at,
     name: profileFromDB.name,
     username: profileFromDB.username,

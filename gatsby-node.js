@@ -48,6 +48,7 @@ exports.sourceNodes = async ({
         contentDigest: createContentDigest(publicProfile),
       },
     }
+
     const node = Object.assign({}, publicProfile, nodeMeta)
     createNode(node)
   })

@@ -17,7 +17,7 @@ const getPublicProfile = async (
 
   const profile = supabase
     .from<ProfileDB>("profiles")
-    .select("name,username")
+    .select("id,name,username,about_text")
     .eq("id", profileId)
     .single()
 
@@ -47,7 +47,7 @@ const getPublicProfile = async (
 const getPublicProfiles = async (): Promise<PublicProfile[] | undefined> => {
   const profiles = supabase
     .from<ProfileDB>("profiles")
-    .select("id,name,username")
+    .select("id,created_at,name,username,about_text")
   const socialLinks = getAllSocialLinks()
 
   return Promise.all([profiles, socialLinks]).then(
