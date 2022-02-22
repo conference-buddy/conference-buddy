@@ -5,7 +5,20 @@ import { transformProfile } from "../utils/transform-data"
 import { createSocialLinks } from "../../_social-links/api/social-links-api"
 import { SocialLinksDB } from "src/domain/_social-links/types/types-social-links"
 
-const getProfile = async (user: User | undefined): Promise<Profile | null> => {
+async function usernameExists(username: string): Promise<boolean> {
+  const matchingUserNames = await supabase
+    .from<ProfileDB>("profiles")
+    .select()
+    .eq("username", username)
+
+  return !!(
+    matchingUserNames &&
+    matchingUserNames.data &&
+    matchingUserNames.data.length > 0
+  )
+}
+
+async function getProfile(user: User | undefined): Promise<Profile | null> {
   if (!user) {
     return null
   }
@@ -53,16 +66,6 @@ const getProfile = async (user: User | undefined): Promise<Profile | null> => {
 }
 
 async function createProfile(newProfile: Omit<Profile, "created_at">) {
-  const { data: userWithUsername } = await supabase
-    .from<ProfileDB>("users")
-    .select("*")
-    .eq("username", newProfile.username)
-    .single()
-
-  if (userWithUsername) {
-    throw new Error("User with username exists")
-  }
-
   const profile = supabase.from<ProfileDB>("profiles").insert([
     {
       provider: newProfile.provider,
@@ -114,4 +117,4 @@ async function updateProfile(profile: Profile) {
   return insertData
 }
 
-export { getProfile, createProfile, updateProfile }
+export { getProfile, createProfile, updateProfile, usernameExists }

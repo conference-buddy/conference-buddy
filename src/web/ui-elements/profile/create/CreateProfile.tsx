@@ -7,6 +7,7 @@ import { SocialLinkInputs } from "../../social-link-inputs/SocialLinkInputs"
 import { generateEmptySocialLinks } from "../../../../domain/_social-links/helper/generate-social-links-for-profile"
 import { SocialLink } from "../../../../domain/_social-links/types/types-social-links"
 import { TextAreaInput } from "../../textarea-input/TextAreaInput"
+import { usernameExists } from "../../../../domain/profiles"
 
 function CreateProfile(): ReactElement {
   const { authUser } = useAuthUserContext()
@@ -14,6 +15,7 @@ function CreateProfile(): ReactElement {
   const [username, setUsername] = useState(
     authUser?.user_metadata.preferred_username
   )
+  const [usernameAvailable, setUsernameAvailable] = useState(false)
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>(
     generateEmptySocialLinks()
   )
@@ -25,6 +27,14 @@ function CreateProfile(): ReactElement {
     const newArray = [...socialLinks]
     newArray[index] = { ...socialLinks[index], value }
     setSocialLinks(newArray)
+  }
+
+  function checkUsername(username: string) {
+    if (!username) {
+      setUsernameAvailable(false)
+    }
+    const isAlreadyUsed = usernameExists(username)
+    setUsernameAvailable(!isAlreadyUsed)
   }
 
   const createUserMutation = useCreateProfile({
@@ -49,18 +59,20 @@ function CreateProfile(): ReactElement {
     <form
       onSubmit={event => {
         event.preventDefault()
+        if (!usernameAvailable) return
         createUserMutation.mutate()
       }}
     >
       <TextInput
-        onChange={e => setName(e.target.value)}
+        onChange={value => setName(value)}
         label={"Full Name"}
         placeholder="Your full name"
         required={true}
       />
 
       <TextInput
-        onChange={e => setUsername(e.target.value)}
+        onChange={value => setUsername(value)}
+        onBlur={value => checkUsername(value)}
         label={"Username"}
         placeholder="Your preferred username"
         required={true}

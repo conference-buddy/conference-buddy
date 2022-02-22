@@ -2,7 +2,8 @@ import React, { ReactElement } from "react"
 import { v4 as uuidv4 } from "uuid"
 
 type TextInputProps = {
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: (value: string) => void
+  onBlur?: (value: string) => void
   label: string
   placeholder: string
   required?: boolean
@@ -10,7 +11,7 @@ type TextInputProps = {
 }
 
 function TextInput(props: TextInputProps): ReactElement {
-  const { label, onChange, placeholder } = props
+  const { label, onChange, onBlur, placeholder } = props
   const required = props.required ? props.required : false
   const disabled = props.disabled ? props.disabled : false
   const idForTextInput = uuidv4()
@@ -30,7 +31,8 @@ function TextInput(props: TextInputProps): ReactElement {
           disabled={disabled}
           type="text"
           className="form-control form-control-lg"
-          onChange={e => onChange(e)}
+          onChange={e => onChange(e.target.value)}
+          onBlur={onBlur ? e => onBlur(e.target.value) : undefined}
           placeholder={placeholder}
         />
       </div>
