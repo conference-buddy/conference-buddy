@@ -7,7 +7,7 @@ exports[`Header renders all necessary elements 1`] = `
       class="bg-confbuddy-green px-sm-4 py-2 px-2 d-flex justify-content-between align-items-center"
     >
       <div
-        class="d-flex flex-grow-1"
+        class="d-flex flex-grow-1 align-items-center"
       >
         <a
           href="/"
@@ -22,7 +22,7 @@ exports[`Header renders all necessary elements 1`] = `
           />
         </a>
         <div
-          class="text-white d-block d-sm-none"
+          class="text-white d-block d-sm-none d-flex align-items-center"
         >
           Conference Buddy
         </div>

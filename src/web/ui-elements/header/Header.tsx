@@ -7,7 +7,7 @@ function Header(): ReactElement {
   return (
     <header>
       <nav className="bg-confbuddy-green px-sm-4 py-2 px-2 d-flex justify-content-between align-items-center">
-        <div className="d-flex flex-grow-1">
+        <div className="d-flex flex-grow-1 align-items-center">
           <Link to="/" title="Startpage">
             <StaticImage
               src="../../assets/images/LogoConferenceBuddy.png"
@@ -17,7 +17,9 @@ function Header(): ReactElement {
               placeholder="none"
             />
           </Link>
-          <div className="text-white d-block d-sm-none">Conference Buddy</div>
+          <div className="text-white d-block d-sm-none d-flex align-items-center">
+            Conference Buddy
+          </div>
           <div className="text-white d-none d-sm-block fs-3">
             Conference Buddy
           </div>
