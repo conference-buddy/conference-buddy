@@ -585,7 +585,7 @@ export interface definitions {
      * Format: timestamp with time zone
      * @default now()
      */
-    updated_at: string
+    updated_at?: string
     /** Format: text */
     name: string
     /** Format: date */

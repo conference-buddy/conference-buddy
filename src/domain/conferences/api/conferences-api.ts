@@ -1,7 +1,7 @@
 import { Conference } from "../types/conference-interface"
 import { supabase } from "../../_database/supabaseClient"
 
-const getConferences = async (): Promise<Conference[]> => {
+async function getConferences(): Promise<Conference[]> {
   const { data: conferences, error } = await supabase.from("conferences")
 
   if (error) {
@@ -15,7 +15,7 @@ const getConferences = async (): Promise<Conference[]> => {
   return conferences
 }
 
-const getConference = async (id: string): Promise<Conference> => {
+async function getConference(id: string): Promise<Conference> {
   const { data: conference, error } = await supabase
     .from("conferences")
     .select()
@@ -33,4 +33,26 @@ const getConference = async (id: string): Promise<Conference> => {
   return conference
 }
 
-export { getConference, getConferences }
+async function createConference(newConference: Omit<Conference, "created_at">) {
+  const { data: conference, error } = await supabase
+    .from<Conference>("conference")
+    .insert([
+      {
+        name: newConference.name,
+        start_date: newConference.start_date,
+        end_date: newConference.end_date,
+        city: newConference.city,
+        country: newConference.country,
+        description: newConference.description,
+        url: newConference.url,
+      },
+    ])
+
+  if (error) {
+    throw Error(error.message)
+  }
+
+  return conference
+}
+
+export { getConference, getConferences, createConference }
