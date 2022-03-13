@@ -16,7 +16,7 @@ const UserPage = (props: UserPageProps) => {
         <h1>Meet your fellow Conference Buddy</h1>
       </div>
       <div className="container p-5 bg-white mb-3">
-        <h2 className="text-center">{props.data.user.name}</h2>
+        <h2 className="text-center">{props?.data?.user?.name}</h2>
         <hr className="text-confbuddy-pink" />
         <div className="row pt-4">
           <div className="col-4">
@@ -27,7 +27,7 @@ const UserPage = (props: UserPageProps) => {
             />
           </div>
           <div className="col-8">
-            <MarkdownPreview source={props.data.user.about_text} />
+            <MarkdownPreview source={props?.data?.user?.about_text} />
           </div>
         </div>
       </div>

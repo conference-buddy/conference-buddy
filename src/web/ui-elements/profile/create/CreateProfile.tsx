@@ -6,8 +6,8 @@ import { TextInput } from "../../text-input/TextInput"
 import { SocialLinkInputs } from "../../social-link-inputs/SocialLinkInputs"
 import { generateEmptySocialLinks } from "../../../../domain/_social-links/helper/generate-social-links-for-profile"
 import { SocialLink } from "../../../../domain/_social-links/types/types-social-links"
-import { TextAreaInput } from "../../textarea-input/TextAreaInput"
 import { usernameExists } from "../../../../domain/profiles"
+import { MarkdownInput } from "../../markdown-input/MarkdownInput"
 
 function CreateProfile(): ReactElement {
   const { authUser } = useAuthUserContext()
@@ -57,9 +57,13 @@ function CreateProfile(): ReactElement {
 
   return (
     <form
+      className="p-3"
       onSubmit={event => {
         event.preventDefault()
-        if (!usernameAvailable) return
+        if (!usernameAvailable) {
+          console.log("username exists")
+          return
+        }
         createUserMutation.mutate()
       }}
     >
@@ -82,8 +86,9 @@ function CreateProfile(): ReactElement {
         socialLinks={socialLinks}
         onChange={updateSocialLinks}
       />
-      <TextAreaInput
-        onChange={e => setAboutMeText(e.target.value)}
+      <MarkdownInput
+        value={aboutMeText}
+        onChangeInput={setAboutMeText}
         label={"About me"}
         placeholder="Tell others a bit about yourself."
         required={false}

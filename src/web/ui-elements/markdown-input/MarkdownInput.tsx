@@ -1,20 +1,24 @@
 import React, { ReactElement } from "react"
 import MDEditor, { ICommand } from "@uiw/react-md-editor"
 import rehypeSanitize from "rehype-sanitize"
+import { v4 as uuidv4 } from "uuid"
 
 type MarkDownInputProps = {
-  text: string
+  onChangeInput: (value: string | undefined) => void
+  onBlur?: (value: string) => void
+  value: string
+  label: string
+  placeholder: string
+  required?: boolean
+  disabled?: boolean
 }
 
 function MarkdownInput(props: MarkDownInputProps): ReactElement {
-  const { text } = props
-  const [value, setValue] = React.useState(text)
+  const { value, label, onChangeInput, placeholder } = props
+  const required = props.required ? props.required : false
+  const disabled = props.disabled ? props.disabled : false
+  const idForTextInput = uuidv4()
 
-  function updateValue(value: string | undefined) {
-    if (value) {
-      setValue(value)
-    }
-  }
   function removeCommands(cmd: ICommand): false | ICommand {
     return cmd && cmd.name && /comment|divider|code|codeBlock/.test(cmd.name)
       ? false
@@ -26,7 +30,11 @@ function MarkdownInput(props: MarkDownInputProps): ReactElement {
       <div className="container">
         <MDEditor
           value={value}
-          onChange={updateValue}
+          aria-label={label}
+          placeholder={placeholder}
+          aria-required={required}
+          aria-disabled={disabled}
+          onChange={e => onChangeInput(e)}
           previewOptions={{
             rehypePlugins: [[rehypeSanitize]],
           }}
