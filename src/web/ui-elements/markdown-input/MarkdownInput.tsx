@@ -27,8 +27,13 @@ function MarkdownInput(props: MarkDownInputProps): ReactElement {
 
   return (
     <>
-      <div className="container">
+      <label
+        htmlFor={idForTextInput}
+        className="form-label col-form-label col-form-label-lg mb-0 d-block"
+      >
+        {label}
         <MDEditor
+          id={idForTextInput}
           value={value}
           aria-label={label}
           placeholder={placeholder}
@@ -42,7 +47,7 @@ function MarkdownInput(props: MarkDownInputProps): ReactElement {
           preview="edit"
           commandsFilter={cmd => removeCommands(cmd)}
         />
-      </div>
+      </label>
     </>
   )
 }

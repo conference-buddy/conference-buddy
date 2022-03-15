@@ -17,25 +17,23 @@ function TextInput(props: TextInputProps): ReactElement {
   const idForTextInput = uuidv4()
 
   return (
-    <div className="row mb-5">
+    <div className="mb-5">
       <label
         htmlFor={idForTextInput}
-        className="form-label col-m-2 col-sm-3 col-form-label col-form-label-lg"
+        className="form-label col-form-label col-form-label-lg mb-0"
       >
         {label}
       </label>
-      <div className="col-m-10 col-sm-9">
-        <input
-          id={idForTextInput}
-          required={required}
-          disabled={disabled}
-          type="text"
-          className="form-control form-control-lg"
-          onChange={e => onChange(e.target.value)}
-          onBlur={onBlur ? e => onBlur(e.target.value) : undefined}
-          placeholder={placeholder}
-        />
-      </div>
+      <input
+        id={idForTextInput}
+        required={required}
+        disabled={disabled}
+        type="text"
+        className="form-control form-control-lg"
+        onChange={e => onChange(e.target.value)}
+        onBlur={onBlur ? e => onBlur(e.target.value) : undefined}
+        placeholder={placeholder}
+      />
     </div>
   )
 }

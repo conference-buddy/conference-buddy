@@ -6,8 +6,8 @@ import { TextInput } from "../../text-input/TextInput"
 import { SocialLinkInputs } from "../../social-link-inputs/SocialLinkInputs"
 import { generateEmptySocialLinks } from "../../../../domain/_social-links/helper/generate-social-links-for-profile"
 import { SocialLink } from "../../../../domain/_social-links/types/types-social-links"
-import { usernameExists } from "../../../../domain/profiles"
 import { MarkdownInput } from "../../markdown-input/MarkdownInput"
+import { usernameExists } from "../../../../domain/profiles"
 
 function CreateProfile(): ReactElement {
   const { authUser } = useAuthUserContext()
@@ -57,44 +57,55 @@ function CreateProfile(): ReactElement {
 
   return (
     <form
-      className="p-3"
       onSubmit={event => {
         event.preventDefault()
-        if (!usernameAvailable) {
-          console.log("username exists")
-          return
-        }
+        if (!usernameAvailable) return
         createUserMutation.mutate()
       }}
     >
-      <TextInput
-        onChange={value => setName(value)}
-        label={"Full Name"}
-        placeholder="Your full name"
-        required={true}
-      />
+      <section className="bg-white rounded p-3 mb-3">
+        <h3>Personal</h3>
+        <div className="row">
+          <div className="col-md-6">
+            <TextInput
+              onChange={value => setName(value)}
+              label={"🙋 Full Name"}
+              placeholder="Your full name"
+              required={true}
+            />
+          </div>
 
-      <TextInput
-        onChange={value => setUsername(value)}
-        onBlur={value => checkUsername(value)}
-        label={"Username"}
-        placeholder="Your preferred username"
-        required={true}
-      />
+          <div className="col-md-6">
+            <TextInput
+              onChange={value => setUsername(value)}
+              onBlur={value => checkUsername(value)}
+              label={"🥷 Username"}
+              placeholder="Your preferred username"
+              required={true}
+            />
+          </div>
+        </div>
 
-      <SocialLinkInputs
-        socialLinks={socialLinks}
-        onChange={updateSocialLinks}
-      />
-      <MarkdownInput
-        value={aboutMeText}
-        onChangeInput={setAboutMeText}
-        label={"About me"}
-        placeholder="Tell others a bit about yourself."
-        required={false}
-      />
-      <div className="text-center">
-        <button type="submit" className="btn btn-confbuddy-green">
+        <MarkdownInput
+          value={aboutMeText}
+          onChangeInput={setAboutMeText}
+          label={"📝 About me"}
+          placeholder="Tell others a bit about yourself."
+          required={false}
+        />
+      </section>
+
+      <section className="bg-white rounded p-3 pb-0 mb-3">
+        <h3>Social links</h3>
+        <div className="row">
+          <SocialLinkInputs
+            socialLinks={socialLinks}
+            onChange={updateSocialLinks}
+          />
+        </div>
+      </section>
+      <div className="text-end mb-3">
+        <button type="submit" className="btn col-12 btn-confbuddy-green">
           Submit Form
         </button>
       </div>

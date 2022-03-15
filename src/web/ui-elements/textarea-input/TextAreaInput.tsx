@@ -16,24 +16,22 @@ function TextAreaInput(props: TextAreaInputProps): ReactElement {
   const idForTextAreaInput = uuidv4()
 
   return (
-    <div className="row mb-5">
+    <div className="mb-5">
       <label
         htmlFor={idForTextAreaInput}
-        className="form-label col-m-2 col-sm-3 col-form-label col-form-label-lg"
+        className="form-label col-form-label col-form-label-lg mb-0"
       >
         {label}
       </label>
-      <div className="col-m-10 col-sm-9">
-        <textarea
-          id={idForTextAreaInput}
-          required={required}
-          disabled={disabled}
-          rows={10}
-          className="form-control form-control-lg"
-          onChange={e => onChange(e)}
-          placeholder={placeholder}
-        />
-      </div>
+      <textarea
+        id={idForTextAreaInput}
+        required={required}
+        disabled={disabled}
+        rows={5}
+        className="form-control form-control-lg"
+        onChange={e => onChange(e)}
+        placeholder={placeholder}
+      />
     </div>
   )
 }
