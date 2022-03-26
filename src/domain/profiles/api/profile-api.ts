@@ -73,6 +73,7 @@ async function createProfile(newProfile: Omit<Profile, "created_at">) {
       username: newProfile.username,
       name: newProfile.name,
       id: newProfile.id,
+      about_text: newProfile.about_text,
     },
   ])
 
