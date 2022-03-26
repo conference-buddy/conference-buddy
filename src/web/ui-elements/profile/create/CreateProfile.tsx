@@ -29,11 +29,11 @@ function CreateProfile(): ReactElement {
     setSocialLinks(newArray)
   }
 
-  function checkUsername(username: string) {
+  async function checkUsername(username: string) {
     if (!username) {
       setUsernameAvailable(false)
     }
-    const isAlreadyUsed = usernameExists(username)
+    const isAlreadyUsed = await usernameExists(username)
     setUsernameAvailable(!isAlreadyUsed)
   }
 
@@ -57,8 +57,9 @@ function CreateProfile(): ReactElement {
 
   return (
     <form
-      onSubmit={event => {
+      onSubmit={async event => {
         event.preventDefault()
+        await checkUsername(username)
         if (!usernameAvailable) return
         createUserMutation.mutate()
       }}
