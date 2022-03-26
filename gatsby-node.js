@@ -18,7 +18,7 @@ exports.sourceNodes = async ({
     conferences = await (exports.getConferences =
       require("./src/domain/conferences").getConferences())
 
-    publicProfiles = await (exports.getConferences =
+    publicProfiles = await (exports.getPublicProfiles =
       require("./src/domain/public-profiles").getPublicProfiles())
   } catch (error) {
     throw Error(error)
@@ -41,6 +41,7 @@ exports.sourceNodes = async ({
   publicProfiles.forEach(publicProfile => {
     const nodeMeta = {
       id: createNodeId(`user/${publicProfile.username}`),
+      username: publicProfile.username,
       parent: null,
       children: [],
       internal: {
