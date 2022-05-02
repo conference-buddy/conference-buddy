@@ -109,6 +109,7 @@ async function updateProfile(profile: Profile) {
     .update({
       username: profile.username,
       name: profile.name,
+      avatar_url: profile.avatar_url,
     })
     .match({ id: profile.id })
 
