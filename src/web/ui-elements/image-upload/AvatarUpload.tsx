@@ -1,7 +1,8 @@
-import React, { ReactElement } from "react"
+import React, { ReactElement, useEffect, useState } from "react"
 import { ImageUpload } from "./ImageUpload"
 import {
   deleteAvatar,
+  getPublicAvatarUrl,
   updateAvatarUrl,
   uploadAvatar,
 } from "../../../domain/profiles/api/avatar-api"
@@ -17,6 +18,14 @@ type ImageObject = {
   dataUrl: string
 }
 function AvatarUpload(props: AvatarUploadProps): ReactElement {
+  const [publicAvatarUrl, setPublicAvatarUrl] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (props.avatarUrl) {
+      getPublicAvatarUrl(props.avatarUrl).then(setPublicAvatarUrl)
+    }
+  }, [props.avatarUrl])
+
   async function uploadImage(imageObject: ImageObject) {
     await uploadAvatar(imageObject)
     await updateAvatarUrl(props.profileId, imageObject.name)
@@ -33,7 +42,7 @@ function AvatarUpload(props: AvatarUploadProps): ReactElement {
     <ImageUpload
       onFileAdded={uploadImage}
       onFileRemoved={deleteImage}
-      image_url={props.avatarUrl}
+      image_url={publicAvatarUrl}
     />
   )
 }

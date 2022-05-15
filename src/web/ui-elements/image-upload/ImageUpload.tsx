@@ -1,5 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react"
-import { getPublicAvatarUrl } from "../../../domain/profiles/api/avatar-api"
+import React, { ReactElement, useState } from "react"
 
 type ImageUploadProps = {
   onFileAdded: (imgObject: ImageObject) => void
@@ -15,19 +14,6 @@ type ImageObject = {
 
 function ImageUpload(props: ImageUploadProps): ReactElement {
   const [currentImage, setCurrentImage] = useState<any | null>(null)
-
-  // @ts-ignore
-  useEffect(() => {
-    if (props.image_url) {
-      const publicURL = getPublicAvatarUrl(props.image_url)
-
-      if (!publicURL) {
-        alert(`no public url was found for: ${props.image_url}`)
-      }
-
-      return publicURL
-    }
-  })
 
   const handleFilePicker = async (e: any) => {
     if (e.target.files.length > 0) {
@@ -79,7 +65,7 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
         <img
           className="img-fluid img-thumbnail"
           alt="Avatar"
-          src={`/${props.image_url}`}
+          src={props.image_url}
           loading="lazy"
         />
       )}
