@@ -3,22 +3,26 @@ import { ImageUpload } from "./ImageUpload"
 import {
   deleteAvatar,
   updateAvatarUrl,
+  uploadAvatar,
 } from "../../../domain/profiles/api/avatar-api"
 
-interface AvatarUploadProps {
+type AvatarUploadProps = {
   profileId: string
   avatarUrl: string | null
 }
 
+type ImageObject = {
+  name: string
+  file: any
+  dataUrl: string
+}
 function AvatarUpload(props: AvatarUploadProps): ReactElement {
-  async function uploadAvatar(imageObject: any) {
-    if (imageObject && imageObject.name) {
-      await uploadAvatar(imageObject)
-      await updateAvatarUrl(props.profileId, imageObject.name)
-    }
+  async function uploadImage(imageObject: ImageObject) {
+    await uploadAvatar(imageObject)
+    await updateAvatarUrl(props.profileId, imageObject.name)
   }
 
-  async function deleteAvatarImage() {
+  async function deleteImage() {
     if (props.avatarUrl) {
       await deleteAvatar(props.avatarUrl)
       await updateAvatarUrl(props.profileId, null)
@@ -27,10 +31,10 @@ function AvatarUpload(props: AvatarUploadProps): ReactElement {
 
   return (
     <ImageUpload
-      onFileAdded={uploadAvatar}
-      onFileRemoved={deleteAvatarImage}
+      onFileAdded={uploadImage}
+      onFileRemoved={deleteImage}
       image_url={props.avatarUrl}
-    ></ImageUpload>
+    />
   )
 }
 

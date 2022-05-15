@@ -37,8 +37,11 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
         dataUrl: URL.createObjectURL(e.target.files[0]),
       }
 
-      setCurrentImage({ ...imageObject })
-      props.onFileAdded(imageObject)
+      if (imageObject && imageObject.name) {
+        setCurrentImage({ ...imageObject })
+
+        props.onFileAdded(imageObject)
+      }
     }
   }
 

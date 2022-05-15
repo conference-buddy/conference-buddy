@@ -1,4 +1,5 @@
 import { supabase } from "../../_database/supabaseClient"
+import { v4 as uuid } from "uuid"
 
 async function updateAvatarUrl(
   profileId: string,
@@ -27,9 +28,10 @@ async function getPublicAvatarUrl(avatarUrl: string): Promise<string | null> {
 }
 
 async function uploadAvatar(newImage: any): Promise<{ Key: string } | null> {
+  const imageName = `public/${newImage.name}-${uuid()}`
   const { data: insertData, error: insertError } = await supabase.storage
     .from("avatars")
-    .upload(`public/${newImage.name}`, newImage.file, {
+    .upload(imageName, newImage.file, {
       cacheControl: "3600",
       upsert: false,
     })
