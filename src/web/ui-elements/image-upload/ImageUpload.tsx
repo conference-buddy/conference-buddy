@@ -1,9 +1,9 @@
 import React, { ReactElement, useState } from "react"
 
 type ImageUploadProps = {
-  onFileAdded: (imgObject: ImageObject) => void
-  onFileRemoved: () => void
-  image_url: string | null
+  onFileAdded: (imageObject: ImageObject) => void
+  onFileRemoved: (imageName: string) => void
+  imagePublicUrl: string | null
 }
 
 type ImageObject = {
@@ -13,7 +13,7 @@ type ImageObject = {
 }
 
 function ImageUpload(props: ImageUploadProps): ReactElement {
-  const [currentImage, setCurrentImage] = useState<any | null>(null)
+  const [currentImage, setCurrentImage] = useState<ImageObject | null>(null)
 
   const handleFilePicker = async (e: any) => {
     if (e.target.files.length > 0) {
@@ -32,13 +32,15 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
   }
 
   const handleDeleteImage = async () => {
-    setCurrentImage({})
-    props.onFileRemoved()
+    if (currentImage?.name) {
+      props.onFileRemoved(currentImage.name)
+      setCurrentImage(null)
+    }
   }
 
   return (
     <>
-      {!currentImage?.dataUrl && !props.image_url && (
+      {!currentImage?.dataUrl && !props.imagePublicUrl && (
         <label>
           <input
             onChange={handleFilePicker}
@@ -50,7 +52,7 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
         </label>
       )}
 
-      {(currentImage?.dataUrl || props.image_url) && (
+      {(currentImage?.dataUrl || props.imagePublicUrl) && (
         <button onClick={handleDeleteImage}>Delete image</button>
       )}
       {currentImage?.dataUrl && (
@@ -61,11 +63,11 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
           loading="lazy"
         />
       )}
-      {props.image_url && (
+      {props.imagePublicUrl && (
         <img
           className="img-fluid img-thumbnail"
           alt="Avatar"
-          src={props.image_url}
+          src={props.imagePublicUrl}
           loading="lazy"
         />
       )}

@@ -1,11 +1,8 @@
 import React, { ReactElement, useEffect, useState } from "react"
 import { ImageUpload } from "./ImageUpload"
-import {
-  deleteAvatar,
-  getPublicAvatarUrl,
-  updateAvatarUrl,
-  uploadAvatar,
-} from "../../../domain/profiles/api/avatar-api"
+import { getPublicAvatarUrl } from "../../../domain/profiles/api/avatar-api"
+import useUpdateAvatar from "../../services/hooks/avatar/useUpdateAvatar"
+import useDeleteAvatar from "../../services/hooks/avatar/useDeleteAvatar"
 
 type AvatarUploadProps = {
   profileId: string
@@ -15,10 +12,11 @@ type AvatarUploadProps = {
 type ImageObject = {
   name: string
   file: any
-  dataUrl: string
 }
 function AvatarUpload(props: AvatarUploadProps): ReactElement {
   const [publicAvatarUrl, setPublicAvatarUrl] = useState<string | null>(null)
+  const updateAvatar = useUpdateAvatar(props.profileId)
+  const deleteAvatar = useDeleteAvatar(props.profileId)
 
   useEffect(() => {
     if (props.avatarUrl) {
@@ -27,22 +25,23 @@ function AvatarUpload(props: AvatarUploadProps): ReactElement {
   }, [props.avatarUrl])
 
   async function uploadImage(imageObject: ImageObject) {
-    await uploadAvatar(imageObject)
-    await updateAvatarUrl(props.profileId, imageObject.name)
+    setPublicAvatarUrl(imageObject.name)
+    updateAvatar.mutate({
+      file: imageObject.file,
+      avatarName: imageObject.name,
+    })
   }
 
-  async function deleteImage() {
-    if (props.avatarUrl) {
-      await deleteAvatar(props.avatarUrl)
-      await updateAvatarUrl(props.profileId, null)
-    }
+  async function deleteImage(imageUrl: string) {
+    setPublicAvatarUrl(null)
+    deleteAvatar.mutate({ avatarUrl: imageUrl })
   }
 
   return (
     <ImageUpload
       onFileAdded={uploadImage}
       onFileRemoved={deleteImage}
-      image_url={publicAvatarUrl}
+      imagePublicUrl={publicAvatarUrl}
     />
   )
 }

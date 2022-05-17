@@ -1,10 +1,12 @@
 import { supabase } from "../../_database/supabaseClient"
-import { v4 as uuid } from "uuid"
 
-async function updateAvatarUrl(
-  profileId: string,
+async function updateAvatarUrl({
+  avatarUrl,
+  profileId,
+}: {
   avatarUrl: string | null
-): Promise<void> {
+  profileId: string
+}): Promise<void> {
   const { error: insertError } = await supabase
     .from("profiles")
     .update({ avatar_url: avatarUrl })
@@ -27,11 +29,13 @@ async function getPublicAvatarUrl(avatarUrl: string): Promise<string | null> {
   return publicURL
 }
 
-async function uploadAvatar(newImage: any): Promise<{ Key: string } | null> {
-  const imageName = `public/${newImage.name}-${uuid()}`
+async function uploadAvatar(params: {
+  avatarName: string
+  file: any
+}): Promise<{ Key: string } | null> {
   const { data: insertData, error: insertError } = await supabase.storage
     .from("avatars")
-    .upload(imageName, newImage.file, {
+    .upload(params.avatarName, params.file, {
       cacheControl: "3600",
       upsert: false,
     })
