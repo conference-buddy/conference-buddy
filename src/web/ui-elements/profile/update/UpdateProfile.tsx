@@ -40,12 +40,6 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
         </label>
         <br />
         <br />
-        <div className="col-2">
-          <AvatarUpload
-            profileId={profile.id}
-            avatarUrl={profile.avatar_url || null}
-          ></AvatarUpload>
-        </div>
         <button
           type="submit"
           className="bg-blue-500 text-white px-8 py-2 rounded w-full"
@@ -53,6 +47,12 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
           Submit Form
         </button>
       </form>
+      <div className="col-2 mt-5">
+        <AvatarUpload
+          profileId={profile.id}
+          avatarUrl={profile.avatar_url || null}
+        ></AvatarUpload>
+      </div>
     </div>
   )
 }

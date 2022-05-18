@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from "react"
 
 type ImageUploadProps = {
   onFileAdded: (imageObject: ImageObject) => void
-  onFileRemoved: (imageName: string) => void
+  onFileRemoved: () => void
   imagePublicUrl: string | null
 }
 
@@ -32,10 +32,8 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
   }
 
   const handleDeleteImage = async () => {
-    if (currentImage?.name) {
-      props.onFileRemoved(currentImage.name)
-      setCurrentImage(null)
-    }
+    props.onFileRemoved()
+    setCurrentImage(null)
   }
 
   return (
@@ -52,20 +50,12 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
         </label>
       )}
 
-      {(currentImage?.dataUrl || props.imagePublicUrl) && (
-        <button onClick={handleDeleteImage}>Delete image</button>
-      )}
-      {currentImage?.dataUrl && (
-        <img
-          className="img-fluid img-thumbnail"
-          src={currentImage?.dataUrl}
-          alt={currentImage?.name}
-          loading="lazy"
-        />
+      {props.imagePublicUrl && (
+        <button onClick={handleDeleteImage}>Delete image here</button>
       )}
       {props.imagePublicUrl && (
         <img
-          className="img-fluid img-thumbnail"
+          className="img-fluid img-thumbnail this-is-the-public-url-image"
           alt="Avatar"
           src={props.imagePublicUrl}
           loading="lazy"

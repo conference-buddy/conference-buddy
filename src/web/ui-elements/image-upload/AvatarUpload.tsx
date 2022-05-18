@@ -20,21 +20,23 @@ function AvatarUpload(props: AvatarUploadProps): ReactElement {
 
   useEffect(() => {
     if (props.avatarUrl) {
-      getPublicAvatarUrl(props.avatarUrl).then(setPublicAvatarUrl)
+      setPublicAvatarUrl(getPublicAvatarUrl(props.avatarUrl))
     }
   }, [props.avatarUrl])
 
   async function uploadImage(imageObject: ImageObject) {
-    setPublicAvatarUrl(imageObject.name)
+    setPublicAvatarUrl(getPublicAvatarUrl(imageObject.name))
     updateAvatar.mutate({
       file: imageObject.file,
       avatarName: imageObject.name,
     })
   }
 
-  async function deleteImage(imageUrl: string) {
+  async function deleteImage() {
     setPublicAvatarUrl(null)
-    deleteAvatar.mutate({ avatarUrl: imageUrl })
+    if (props.avatarUrl) {
+      deleteAvatar.mutate({ avatarUrl: props.avatarUrl })
+    }
   }
 
   return (

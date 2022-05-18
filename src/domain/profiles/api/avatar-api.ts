@@ -17,7 +17,7 @@ async function updateAvatarUrl({
   }
 }
 
-async function getPublicAvatarUrl(avatarUrl: string): Promise<string | null> {
+function getPublicAvatarUrl(avatarUrl: string): string | null {
   const { publicURL, error } = supabase.storage
     .from("avatars")
     .getPublicUrl(avatarUrl)
@@ -47,8 +47,8 @@ async function uploadAvatar(params: {
   return insertData
 }
 
-async function deleteAvatar(avatarName: string) {
-  await supabase.storage.from("avatars").remove([`public/${avatarName}`])
+async function deleteAvatar(avatarUrl: string) {
+  await supabase.storage.from("avatars").remove([avatarUrl])
 }
 
 export { updateAvatarUrl, getPublicAvatarUrl, uploadAvatar, deleteAvatar }
