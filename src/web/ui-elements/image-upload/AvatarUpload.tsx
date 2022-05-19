@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from "react"
-import { ImageUpload } from "./ImageUpload"
+import { ImageObject, ImageUpload } from "./ImageUpload"
 import { getPublicAvatarUrl } from "../../../domain/profiles/api/avatar-api"
 import useUpdateAvatar from "../../services/hooks/avatar/useUpdateAvatar"
 import useDeleteAvatar from "../../services/hooks/avatar/useDeleteAvatar"
@@ -9,10 +9,6 @@ type AvatarUploadProps = {
   avatarUrl: string | null
 }
 
-type ImageObject = {
-  name: string
-  file: any
-}
 function AvatarUpload(props: AvatarUploadProps): ReactElement {
   const [publicAvatarUrl, setPublicAvatarUrl] = useState<string | null>(null)
   const updateAvatar = useUpdateAvatar(props.profileId)

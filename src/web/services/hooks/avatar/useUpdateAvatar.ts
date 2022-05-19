@@ -9,7 +9,7 @@ export default function useUpdateAvatar(profileId: string) {
   const queryClient = useQueryClient()
 
   return useMutation(
-    async (mutationParams: { file: any; avatarName: string }) => {
+    async (mutationParams: { file: File; avatarName: string }) => {
       const imageName = `public/${uuid()}-${mutationParams.avatarName}`
 
       await uploadAvatar({ file: mutationParams.file, avatarName: imageName })

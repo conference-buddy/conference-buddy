@@ -31,7 +31,7 @@ function getPublicAvatarUrl(avatarUrl: string): string | null {
 
 async function uploadAvatar(params: {
   avatarName: string
-  file: any
+  file: File
 }): Promise<{ Key: string } | null> {
   const { data: insertData, error: insertError } = await supabase.storage
     .from("avatars")

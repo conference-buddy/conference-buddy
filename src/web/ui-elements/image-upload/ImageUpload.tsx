@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react"
+import React, { ChangeEvent, ReactElement, useState } from "react"
 
 type ImageUploadProps = {
   onFileAdded: (imageObject: ImageObject) => void
@@ -6,21 +6,23 @@ type ImageUploadProps = {
   imagePublicUrl: string | null
 }
 
-type ImageObject = {
+export type ImageObject = {
   name: string
-  file: any
+  file: File
   dataUrl: string
 }
 
 function ImageUpload(props: ImageUploadProps): ReactElement {
   const [currentImage, setCurrentImage] = useState<ImageObject | null>(null)
 
-  const handleFilePicker = async (e: any) => {
-    if (e.target.files.length > 0) {
+  const handleFilePicker = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = (e.target as HTMLInputElement).files
+
+    if (files && files.length > 0) {
       const imageObject: ImageObject = {
-        name: e.target.files[0].name,
-        file: e.target.files[0],
-        dataUrl: URL.createObjectURL(e.target.files[0]),
+        name: files[0].name,
+        file: files[0],
+        dataUrl: URL.createObjectURL(files[0]),
       }
 
       if (imageObject && imageObject.name) {
