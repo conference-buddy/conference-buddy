@@ -4,12 +4,12 @@ import { getPublicAvatarUrl } from "../../../domain/profiles/api/avatar-api"
 import useUpdateAvatar from "../../services/hooks/avatar/useUpdateAvatar"
 import useDeleteAvatar from "../../services/hooks/avatar/useDeleteAvatar"
 
-type AvatarUploadProps = {
+type UpdateAvatarProps = {
   profileId: string
   avatarUrl: string | null
 }
 
-function AvatarUpload(props: AvatarUploadProps): ReactElement {
+function UpdateAvatar(props: UpdateAvatarProps): ReactElement {
   const [publicAvatarUrl, setPublicAvatarUrl] = useState<string | null>(null)
   const updateAvatar = useUpdateAvatar(props.profileId)
   const deleteAvatar = useDeleteAvatar(props.profileId)
@@ -44,4 +44,4 @@ function AvatarUpload(props: AvatarUploadProps): ReactElement {
   )
 }
 
-export { AvatarUpload }
+export { UpdateAvatar }

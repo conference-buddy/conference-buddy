@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from "react"
 import { Profile } from "../../../../domain/profiles"
 import useUpdateProfile from "../../../services/hooks/profile/useUpdateProfile"
-import { AvatarUpload } from "../../image-upload/AvatarUpload"
+import { UpdateAvatar } from "../../image-upload/UpdateAvatar"
 
 // @TODO implement update profile components
 function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
@@ -48,10 +48,10 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
         </button>
       </form>
       <div className="col-2 mt-5">
-        <AvatarUpload
+        <UpdateAvatar
           profileId={profile.id}
           avatarUrl={profile.avatar_url || null}
-        ></AvatarUpload>
+        />
       </div>
     </div>
   )

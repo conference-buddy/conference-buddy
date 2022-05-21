@@ -34,8 +34,10 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
   }
 
   const handleDeleteImage = async () => {
-    props.onFileRemoved()
-    setCurrentImage(null)
+    if (props.onFileRemoved) {
+      props.onFileRemoved()
+      setCurrentImage(null)
+    }
   }
 
   return (
@@ -52,7 +54,7 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
         </label>
       )}
 
-      {props.imagePublicUrl && (
+      {props.imagePublicUrl && props.onFileRemoved && (
         <button onClick={handleDeleteImage}>Delete image here</button>
       )}
       {props.imagePublicUrl && (

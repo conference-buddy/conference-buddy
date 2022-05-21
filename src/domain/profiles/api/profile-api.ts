@@ -8,7 +8,7 @@ import { SocialLinksDB } from "src/domain/_social-links/types/types-social-links
 async function usernameExists(username: string): Promise<boolean> {
   const matchingUserNames = await supabase
     .from<ProfileDB>("profiles")
-    .select()
+    .select("username", { count: "exact" })
     .eq("username", username)
 
   return !!(
@@ -27,19 +27,19 @@ async function getProfile(user: User | undefined): Promise<Profile | null> {
     .from<ProfileDB>("profiles")
     .select()
     .eq("id", user.id)
-    .single()
+    .limit(1)
 
   const socialLinks = await supabase
     .from<SocialLinksDB>("profiles_social_links")
     .select()
     .eq("id", user.id)
-    .single()
+    .limit(1)
 
   return Promise.all([profile, socialLinks]).then(([profile, socialLinks]) => {
     const { data: profileData, error: profilesError } = profile
     const { data: socialLinksData, error: socialLinksError } = socialLinks
 
-    if (!profileData) {
+    if (!profileData?.length) {
       return null
     }
 
@@ -51,8 +51,8 @@ async function getProfile(user: User | undefined): Promise<Profile | null> {
     }
 
     if (profileData && socialLinksData) {
-      const profileFromDB: ProfileDB = profileData
-      const socialLinksFromDB: SocialLinksDB = socialLinksData
+      const profileFromDB: ProfileDB = profileData[0]
+      const socialLinksFromDB: SocialLinksDB = socialLinksData[0]
 
       return transformProfile({
         profileFromDB,

@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react"
+import React, { ReactElement, useEffect, useState } from "react"
 import useCreateProfile from "../../../services/hooks/profile/useCreateProfile"
 import { navigate } from "gatsby"
 import useAuthUserContext from "../../../services/hooks/auth-user/useAuthUserContext"
@@ -8,6 +8,8 @@ import { generateEmptySocialLinks } from "../../../../domain/_social-links/helpe
 import { SocialLink } from "../../../../domain/_social-links/types/types-social-links"
 import { MarkdownInput } from "../../markdown-input/MarkdownInput"
 import { usernameExists } from "../../../../domain/profiles"
+import { CreateAvatar } from "../../image-upload/CreateAvatar"
+import { ImageObject } from "../../image-upload/ImageUpload"
 
 function CreateProfile(): ReactElement {
   const { authUser } = useAuthUserContext()
@@ -16,6 +18,8 @@ function CreateProfile(): ReactElement {
     authUser?.user_metadata.preferred_username
   )
   const [usernameAvailable, setUsernameAvailable] = useState(false)
+
+  const [avatarFile, setAvatarFile] = useState<ImageObject | null>(null)
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>(
     generateEmptySocialLinks()
   )
@@ -23,18 +27,18 @@ function CreateProfile(): ReactElement {
     authUser?.user_metadata.about_text
   )
 
-  const updateSocialLinks = (value: string | undefined, index: number) => {
-    const newArray = [...socialLinks]
-    newArray[index] = { ...socialLinks[index], value }
-    setSocialLinks(newArray)
-  }
-
   async function checkUsername(username: string) {
     if (!username) {
       setUsernameAvailable(false)
     }
     const isAlreadyUsed = await usernameExists(username)
     setUsernameAvailable(!isAlreadyUsed)
+  }
+
+  const updateSocialLinks = (value: string | undefined, index: number) => {
+    const newArray = [...socialLinks]
+    newArray[index] = { ...socialLinks[index], value }
+    setSocialLinks(newArray)
   }
 
   const createUserMutation = useCreateProfile({
@@ -60,12 +64,19 @@ function CreateProfile(): ReactElement {
       onSubmit={async event => {
         event.preventDefault()
         await checkUsername(username)
-        if (!usernameAvailable) return
-        createUserMutation.mutate()
+        // createUserMutation.mutate()
+        console.log("submitted")
       }}
     >
       <section className="bg-white rounded p-3 mb-3">
         <h3>Personal</h3>
+        <div className="p-5">
+          <h2>AVATAR</h2>
+          <CreateAvatar
+            onFileAdded={setAvatarFile}
+            onFileRemoved={() => setAvatarFile(null)}
+          />
+        </div>
         <div className="row">
           <div className="col-md-6">
             <TextInput
