@@ -1,8 +1,9 @@
 import React, { ReactElement, useEffect, useState } from "react"
-import { ImageObject, ImageUpload } from "./ImageUpload"
+import { ImageUpload } from "./ImageUpload"
 import { getPublicAvatarUrl } from "../../../domain/profiles/api/avatar-api"
 import useUpdateAvatar from "../../services/hooks/avatar/useUpdateAvatar"
 import useDeleteAvatar from "../../services/hooks/avatar/useDeleteAvatar"
+import { ImageObject } from "../../services/storage/image-upload"
 
 type UpdateAvatarProps = {
   profileId: string

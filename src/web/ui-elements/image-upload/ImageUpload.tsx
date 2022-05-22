@@ -1,15 +1,13 @@
 import React, { ChangeEvent, ReactElement, useState } from "react"
+import {
+  createImageObject,
+  ImageObject,
+} from "../../services/storage/image-upload-helper"
 
 type ImageUploadProps = {
   onFileAdded: (imageObject: ImageObject) => void
   onFileRemoved: () => void
   imagePublicUrl: string | null
-}
-
-export type ImageObject = {
-  name: string
-  file: File
-  dataUrl: string
 }
 
 function ImageUpload(props: ImageUploadProps): ReactElement {
@@ -19,11 +17,7 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
     const files = (e.target as HTMLInputElement).files
 
     if (files && files.length > 0) {
-      const imageObject: ImageObject = {
-        name: files[0].name,
-        file: files[0],
-        dataUrl: URL.createObjectURL(files[0]),
-      }
+      const imageObject = createImageObject(files)
 
       if (imageObject && imageObject.name) {
         setCurrentImage({ ...imageObject })

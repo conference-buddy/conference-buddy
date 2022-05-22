@@ -1,7 +1,7 @@
 import { useMutation } from "react-query"
 import {
   deleteAvatar,
-  updateAvatarUrl,
+  updateAvatarUrlInProfile,
 } from "../../../../domain/profiles/api/avatar-api"
 
 export default function useDeleteAvatar(profileId: string) {
@@ -12,7 +12,7 @@ export default function useDeleteAvatar(profileId: string) {
     {
       onSuccess: async () => {
         // await queryClient.invalidateQueries(["profile"])
-        await updateAvatarUrl({ profileId, avatarUrl: null })
+        await updateAvatarUrlInProfile({ profileId, avatarUrl: null })
       },
     }
   )

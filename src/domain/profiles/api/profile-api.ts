@@ -11,10 +11,10 @@ async function usernameExists(username: string): Promise<boolean> {
     .select("username", { count: "exact" })
     .eq("username", username)
 
-  return !!(
+  return Boolean(
     matchingUserNames &&
-    matchingUserNames.data &&
-    matchingUserNames.data.length > 0
+      matchingUserNames.data &&
+      matchingUserNames.data.length > 0
   )
 }
 
@@ -74,6 +74,7 @@ async function createProfile(newProfile: Omit<Profile, "created_at">) {
       name: newProfile.name,
       id: newProfile.id,
       about_text: newProfile.about_text,
+      avatar_url: newProfile.avatar_url,
     },
   ])
 

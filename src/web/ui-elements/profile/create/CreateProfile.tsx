@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react"
+import React, { FormEvent, ReactElement, useState } from "react"
 import useCreateProfile from "../../../services/hooks/profile/useCreateProfile"
 import { navigate } from "gatsby"
 import useAuthUserContext from "../../../services/hooks/auth-user/useAuthUserContext"
@@ -7,49 +7,59 @@ import { SocialLinkInputs } from "../../social-link-inputs/SocialLinkInputs"
 import { generateEmptySocialLinks } from "../../../../domain/_social-links/helper/generate-social-links-for-profile"
 import { SocialLink } from "../../../../domain/_social-links/types/types-social-links"
 import { MarkdownInput } from "../../markdown-input/MarkdownInput"
-import { usernameExists } from "../../../../domain/profiles"
 import { CreateAvatar } from "../../image-upload/CreateAvatar"
-import { ImageObject } from "../../image-upload/ImageUpload"
+import { ImageObject } from "../../../services/storage/image-upload-helper"
+import { uploadAvatar } from "../../../services/storage/avatar"
+import { usernameExists } from "../../../../domain/profiles"
 
 function CreateProfile(): ReactElement {
   const { authUser } = useAuthUserContext()
+
   const [name, setName] = useState(authUser?.user_metadata.full_name)
   const [username, setUsername] = useState(
     authUser?.user_metadata.preferred_username
-  )
-  const [usernameAvailable, setUsernameAvailable] = useState(false)
-
-  const [avatarFile, setAvatarFile] = useState<ImageObject | null>(null)
-  const [socialLinks, setSocialLinks] = useState<SocialLink[]>(
-    generateEmptySocialLinks()
   )
   const [aboutMeText, setAboutMeText] = useState(
     authUser?.user_metadata.about_text
   )
 
-  async function checkUsername(username: string) {
-    if (!username) {
-      setUsernameAvailable(false)
-    }
-    const isAlreadyUsed = await usernameExists(username)
-    setUsernameAvailable(!isAlreadyUsed)
-  }
+  const [avatarFile, setAvatarFile] = useState<ImageObject | null>(null)
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>(
+    generateEmptySocialLinks()
+  )
 
-  const updateSocialLinks = (value: string | undefined, index: number) => {
+  function updateSocialLinks(value: string | undefined, index: number) {
     const newArray = [...socialLinks]
     newArray[index] = { ...socialLinks[index], value }
     setSocialLinks(newArray)
   }
 
-  const createUserMutation = useCreateProfile({
-    about_text: aboutMeText,
-    email: authUser?.email,
-    id: authUser?.id,
-    name,
-    provider: authUser?.app_metadata.provider,
-    social_links: socialLinks,
-    username,
-  })
+  const createUserMutation = useCreateProfile()
+
+  async function submitUserProfile(event: FormEvent) {
+    event.preventDefault()
+    const isAlreadyUsed = await usernameExists(username)
+    // @TODO better handling, also maybe better on blur,
+    // but currently hitting submit without leaving input
+    // causes wrong behaviour, fix with flow
+    if (isAlreadyUsed) {
+      alert("username already exists")
+      return
+    }
+
+    const avatarUrl = avatarFile ? await uploadAvatar(avatarFile) : null
+    console.log(avatarUrl)
+    createUserMutation.mutate({
+      about_text: aboutMeText,
+      email: authUser?.email,
+      id: authUser?.id,
+      name,
+      provider: authUser?.app_metadata.provider,
+      social_links: socialLinks,
+      username,
+      ...(avatarUrl && { avatar_url: avatarUrl }),
+    })
+  }
 
   if (createUserMutation.isSuccess) {
     navigate("/profile")
@@ -60,14 +70,7 @@ function CreateProfile(): ReactElement {
   }
 
   return (
-    <form
-      onSubmit={async event => {
-        event.preventDefault()
-        await checkUsername(username)
-        // createUserMutation.mutate()
-        console.log("submitted")
-      }}
-    >
+    <form onSubmit={submitUserProfile}>
       <section className="bg-white rounded p-3 mb-3">
         <h3>Personal</h3>
         <div className="p-5">
@@ -90,7 +93,6 @@ function CreateProfile(): ReactElement {
           <div className="col-md-6">
             <TextInput
               onChange={value => setUsername(value)}
-              onBlur={value => checkUsername(value)}
               label={"🥷 Username"}
               placeholder="Your preferred username"
               required={true}

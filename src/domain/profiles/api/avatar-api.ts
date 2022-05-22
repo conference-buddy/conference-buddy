@@ -1,6 +1,6 @@
 import { supabase } from "../../_database/supabaseClient"
 
-async function updateAvatarUrl({
+async function updateAvatarUrlInProfile({
   avatarUrl,
   profileId,
 }: {
@@ -17,38 +17,4 @@ async function updateAvatarUrl({
   }
 }
 
-function getPublicAvatarUrl(avatarUrl: string): string | null {
-  const { publicURL, error } = supabase.storage
-    .from("avatars")
-    .getPublicUrl(avatarUrl)
-
-  if (error) {
-    throw new Error(error.message)
-  }
-
-  return publicURL
-}
-
-async function uploadAvatar(params: {
-  avatarName: string
-  file: File
-}): Promise<{ Key: string } | null> {
-  const { data: insertData, error: insertError } = await supabase.storage
-    .from("avatars")
-    .upload(params.avatarName, params.file, {
-      cacheControl: "3600",
-      upsert: false,
-    })
-
-  if (insertError) {
-    throw new Error(insertError.message)
-  }
-
-  return insertData
-}
-
-async function deleteAvatar(avatarUrl: string) {
-  await supabase.storage.from("avatars").remove([avatarUrl])
-}
-
-export { updateAvatarUrl, getPublicAvatarUrl, uploadAvatar, deleteAvatar }
+export { updateAvatarUrlInProfile }

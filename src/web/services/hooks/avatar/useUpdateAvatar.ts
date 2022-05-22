@@ -1,24 +1,19 @@
 import { useMutation, useQueryClient } from "react-query"
-import {
-  updateAvatarUrl,
-  uploadAvatar,
-} from "../../../../domain/profiles/api/avatar-api"
-import { v4 as uuid } from "uuid"
+import { updateAvatarUrlInProfile } from "../../../../domain/profiles/api/avatar-api"
+import { ImageObject } from "../../storage/image-upload-helper"
+import { uploadAvatar } from "../../storage/avatar"
 
 export default function useUpdateAvatar(profileId: string) {
   const queryClient = useQueryClient()
 
   return useMutation(
-    async (mutationParams: { file: File; avatarName: string }) => {
-      const imageName = `public/${uuid()}-${mutationParams.avatarName}`
-
-      await uploadAvatar({ file: mutationParams.file, avatarName: imageName })
-      return imageName
+    async (avatarFile: ImageObject) => {
+      return uploadAvatar(avatarFile)
     },
     {
-      onSuccess: async (avatarName: string) => {
-        await updateAvatarUrl({
-          avatarUrl: avatarName,
+      onSuccess: async (avatarUrl: string) => {
+        await updateAvatarUrlInProfile({
+          avatarUrl: avatarUrl,
           profileId,
         })
         await queryClient.invalidateQueries(["profile"])
