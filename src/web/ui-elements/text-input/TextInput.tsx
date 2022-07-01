@@ -1,6 +1,8 @@
 import React, { ReactElement } from "react"
 import { v4 as uuidv4 } from "uuid"
 
+type TextInputTypes = "text" | "url" | "date"
+
 type TextInputProps = {
   onChange: (value: string) => void
   onBlur?: (value: string) => void
@@ -8,12 +10,14 @@ type TextInputProps = {
   placeholder: string
   required?: boolean
   disabled?: boolean
+  type?: TextInputTypes
 }
 
 function TextInput(props: TextInputProps): ReactElement {
   const { label, onChange, onBlur, placeholder } = props
   const required = props.required ? props.required : false
   const disabled = props.disabled ? props.disabled : false
+  const type = props.type ? props.type : "text"
   const idForTextInput = uuidv4()
 
   return (
@@ -28,7 +32,7 @@ function TextInput(props: TextInputProps): ReactElement {
         id={idForTextInput}
         required={required}
         disabled={disabled}
-        type="text"
+        type={type}
         className="form-control form-control-lg"
         onChange={e => onChange(e.target.value)}
         onBlur={onBlur ? e => onBlur(e.target.value) : undefined}
