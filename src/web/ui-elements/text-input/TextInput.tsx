@@ -43,8 +43,12 @@ function TextInput(props: TextInputProps): ReactElement {
       />
       {props.list?.length && (
         <datalist id={idForDataList}>
-          {props.list.map(entry => {
-            return <option value={entry} />
+          {props.list.map((entry, index) => {
+            return (
+              <option value={entry} key={index}>
+                {entry}
+              </option>
+            )
           })}
         </datalist>
       )}
