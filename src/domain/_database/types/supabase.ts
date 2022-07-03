@@ -12,15 +12,15 @@ export interface paths {
       };
     };
   };
-  "/buddy_posts": {
+  "/subscriptions": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.buddy_posts.id"];
-          created_at?: parameters["rowFilter.buddy_posts.created_at"];
-          text?: parameters["rowFilter.buddy_posts.text"];
-          conference_id?: parameters["rowFilter.buddy_posts.conference_id"];
-          profile_id?: parameters["rowFilter.buddy_posts.profile_id"];
+          id?: parameters["rowFilter.subscriptions.id"];
+          created_at?: parameters["rowFilter.subscriptions.created_at"];
+          profile_id?: parameters["rowFilter.subscriptions.profile_id"];
+          conference_id?: parameters["rowFilter.subscriptions.conference_id"];
+          type?: parameters["rowFilter.subscriptions.type"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -42,7 +42,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["buddy_posts"][];
+          schema: definitions["subscriptions"][];
         };
         /** Partial Content */
         206: unknown;
@@ -51,8 +51,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** buddy_posts */
-          buddy_posts?: definitions["buddy_posts"];
+          /** subscriptions */
+          subscriptions?: definitions["subscriptions"];
         };
         query: {
           /** Filtering Columns */
@@ -71,11 +71,11 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.buddy_posts.id"];
-          created_at?: parameters["rowFilter.buddy_posts.created_at"];
-          text?: parameters["rowFilter.buddy_posts.text"];
-          conference_id?: parameters["rowFilter.buddy_posts.conference_id"];
-          profile_id?: parameters["rowFilter.buddy_posts.profile_id"];
+          id?: parameters["rowFilter.subscriptions.id"];
+          created_at?: parameters["rowFilter.subscriptions.created_at"];
+          profile_id?: parameters["rowFilter.subscriptions.profile_id"];
+          conference_id?: parameters["rowFilter.subscriptions.conference_id"];
+          type?: parameters["rowFilter.subscriptions.type"];
         };
         header: {
           /** Preference */
@@ -90,15 +90,15 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.buddy_posts.id"];
-          created_at?: parameters["rowFilter.buddy_posts.created_at"];
-          text?: parameters["rowFilter.buddy_posts.text"];
-          conference_id?: parameters["rowFilter.buddy_posts.conference_id"];
-          profile_id?: parameters["rowFilter.buddy_posts.profile_id"];
+          id?: parameters["rowFilter.subscriptions.id"];
+          created_at?: parameters["rowFilter.subscriptions.created_at"];
+          profile_id?: parameters["rowFilter.subscriptions.profile_id"];
+          conference_id?: parameters["rowFilter.subscriptions.conference_id"];
+          type?: parameters["rowFilter.subscriptions.type"];
         };
         body: {
-          /** buddy_posts */
-          buddy_posts?: definitions["buddy_posts"];
+          /** subscriptions */
+          subscriptions?: definitions["subscriptions"];
         };
         header: {
           /** Preference */
@@ -237,6 +237,7 @@ export interface paths {
           email?: parameters["rowFilter.profiles.email"];
           created_at?: parameters["rowFilter.profiles.created_at"];
           about_text?: parameters["rowFilter.profiles.about_text"];
+          avatar_url?: parameters["rowFilter.profiles.avatar_url"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -295,6 +296,7 @@ export interface paths {
           email?: parameters["rowFilter.profiles.email"];
           created_at?: parameters["rowFilter.profiles.created_at"];
           about_text?: parameters["rowFilter.profiles.about_text"];
+          avatar_url?: parameters["rowFilter.profiles.avatar_url"];
         };
         header: {
           /** Preference */
@@ -317,10 +319,110 @@ export interface paths {
           email?: parameters["rowFilter.profiles.email"];
           created_at?: parameters["rowFilter.profiles.created_at"];
           about_text?: parameters["rowFilter.profiles.about_text"];
+          avatar_url?: parameters["rowFilter.profiles.avatar_url"];
         };
         body: {
           /** profiles */
           profiles?: definitions["profiles"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/buddy_posts": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.buddy_posts.id"];
+          created_at?: parameters["rowFilter.buddy_posts.created_at"];
+          text?: parameters["rowFilter.buddy_posts.text"];
+          conference_id?: parameters["rowFilter.buddy_posts.conference_id"];
+          profile_id?: parameters["rowFilter.buddy_posts.profile_id"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["buddy_posts"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** buddy_posts */
+          buddy_posts?: definitions["buddy_posts"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.buddy_posts.id"];
+          created_at?: parameters["rowFilter.buddy_posts.created_at"];
+          text?: parameters["rowFilter.buddy_posts.text"];
+          conference_id?: parameters["rowFilter.buddy_posts.conference_id"];
+          profile_id?: parameters["rowFilter.buddy_posts.profile_id"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.buddy_posts.id"];
+          created_at?: parameters["rowFilter.buddy_posts.created_at"];
+          text?: parameters["rowFilter.buddy_posts.text"];
+          conference_id?: parameters["rowFilter.buddy_posts.conference_id"];
+          profile_id?: parameters["rowFilter.buddy_posts.profile_id"];
+        };
+        body: {
+          /** buddy_posts */
+          buddy_posts?: definitions["buddy_posts"];
         };
         header: {
           /** Preference */
@@ -438,109 +540,10 @@ export interface paths {
       };
     };
   };
-  "/subscriptions": {
-    get: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.subscriptions.id"];
-          created_at?: parameters["rowFilter.subscriptions.created_at"];
-          profile_id?: parameters["rowFilter.subscriptions.profile_id"];
-          conference_id?: parameters["rowFilter.subscriptions.conference_id"];
-          type?: parameters["rowFilter.subscriptions.type"];
-          /** Filtering Columns */
-          select?: parameters["select"];
-          /** Ordering */
-          order?: parameters["order"];
-          /** Limiting and Pagination */
-          offset?: parameters["offset"];
-          /** Limiting and Pagination */
-          limit?: parameters["limit"];
-        };
-        header: {
-          /** Limiting and Pagination */
-          Range?: parameters["range"];
-          /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
-          /** Preference */
-          Prefer?: parameters["preferCount"];
-        };
-      };
-      responses: {
-        /** OK */
-        200: {
-          schema: definitions["subscriptions"][];
-        };
-        /** Partial Content */
-        206: unknown;
-      };
-    };
-    post: {
-      parameters: {
-        body: {
-          /** subscriptions */
-          subscriptions?: definitions["subscriptions"];
-        };
-        query: {
-          /** Filtering Columns */
-          select?: parameters["select"];
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferReturn"];
-        };
-      };
-      responses: {
-        /** Created */
-        201: unknown;
-      };
-    };
-    delete: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.subscriptions.id"];
-          created_at?: parameters["rowFilter.subscriptions.created_at"];
-          profile_id?: parameters["rowFilter.subscriptions.profile_id"];
-          conference_id?: parameters["rowFilter.subscriptions.conference_id"];
-          type?: parameters["rowFilter.subscriptions.type"];
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferReturn"];
-        };
-      };
-      responses: {
-        /** No Content */
-        204: never;
-      };
-    };
-    patch: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.subscriptions.id"];
-          created_at?: parameters["rowFilter.subscriptions.created_at"];
-          profile_id?: parameters["rowFilter.subscriptions.profile_id"];
-          conference_id?: parameters["rowFilter.subscriptions.conference_id"];
-          type?: parameters["rowFilter.subscriptions.type"];
-        };
-        body: {
-          /** subscriptions */
-          subscriptions?: definitions["subscriptions"];
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferReturn"];
-        };
-      };
-      responses: {
-        /** No Content */
-        204: never;
-      };
-    };
-  };
 }
 
 export interface definitions {
-  buddy_posts: {
+  subscriptions: {
     /**
      * Format: uuid
      * @description Note:
@@ -553,20 +556,20 @@ export interface definitions {
      * @default now()
      */
     created_at: string;
-    /** Format: text */
-    text: string;
-    /**
-     * Format: uuid
-     * @description Note:
-     * This is a Foreign Key to `conferences.id`.<fk table='conferences' column='id'/>
-     */
-    conference_id: string;
     /**
      * Format: uuid
      * @description Note:
      * This is a Foreign Key to `profiles.id`.<fk table='profiles' column='id'/>
      */
     profile_id: string;
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `conferences.id`.<fk table='conferences' column='id'/>
+     */
+    conference_id: string;
+    /** Format: text */
+    type: string;
   };
   conferences: {
     /**
@@ -625,6 +628,36 @@ export interface definitions {
     created_at: string;
     /** Format: text */
     about_text?: string;
+    /** Format: text */
+    avatar_url?: string;
+  };
+  buddy_posts: {
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     * @default extensions.uuid_generate_v4()
+     */
+    id: string;
+    /**
+     * Format: timestamp with time zone
+     * @default now()
+     */
+    created_at: string;
+    /** Format: text */
+    text: string;
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `conferences.id`.<fk table='conferences' column='id'/>
+     */
+    conference_id: string;
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `profiles.id`.<fk table='profiles' column='id'/>
+     */
+    profile_id: string;
   };
   /** @description Social links for user profiles */
   profiles_social_links: {
@@ -646,34 +679,6 @@ export interface definitions {
     instagram?: string;
     /** Format: text */
     linkedin?: string;
-  };
-  subscriptions: {
-    /**
-     * Format: uuid
-     * @description Note:
-     * This is a Primary Key.<pk/>
-     * @default extensions.uuid_generate_v4()
-     */
-    id: string;
-    /**
-     * Format: timestamp with time zone
-     * @default now()
-     */
-    created_at: string;
-    /**
-     * Format: uuid
-     * @description Note:
-     * This is a Foreign Key to `profiles.id`.<fk table='profiles' column='id'/>
-     */
-    profile_id: string;
-    /**
-     * Format: uuid
-     * @description Note:
-     * This is a Foreign Key to `conferences.id`.<fk table='conferences' column='id'/>
-     */
-    conference_id: string;
-    /** Format: text */
-    type: string;
   };
 }
 
@@ -710,18 +715,18 @@ export interface parameters {
   offset: string;
   /** @description Limiting and Pagination */
   limit: string;
-  /** @description buddy_posts */
-  "body.buddy_posts": definitions["buddy_posts"];
+  /** @description subscriptions */
+  "body.subscriptions": definitions["subscriptions"];
   /** Format: uuid */
-  "rowFilter.buddy_posts.id": string;
+  "rowFilter.subscriptions.id": string;
   /** Format: timestamp with time zone */
-  "rowFilter.buddy_posts.created_at": string;
+  "rowFilter.subscriptions.created_at": string;
+  /** Format: uuid */
+  "rowFilter.subscriptions.profile_id": string;
+  /** Format: uuid */
+  "rowFilter.subscriptions.conference_id": string;
   /** Format: text */
-  "rowFilter.buddy_posts.text": string;
-  /** Format: uuid */
-  "rowFilter.buddy_posts.conference_id": string;
-  /** Format: uuid */
-  "rowFilter.buddy_posts.profile_id": string;
+  "rowFilter.subscriptions.type": string;
   /** @description conferences */
   "body.conferences": definitions["conferences"];
   /** Format: uuid */
@@ -762,6 +767,20 @@ export interface parameters {
   "rowFilter.profiles.created_at": string;
   /** Format: text */
   "rowFilter.profiles.about_text": string;
+  /** Format: text */
+  "rowFilter.profiles.avatar_url": string;
+  /** @description buddy_posts */
+  "body.buddy_posts": definitions["buddy_posts"];
+  /** Format: uuid */
+  "rowFilter.buddy_posts.id": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.buddy_posts.created_at": string;
+  /** Format: text */
+  "rowFilter.buddy_posts.text": string;
+  /** Format: uuid */
+  "rowFilter.buddy_posts.conference_id": string;
+  /** Format: uuid */
+  "rowFilter.buddy_posts.profile_id": string;
   /** @description profiles_social_links */
   "body.profiles_social_links": definitions["profiles_social_links"];
   /** Format: uuid */
@@ -778,18 +797,6 @@ export interface parameters {
   "rowFilter.profiles_social_links.instagram": string;
   /** Format: text */
   "rowFilter.profiles_social_links.linkedin": string;
-  /** @description subscriptions */
-  "body.subscriptions": definitions["subscriptions"];
-  /** Format: uuid */
-  "rowFilter.subscriptions.id": string;
-  /** Format: timestamp with time zone */
-  "rowFilter.subscriptions.created_at": string;
-  /** Format: uuid */
-  "rowFilter.subscriptions.profile_id": string;
-  /** Format: uuid */
-  "rowFilter.subscriptions.conference_id": string;
-  /** Format: text */
-  "rowFilter.subscriptions.type": string;
 }
 
 export interface operations {}
