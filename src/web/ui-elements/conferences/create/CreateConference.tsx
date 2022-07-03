@@ -1,6 +1,6 @@
 import React from "react"
 import { TextInput } from "../../text-input/TextInput"
-import { MarkdownInput } from "../../markdown-input/MarkdownInput"
+import { TextAreaInput } from "../../textarea-input/TextAreaInput"
 
 function CreateConference() {
   const onSubmit = (event: any) => {
@@ -12,8 +12,8 @@ function CreateConference() {
     console.log("onChange textinput", value)
   }
 
-  const onMarkdownChange = (value: any) => {
-    console.log("onChange markdown", value)
+  const onChangeTextarea = (value: any) => {
+    console.log("onChange textarea", value)
   }
 
   return (
@@ -22,16 +22,38 @@ function CreateConference() {
         <div className="row col">
           <TextInput
             onChange={value => onChange(value)}
-            label={"🏷️ Conference name"}
-            placeholder="Conference name"
+            label={"🏷️ Conference name (required)"}
+            placeholder="The Awesome Conference"
             required={true}
           />
+        </div>
+        <div className="row">
+          <div className="col-md-6">
+            <TextInput
+              onChange={value => onChange(value)}
+              label={"📍 Country (required)"}
+              placeholder="Awesomeland"
+              required={true}
+              list={["Germany", "Netherlands"]}
+            />
+          </div>
+          <div className="col-md-6">
+            <TextInput
+              onChange={value => onChange(value)}
+              label={"📍 City (required)"}
+              placeholder="Awesomecity "
+              required={true}
+              list={["Frankfurt", "Amsterdam"]}
+            />
+          </div>
         </div>
         <div className="row col">
           <TextInput
             onChange={value => onChange(value)}
-            label={"🔗 Confernce website"}
-            placeholder="Conference website or other link with more information"
+            label={
+              "🔗 Confernce website or link with more information (required)"
+            }
+            placeholder="http://awesome-conference-website.org"
             type="url"
             required={true}
           />
@@ -40,7 +62,7 @@ function CreateConference() {
           <div className="col-md-6">
             <TextInput
               onChange={value => onChange(value)}
-              label={"🗓️ Start date"}
+              label={"🗓️ Start date (required)"}
               placeholder="Start date"
               type="date"
               required={true}
@@ -49,18 +71,17 @@ function CreateConference() {
           <div className="col-md-6">
             <TextInput
               onChange={value => onChange(value)}
-              label={"🗓️ End date"}
+              label={"🗓️ End date (required)"}
               placeholder="End date"
               type="date"
               required={true}
             />
           </div>
         </div>
-        <MarkdownInput
-          value={""}
-          onChangeInput={onMarkdownChange}
+        <TextAreaInput
+          onChange={onChangeTextarea}
           label={"📝 More information about the conference"}
-          placeholder="Tell others a bit about the conference."
+          placeholder="Tell others a bit about the awesome conference."
           required={false}
         />
       </section>

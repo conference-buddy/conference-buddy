@@ -11,6 +11,7 @@ type TextInputProps = {
   required?: boolean
   disabled?: boolean
   type?: TextInputTypes
+  list?: string[]
 }
 
 function TextInput(props: TextInputProps): ReactElement {
@@ -19,6 +20,7 @@ function TextInput(props: TextInputProps): ReactElement {
   const disabled = props.disabled ? props.disabled : false
   const type = props.type ? props.type : "text"
   const idForTextInput = uuidv4()
+  const idForDataList = uuidv4()
 
   return (
     <div className="mb-5">
@@ -29,6 +31,7 @@ function TextInput(props: TextInputProps): ReactElement {
         {label}
       </label>
       <input
+        list={props.list && idForDataList}
         id={idForTextInput}
         required={required}
         disabled={disabled}
@@ -38,6 +41,13 @@ function TextInput(props: TextInputProps): ReactElement {
         onBlur={onBlur ? e => onBlur(e.target.value) : undefined}
         placeholder={placeholder}
       />
+      {props.list?.length && (
+        <datalist id={idForDataList}>
+          {props.list.map(entry => {
+            return <option value={entry} />
+          })}
+        </datalist>
+      )}
     </div>
   )
 }
