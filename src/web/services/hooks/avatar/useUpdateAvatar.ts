@@ -7,16 +7,17 @@ export default function useUpdateAvatar(profileId: string) {
   const queryClient = useQueryClient()
 
   return useMutation(
-    async (avatarFile: ImageObject) => {
-      return uploadAvatar(avatarFile)
+    (mutationParams: { avatarFile: ImageObject }) => {
+      return uploadAvatar(mutationParams.avatarFile)
     },
     {
       onSuccess: async (avatarUrl: string) => {
+        await queryClient.invalidateQueries(["profile"])
         await updateAvatarUrlInProfile({
           avatarUrl: avatarUrl,
           profileId,
         })
-        await queryClient.invalidateQueries(["profile"])
+        console.log(avatarUrl)
       },
     }
   )

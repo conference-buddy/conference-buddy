@@ -1,9 +1,9 @@
 import React, { ReactElement, useEffect, useState } from "react"
 import { ImageUpload } from "./ImageUpload"
-import { getPublicAvatarUrl } from "../../../domain/profiles/api/avatar-api"
+import { getPublicAvatarUrl } from "../../services/storage/avatar"
 import useUpdateAvatar from "../../services/hooks/avatar/useUpdateAvatar"
 import useDeleteAvatar from "../../services/hooks/avatar/useDeleteAvatar"
-import { ImageObject } from "../../services/storage/image-upload"
+import { ImageObject } from "../../services/storage/image-upload-helper"
 
 type UpdateAvatarProps = {
   profileId: string
@@ -23,10 +23,7 @@ function UpdateAvatar(props: UpdateAvatarProps): ReactElement {
 
   async function uploadImage(imageObject: ImageObject) {
     setPublicAvatarUrl(getPublicAvatarUrl(imageObject.name))
-    updateAvatar.mutate({
-      file: imageObject.file,
-      avatarName: imageObject.name,
-    })
+    updateAvatar.mutate({ avatarFile: imageObject })
   }
 
   async function deleteImage() {

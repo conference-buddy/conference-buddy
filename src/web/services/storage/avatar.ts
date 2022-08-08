@@ -2,16 +2,14 @@ import { v4 as uuid } from "uuid"
 import { supabase } from "../../../domain/_database/supabaseClient"
 import { ImageObject } from "./image-upload-helper"
 
-export function createAvatarUr(fileName: string) {
+export function createAvatarUrl(fileName: string) {
   return `public/${uuid()}-${fileName}`
 }
 
 // These handles the avatar _storage_
 // maybe find a better place for that later
-export async function uploadAvatar(
-  avatarFile: ImageObject
-): Promise<string | null> {
-  const avatarUrl = createAvatarUr(avatarFile.name)
+export async function uploadAvatar(avatarFile: ImageObject) {
+  const avatarUrl = createAvatarUrl(avatarFile.name)
   const { data, error } = await supabase.storage
     .from("avatars")
     .upload(avatarUrl, avatarFile.file, {
@@ -22,7 +20,12 @@ export async function uploadAvatar(
   if (error) {
     throw new Error(error.message)
   }
-  return data?.Key || null
+
+  if (!data) {
+    throw new Error("Data is undefined")
+  }
+
+  return data.Key
 }
 
 export async function deleteAvatar(avatarUrl: string) {

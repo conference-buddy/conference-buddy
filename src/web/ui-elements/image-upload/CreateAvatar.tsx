@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from "react"
-import { ImageObject, ImageUpload } from "./ImageUpload"
+import { ImageObject } from "../../services/storage/image-upload-helper"
+import { ImageUpload } from "./ImageUpload"
 
 type CreateAvatarProps = {
   onFileAdded: (imageObject: ImageObject) => void
