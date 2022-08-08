@@ -50,6 +50,7 @@ public
 
 # IDE/Editors
 .idea/
+.vscode/
 
 # Yarn
 .pnp.*
