@@ -53,10 +53,46 @@ declare namespace Queries {
 
   type Conference = Node & {
     readonly children: ReadonlyArray<Node>
+    readonly city: Maybe<Scalars["String"]>
+    readonly country: Maybe<Scalars["String"]>
+    readonly created_at: Maybe<Scalars["Date"]>
+    readonly description: Maybe<Scalars["String"]>
+    readonly end_date: Maybe<Scalars["Date"]>
     readonly id: Scalars["ID"]
     readonly internal: Internal
     readonly name: Maybe<Scalars["String"]>
     readonly parent: Maybe<Node>
+    readonly start_date: Maybe<Scalars["Date"]>
+    readonly updated_at: Maybe<Scalars["Date"]>
+    readonly url: Maybe<Scalars["String"]>
+  }
+
+  type Conference_created_atArgs = {
+    difference: InputMaybe<Scalars["String"]>
+    formatString: InputMaybe<Scalars["String"]>
+    fromNow: InputMaybe<Scalars["Boolean"]>
+    locale: InputMaybe<Scalars["String"]>
+  }
+
+  type Conference_end_dateArgs = {
+    difference: InputMaybe<Scalars["String"]>
+    formatString: InputMaybe<Scalars["String"]>
+    fromNow: InputMaybe<Scalars["Boolean"]>
+    locale: InputMaybe<Scalars["String"]>
+  }
+
+  type Conference_start_dateArgs = {
+    difference: InputMaybe<Scalars["String"]>
+    formatString: InputMaybe<Scalars["String"]>
+    fromNow: InputMaybe<Scalars["Boolean"]>
+    locale: InputMaybe<Scalars["String"]>
+  }
+
+  type Conference_updated_atArgs = {
+    difference: InputMaybe<Scalars["String"]>
+    formatString: InputMaybe<Scalars["String"]>
+    fromNow: InputMaybe<Scalars["Boolean"]>
+    locale: InputMaybe<Scalars["String"]>
   }
 
   type ConferenceConnection = {
@@ -101,18 +137,34 @@ declare namespace Queries {
 
   type ConferenceFieldSelector = {
     readonly children: InputMaybe<NodeFieldSelector>
+    readonly city: InputMaybe<FieldSelectorEnum>
+    readonly country: InputMaybe<FieldSelectorEnum>
+    readonly created_at: InputMaybe<FieldSelectorEnum>
+    readonly description: InputMaybe<FieldSelectorEnum>
+    readonly end_date: InputMaybe<FieldSelectorEnum>
     readonly id: InputMaybe<FieldSelectorEnum>
     readonly internal: InputMaybe<InternalFieldSelector>
     readonly name: InputMaybe<FieldSelectorEnum>
     readonly parent: InputMaybe<NodeFieldSelector>
+    readonly start_date: InputMaybe<FieldSelectorEnum>
+    readonly updated_at: InputMaybe<FieldSelectorEnum>
+    readonly url: InputMaybe<FieldSelectorEnum>
   }
 
   type ConferenceFilterInput = {
     readonly children: InputMaybe<NodeFilterListInput>
+    readonly city: InputMaybe<StringQueryOperatorInput>
+    readonly country: InputMaybe<StringQueryOperatorInput>
+    readonly created_at: InputMaybe<DateQueryOperatorInput>
+    readonly description: InputMaybe<StringQueryOperatorInput>
+    readonly end_date: InputMaybe<DateQueryOperatorInput>
     readonly id: InputMaybe<StringQueryOperatorInput>
     readonly internal: InputMaybe<InternalFilterInput>
     readonly name: InputMaybe<StringQueryOperatorInput>
     readonly parent: InputMaybe<NodeFilterInput>
+    readonly start_date: InputMaybe<DateQueryOperatorInput>
+    readonly updated_at: InputMaybe<DateQueryOperatorInput>
+    readonly url: InputMaybe<StringQueryOperatorInput>
   }
 
   type ConferenceGroupConnection = {
@@ -153,10 +205,18 @@ declare namespace Queries {
 
   type ConferenceSortInput = {
     readonly children: InputMaybe<NodeSortInput>
+    readonly city: InputMaybe<SortOrderEnum>
+    readonly country: InputMaybe<SortOrderEnum>
+    readonly created_at: InputMaybe<SortOrderEnum>
+    readonly description: InputMaybe<SortOrderEnum>
+    readonly end_date: InputMaybe<SortOrderEnum>
     readonly id: InputMaybe<SortOrderEnum>
     readonly internal: InputMaybe<InternalSortInput>
     readonly name: InputMaybe<SortOrderEnum>
     readonly parent: InputMaybe<NodeSortInput>
+    readonly start_date: InputMaybe<SortOrderEnum>
+    readonly updated_at: InputMaybe<SortOrderEnum>
+    readonly url: InputMaybe<SortOrderEnum>
   }
 
   type DateQueryOperatorInput = {
@@ -1642,10 +1702,18 @@ declare namespace Queries {
 
   type Query_conferenceArgs = {
     children: InputMaybe<NodeFilterListInput>
+    city: InputMaybe<StringQueryOperatorInput>
+    country: InputMaybe<StringQueryOperatorInput>
+    created_at: InputMaybe<DateQueryOperatorInput>
+    description: InputMaybe<StringQueryOperatorInput>
+    end_date: InputMaybe<DateQueryOperatorInput>
     id: InputMaybe<StringQueryOperatorInput>
     internal: InputMaybe<InternalFilterInput>
     name: InputMaybe<StringQueryOperatorInput>
     parent: InputMaybe<NodeFilterInput>
+    start_date: InputMaybe<DateQueryOperatorInput>
+    updated_at: InputMaybe<DateQueryOperatorInput>
+    url: InputMaybe<StringQueryOperatorInput>
   }
 
   type Query_directoryArgs = {
