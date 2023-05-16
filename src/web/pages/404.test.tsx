@@ -1,15 +1,15 @@
-import {cleanup, render, screen} from "@testing-library/react";
-import PageNotFound from "./404";
+import { cleanup, render, screen } from "@testing-library/react"
+import PageNotFound from "./404"
 
-describe('PageNotFound', ()=> {
-    beforeAll(()=> {
-        render(<PageNotFound />)
-    })
+describe("PageNotFound", () => {
+  beforeAll(() => {
+    render(<PageNotFound />)
+  })
 
-    afterAll(cleanup)
+  afterAll(cleanup)
 
-    it('shows a 404 page', ()=> {
-        const title = screen.getByRole('heading', { name: "Page not found"})
-        expect(title).toBeVisible()
-    })
+  it("shows a 404 page", () => {
+    const title = screen.getByRole("heading", { name: "Page not found" })
+    expect(title).toBeVisible()
+  })
 })

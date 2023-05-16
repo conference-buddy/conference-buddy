@@ -3,29 +3,32 @@
 process.env.RTL_SKIP_AUTO_CLEANUP = "true"
 
 module.exports = {
-    rootDir: ".",
-    globals: {
-        __PATH_PREFIX__: ``,
-    },
-    transform: {
-        "^.+\\.tsx?$": ["ts-jest", {
-            tsconfig: "./tsconfig.test.json",
-        }],
-        ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$":
-            "jest-transform-stub",
-    },
-    moduleNameMapper: {
-        "@/(.*)": "<rootDir>/src/$1",
-    },
-    testEnvironment: "jsdom",
-    testPathIgnorePatterns: ["<rootdir>/node_modules/"],
-    setupFiles: [`<rootDir>/test-setup/loadershim.js`],
-    setupFilesAfterEnv: [
-        "<rootDir>/test-setup/setup-files.ts",
-        "<rootDir>/test-setup/setup-after-env.ts",
+  rootDir: ".",
+  globals: {
+    __PATH_PREFIX__: ``,
+  },
+  transform: {
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {
+        tsconfig: "./tsconfig.test.json",
+      },
     ],
-    testMatch: ["<rootDir>/src/**/*.test.{js,jsx,ts,tsx}"],
-    moduleDirectories: ["node_modules", "src"],
-    testEnvironmentOptions: {url: `http://localhost`},
-    moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+    ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$":
+      "jest-transform-stub",
+  },
+  moduleNameMapper: {
+    "@/(.*)": "<rootDir>/src/$1",
+  },
+  testEnvironment: "jsdom",
+  testPathIgnorePatterns: ["<rootdir>/node_modules/"],
+  setupFiles: [`<rootDir>/test-setup/loadershim.js`],
+  setupFilesAfterEnv: [
+    "<rootDir>/test-setup/setup-files.ts",
+    "<rootDir>/test-setup/setup-after-env.ts",
+  ],
+  testMatch: ["<rootDir>/src/**/*.test.{js,jsx,ts,tsx}"],
+  moduleDirectories: ["node_modules", "src"],
+  testEnvironmentOptions: { url: `http://localhost` },
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
 }
