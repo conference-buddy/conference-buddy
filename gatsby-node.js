@@ -12,7 +12,13 @@ exports.sourceNodes = async ({
 }) => {
   const { createNode } = actions
 
-  let conferences = [{ id: "1", name: "testconf" }]
+  let conferences
+  try {
+    conferences = await (exports.getConferences =
+      require("./src/domain/conferences").getConferences())
+  } catch (error) {
+    throw Error(error)
+  }
 
   conferences.forEach(conference => {
     const nodeMeta = {
