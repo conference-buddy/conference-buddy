@@ -6,6 +6,7 @@ module.exports = {
     "jest-dom",
     "jsx-a11y",
     "@typescript-eslint",
+    "@tanstack/query",
   ],
   extends: [
     "plugin:prettier/recommended",
