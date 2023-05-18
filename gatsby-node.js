@@ -5,32 +5,30 @@ require("ts-node").register({
   },
 })
 
-exports.sourceNodes = async ({
-  actions,
-  createNodeId,
-  createContentDigest,
-}) => {
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
+exports.sourceNodes = async ({ actions, createContentDigest }) => {
   const { createNode } = actions
 
-  let conferences
   try {
-    conferences = await (exports.getConferences =
+    const conferences = await (exports.getConferences =
       require("./src/domain/conferences").getConferences())
+    conferences.forEach(conference => {
+      const nodeMeta = {
+        id: conference.id,
+        parent: null,
+        children: [],
+        internal: {
+          type: `Conferences`,
+          contentDigest: createContentDigest(conference),
+        },
+      }
+      const node = Object.assign({}, conference, nodeMeta)
+      createNode(node)
+    })
   } catch (error) {
     throw Error(error)
   }
-
-  conferences.forEach(conference => {
-    const nodeMeta = {
-      id: conference.id,
-      parent: null,
-      children: [],
-      internal: {
-        type: `Conference`,
-        contentDigest: createContentDigest(conference),
-      },
-    }
-    const node = Object.assign({}, conference, nodeMeta)
-    createNode(node)
-  })
 }
