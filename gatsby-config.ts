@@ -10,11 +10,12 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
+    "gatsby-plugin-sass",
     "gatsby-plugin-image",
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        icon: "src/web/assets/images/icon.png",
+        icon: `${__dirname}/src/web/assets/images/icon.png`,
       },
     },
     "gatsby-transformer-remark",
