@@ -18,7 +18,6 @@ const config: GatsbyConfig = {
         icon: `${__dirname}/src/web/assets/images/icon.png`,
       },
     },
-    "gatsby-transformer-remark",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     {

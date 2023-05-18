@@ -3,9 +3,10 @@ import { graphql } from "gatsby"
 import { Conference } from "../../../domain/conferences"
 
 type ConferenceListPage = {
-  data: { allConference: { nodes: Conference[] } }
+  data: { allConferences: { nodes: Conference[] } }
 }
 export default function ConferenceListPage(props: ConferenceListPage) {
+  console.log(props)
   return (
     <>
       <h1>Conference List</h1>
@@ -14,7 +15,7 @@ export default function ConferenceListPage(props: ConferenceListPage) {
         the button 🐶 and leave a comment! You are not sure you want to be one,
         but you want to keep updated? Be a Lurker 👀 and get notifications.
       </p>
-      {props.data.allConference.nodes.map(conf => (
+      {props.data.allConferences.nodes.map(conf => (
         <li key={conf.id}>{conf.name}</li>
       ))}
     </>
@@ -23,7 +24,7 @@ export default function ConferenceListPage(props: ConferenceListPage) {
 
 export const query = graphql`
   {
-    allConference {
+    allConferences {
       nodes {
         name
         country
