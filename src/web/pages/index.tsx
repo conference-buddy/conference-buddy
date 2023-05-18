@@ -1,14 +1,17 @@
 import * as React from "react"
 import type { PageProps } from "gatsby"
-import { PageLayout } from "../layout/PageLayout"
+import { PageHead } from "../ui-elements/page-layout/PageHead"
 
-const IndexPage: React.FC<PageProps> = () => {
+export function Head() {
   return (
-    <PageLayout>
-      <h1>Henlo!!</h1>
-    </PageLayout>
+    <div>
+      <PageHead title={"Welcome"} />
+    </div>
   )
 }
 
+const IndexPage: React.FC<PageProps> = () => {
+  return <h1>Henlo!!</h1>
+}
+
 export default IndexPage
-export { Head } from "../layout/PageLayout"
