@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react"
 import { Conference } from "../../../../domain/conferences"
-import { ConferenceCard } from "../card/ConferenceCard"
+import { ConferenceCard } from "../elements/ConferenceCard"
 
 type ConferenceListProps = {
   conferences: Conference[]

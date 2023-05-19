@@ -1,7 +1,7 @@
 import React from "react"
-import { ConferenceLocation } from "../elements/ConferenceLocation"
+import { ConferenceLocation } from "./ConferenceLocation"
 import { Conference } from "../../../../domain/conferences"
-import { ConferenceDates } from "../elements/ConferenceDates"
+import { ConferenceDates } from "./ConferenceDates"
 import { Link } from "gatsby"
 
 type ConferenceCardProps = {
