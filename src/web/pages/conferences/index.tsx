@@ -4,10 +4,10 @@ import { Conference } from "../../../domain/conferences"
 import { ConferenceList } from "../../ui-elements/conferences/list/ConferenceList"
 
 type ConferenceListPage = {
-  data: { allConferences: { nodes: Conference[] } }
+  data: { allConference: { nodes: Conference[] } }
 }
 export default function ConferenceListPage(props: ConferenceListPage) {
-  const conferences = props.data.allConferences.nodes
+  const conferences = props.data.allConference.nodes
 
   return (
     <>
@@ -24,7 +24,7 @@ export default function ConferenceListPage(props: ConferenceListPage) {
 
 export const query = graphql`
   {
-    allConferences {
+    allConference {
       nodes {
         name
         country
