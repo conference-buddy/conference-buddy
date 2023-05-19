@@ -1,6 +1,7 @@
 import { render, screen, cleanup } from "@testing-library/react"
 import { Header } from "./Header"
 
+jest.mock("@supabase/supabase-js")
 describe("Header", () => {
   beforeAll(() => {
     render(<Header />)

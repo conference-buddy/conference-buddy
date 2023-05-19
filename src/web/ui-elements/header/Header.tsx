@@ -2,6 +2,7 @@ import React, { ReactElement } from "react"
 import { StaticImage } from "gatsby-plugin-image"
 import { Link } from "gatsby"
 import "../../assets/images/LogoConferenceBuddy.png"
+import { SignIn } from "../sign-in/SignIn"
 
 function Header(): ReactElement {
   return (
@@ -26,6 +27,7 @@ function Header(): ReactElement {
             Conference Buddy
           </div>
         </div>
+        <SignIn />
       </nav>
     </header>
   )
