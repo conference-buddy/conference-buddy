@@ -5,13 +5,13 @@ import {
   signOut,
 } from "../../../domain/auth-user/api/auth-user-api"
 import { useAuthUserContext } from "../../../services/hooks/auth-user/useAuthUserContext"
+import useProfile from "../../../services/hooks/profile/useProfile"
 
 function SignIn(): ReactElement {
-  const test = useAuthUserContext()
-  const authUser = test.authUser
+  const { authUser } = useAuthUserContext()
 
-  //@todo get profile api etc
-  const profile = false
+  //@TODO add proper error handling
+  const { data: profile } = useProfile()
 
   if (!authUser) {
     return (
@@ -33,7 +33,7 @@ function SignIn(): ReactElement {
           light={true}
           additionalClasses="me-3"
         >
-          Create Profile
+          Create profile
         </TextLink>
       ) : (
         <TextLink

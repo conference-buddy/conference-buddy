@@ -110,8 +110,8 @@ export interface Database {
           github: string | null
           gitlab: string | null
           id: string
-          instagram: string | null
           linkedin: string | null
+          mastodon: string | null
           twitter: string | null
           website: string | null
         }
@@ -119,8 +119,8 @@ export interface Database {
           github?: string | null
           gitlab?: string | null
           id: string
-          instagram?: string | null
           linkedin?: string | null
+          mastodon?: string | null
           twitter?: string | null
           website?: string | null
         }
@@ -128,8 +128,8 @@ export interface Database {
           github?: string | null
           gitlab?: string | null
           id?: string
-          instagram?: string | null
           linkedin?: string | null
+          mastodon?: string | null
           twitter?: string | null
           website?: string | null
         }

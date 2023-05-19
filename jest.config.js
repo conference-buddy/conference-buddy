@@ -20,6 +20,7 @@ module.exports = {
   moduleNameMapper: {
     "@/(.*)": "<rootDir>/src/$1",
   },
+
   testEnvironment: "jsdom",
   testPathIgnorePatterns: ["<rootdir>/node_modules/"],
   setupFiles: [`<rootDir>/test-setup/loadershim.js`],
