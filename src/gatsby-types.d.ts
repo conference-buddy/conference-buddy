@@ -48,13 +48,14 @@ type BooleanQueryOperatorInput = {
   readonly nin: InputMaybe<ReadonlyArray<InputMaybe<Scalars['Boolean']>>>;
 };
 
-type Conferences = Node & {
+type Conference = Node & {
   readonly children: ReadonlyArray<Node>;
   readonly city: Maybe<Scalars['String']>;
   readonly country: Maybe<Scalars['String']>;
   readonly created_at: Maybe<Scalars['Date']>;
   readonly description: Maybe<Scalars['String']>;
   readonly end_date: Maybe<Scalars['Date']>;
+  readonly gatsbyPath: Maybe<Scalars['String']>;
   readonly id: Scalars['ID'];
   readonly internal: Internal;
   readonly name: Maybe<Scalars['String']>;
@@ -65,7 +66,7 @@ type Conferences = Node & {
 };
 
 
-type Conferences_created_atArgs = {
+type Conference_created_atArgs = {
   difference: InputMaybe<Scalars['String']>;
   formatString: InputMaybe<Scalars['String']>;
   fromNow: InputMaybe<Scalars['Boolean']>;
@@ -73,7 +74,7 @@ type Conferences_created_atArgs = {
 };
 
 
-type Conferences_end_dateArgs = {
+type Conference_end_dateArgs = {
   difference: InputMaybe<Scalars['String']>;
   formatString: InputMaybe<Scalars['String']>;
   fromNow: InputMaybe<Scalars['Boolean']>;
@@ -81,7 +82,12 @@ type Conferences_end_dateArgs = {
 };
 
 
-type Conferences_start_dateArgs = {
+type Conference_gatsbyPathArgs = {
+  filePath: InputMaybe<Scalars['String']>;
+};
+
+
+type Conference_start_dateArgs = {
   difference: InputMaybe<Scalars['String']>;
   formatString: InputMaybe<Scalars['String']>;
   fromNow: InputMaybe<Scalars['Boolean']>;
@@ -89,65 +95,66 @@ type Conferences_start_dateArgs = {
 };
 
 
-type Conferences_updated_atArgs = {
+type Conference_updated_atArgs = {
   difference: InputMaybe<Scalars['String']>;
   formatString: InputMaybe<Scalars['String']>;
   fromNow: InputMaybe<Scalars['Boolean']>;
   locale: InputMaybe<Scalars['String']>;
 };
 
-type ConferencesConnection = {
+type ConferenceConnection = {
   readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly edges: ReadonlyArray<ConferencesEdge>;
-  readonly group: ReadonlyArray<ConferencesGroupConnection>;
+  readonly edges: ReadonlyArray<ConferenceEdge>;
+  readonly group: ReadonlyArray<ConferenceGroupConnection>;
   readonly max: Maybe<Scalars['Float']>;
   readonly min: Maybe<Scalars['Float']>;
-  readonly nodes: ReadonlyArray<Conferences>;
+  readonly nodes: ReadonlyArray<Conference>;
   readonly pageInfo: PageInfo;
   readonly sum: Maybe<Scalars['Float']>;
   readonly totalCount: Scalars['Int'];
 };
 
 
-type ConferencesConnection_distinctArgs = {
-  field: ConferencesFieldSelector;
+type ConferenceConnection_distinctArgs = {
+  field: ConferenceFieldSelector;
 };
 
 
-type ConferencesConnection_groupArgs = {
-  field: ConferencesFieldSelector;
+type ConferenceConnection_groupArgs = {
+  field: ConferenceFieldSelector;
   limit: InputMaybe<Scalars['Int']>;
   skip: InputMaybe<Scalars['Int']>;
 };
 
 
-type ConferencesConnection_maxArgs = {
-  field: ConferencesFieldSelector;
+type ConferenceConnection_maxArgs = {
+  field: ConferenceFieldSelector;
 };
 
 
-type ConferencesConnection_minArgs = {
-  field: ConferencesFieldSelector;
+type ConferenceConnection_minArgs = {
+  field: ConferenceFieldSelector;
 };
 
 
-type ConferencesConnection_sumArgs = {
-  field: ConferencesFieldSelector;
+type ConferenceConnection_sumArgs = {
+  field: ConferenceFieldSelector;
 };
 
-type ConferencesEdge = {
-  readonly next: Maybe<Conferences>;
-  readonly node: Conferences;
-  readonly previous: Maybe<Conferences>;
+type ConferenceEdge = {
+  readonly next: Maybe<Conference>;
+  readonly node: Conference;
+  readonly previous: Maybe<Conference>;
 };
 
-type ConferencesFieldSelector = {
+type ConferenceFieldSelector = {
   readonly children: InputMaybe<NodeFieldSelector>;
   readonly city: InputMaybe<FieldSelectorEnum>;
   readonly country: InputMaybe<FieldSelectorEnum>;
   readonly created_at: InputMaybe<FieldSelectorEnum>;
   readonly description: InputMaybe<FieldSelectorEnum>;
   readonly end_date: InputMaybe<FieldSelectorEnum>;
+  readonly gatsbyPath: InputMaybe<FieldSelectorEnum>;
   readonly id: InputMaybe<FieldSelectorEnum>;
   readonly internal: InputMaybe<InternalFieldSelector>;
   readonly name: InputMaybe<FieldSelectorEnum>;
@@ -157,13 +164,14 @@ type ConferencesFieldSelector = {
   readonly url: InputMaybe<FieldSelectorEnum>;
 };
 
-type ConferencesFilterInput = {
+type ConferenceFilterInput = {
   readonly children: InputMaybe<NodeFilterListInput>;
   readonly city: InputMaybe<StringQueryOperatorInput>;
   readonly country: InputMaybe<StringQueryOperatorInput>;
   readonly created_at: InputMaybe<DateQueryOperatorInput>;
   readonly description: InputMaybe<StringQueryOperatorInput>;
   readonly end_date: InputMaybe<DateQueryOperatorInput>;
+  readonly gatsbyPath: InputMaybe<StringQueryOperatorInput>;
   readonly id: InputMaybe<StringQueryOperatorInput>;
   readonly internal: InputMaybe<InternalFilterInput>;
   readonly name: InputMaybe<StringQueryOperatorInput>;
@@ -173,54 +181,55 @@ type ConferencesFilterInput = {
   readonly url: InputMaybe<StringQueryOperatorInput>;
 };
 
-type ConferencesGroupConnection = {
+type ConferenceGroupConnection = {
   readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly edges: ReadonlyArray<ConferencesEdge>;
+  readonly edges: ReadonlyArray<ConferenceEdge>;
   readonly field: Scalars['String'];
   readonly fieldValue: Maybe<Scalars['String']>;
-  readonly group: ReadonlyArray<ConferencesGroupConnection>;
+  readonly group: ReadonlyArray<ConferenceGroupConnection>;
   readonly max: Maybe<Scalars['Float']>;
   readonly min: Maybe<Scalars['Float']>;
-  readonly nodes: ReadonlyArray<Conferences>;
+  readonly nodes: ReadonlyArray<Conference>;
   readonly pageInfo: PageInfo;
   readonly sum: Maybe<Scalars['Float']>;
   readonly totalCount: Scalars['Int'];
 };
 
 
-type ConferencesGroupConnection_distinctArgs = {
-  field: ConferencesFieldSelector;
+type ConferenceGroupConnection_distinctArgs = {
+  field: ConferenceFieldSelector;
 };
 
 
-type ConferencesGroupConnection_groupArgs = {
-  field: ConferencesFieldSelector;
+type ConferenceGroupConnection_groupArgs = {
+  field: ConferenceFieldSelector;
   limit: InputMaybe<Scalars['Int']>;
   skip: InputMaybe<Scalars['Int']>;
 };
 
 
-type ConferencesGroupConnection_maxArgs = {
-  field: ConferencesFieldSelector;
+type ConferenceGroupConnection_maxArgs = {
+  field: ConferenceFieldSelector;
 };
 
 
-type ConferencesGroupConnection_minArgs = {
-  field: ConferencesFieldSelector;
+type ConferenceGroupConnection_minArgs = {
+  field: ConferenceFieldSelector;
 };
 
 
-type ConferencesGroupConnection_sumArgs = {
-  field: ConferencesFieldSelector;
+type ConferenceGroupConnection_sumArgs = {
+  field: ConferenceFieldSelector;
 };
 
-type ConferencesSortInput = {
+type ConferenceSortInput = {
   readonly children: InputMaybe<NodeSortInput>;
   readonly city: InputMaybe<SortOrderEnum>;
   readonly country: InputMaybe<SortOrderEnum>;
   readonly created_at: InputMaybe<SortOrderEnum>;
   readonly description: InputMaybe<SortOrderEnum>;
   readonly end_date: InputMaybe<SortOrderEnum>;
+  readonly gatsbyPath: InputMaybe<SortOrderEnum>;
   readonly id: InputMaybe<SortOrderEnum>;
   readonly internal: InputMaybe<InternalSortInput>;
   readonly name: InputMaybe<SortOrderEnum>;
@@ -1486,7 +1495,7 @@ type PotraceTurnPolicy =
   | 'white';
 
 type Query = {
-  readonly allConferences: ConferencesConnection;
+  readonly allConference: ConferenceConnection;
   readonly allDirectory: DirectoryConnection;
   readonly allFile: FileConnection;
   readonly allImageSharp: ImageSharpConnection;
@@ -1495,7 +1504,7 @@ type Query = {
   readonly allSiteFunction: SiteFunctionConnection;
   readonly allSitePage: SitePageConnection;
   readonly allSitePlugin: SitePluginConnection;
-  readonly conferences: Maybe<Conferences>;
+  readonly conference: Maybe<Conference>;
   readonly directory: Maybe<Directory>;
   readonly file: Maybe<File>;
   readonly imageSharp: Maybe<ImageSharp>;
@@ -1507,11 +1516,11 @@ type Query = {
 };
 
 
-type Query_allConferencesArgs = {
-  filter: InputMaybe<ConferencesFilterInput>;
+type Query_allConferenceArgs = {
+  filter: InputMaybe<ConferenceFilterInput>;
   limit: InputMaybe<Scalars['Int']>;
   skip: InputMaybe<Scalars['Int']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<ConferencesSortInput>>>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<ConferenceSortInput>>>;
 };
 
 
@@ -1579,13 +1588,14 @@ type Query_allSitePluginArgs = {
 };
 
 
-type Query_conferencesArgs = {
+type Query_conferenceArgs = {
   children: InputMaybe<NodeFilterListInput>;
   city: InputMaybe<StringQueryOperatorInput>;
   country: InputMaybe<StringQueryOperatorInput>;
   created_at: InputMaybe<DateQueryOperatorInput>;
   description: InputMaybe<StringQueryOperatorInput>;
   end_date: InputMaybe<DateQueryOperatorInput>;
+  gatsbyPath: InputMaybe<StringQueryOperatorInput>;
   id: InputMaybe<StringQueryOperatorInput>;
   internal: InputMaybe<InternalFilterInput>;
   name: InputMaybe<StringQueryOperatorInput>;

@@ -15,10 +15,10 @@ export function Head() {
 }
 
 type StartPageProps = {
-  data: { allConferences: { nodes: Conference[] } }
+  data: { allConference: { nodes: Conference[] } }
 }
 export default function IndexPage(props: StartPageProps): ReactElement {
-  const conferences: Conference[] = props.data.allConferences.nodes
+  const conferences: Conference[] = props.data.allConference.nodes
 
   return (
     <article className="container">
@@ -53,7 +53,7 @@ export default function IndexPage(props: StartPageProps): ReactElement {
 
 export const query = graphql`
   {
-    allConferences(sort: { fields: start_date, order: ASC }, limit: 3) {
+    allConference(sort: { start_date: ASC }, limit: 3) {
       nodes {
         id
         city

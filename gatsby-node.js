@@ -21,7 +21,7 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
         parent: null,
         children: [],
         internal: {
-          type: `Conferences`,
+          type: `Conference`,
           contentDigest: createContentDigest(conference),
         },
       }

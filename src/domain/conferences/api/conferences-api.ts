@@ -20,4 +20,23 @@ async function getConferences(): Promise<Conference[]> {
   return data
 }
 
-export { getConferences }
+async function getConference(id: string): Promise<Conference> {
+  const { data, error } = await supabase
+    .from("conferences")
+    .select()
+    .eq("id", id)
+    .single()
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  if (!data) {
+    throw new Error("Conference not found")
+  }
+
+  const response: Conference = data
+  return response
+}
+
+export { getConferences, getConference }
