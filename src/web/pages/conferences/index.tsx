@@ -1,12 +1,14 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { Conference } from "../../../domain/conferences"
+import { ConferenceList } from "../../ui-elements/conferences/list/ConferenceList"
 
 type ConferenceListPage = {
   data: { allConferences: { nodes: Conference[] } }
 }
 export default function ConferenceListPage(props: ConferenceListPage) {
-  console.log(props)
+  const conferences = props.data.allConferences.nodes
+
   return (
     <>
       <h1>Conference List</h1>
@@ -15,9 +17,7 @@ export default function ConferenceListPage(props: ConferenceListPage) {
         the button 🐶 and leave a comment! You are not sure you want to be one,
         but you want to keep updated? Be a Lurker 👀 and get notifications.
       </p>
-      {props.data.allConferences.nodes.map(conf => (
-        <li key={conf.id}>{conf.name}</li>
-      ))}
+      <ConferenceList conferences={conferences} />
     </>
   )
 }

@@ -4,6 +4,7 @@ import { TextLink } from "../ui-elements/text-link/TextLink"
 import { graphql } from "gatsby"
 import { Conference } from "../../domain/conferences"
 import { Claim } from "../ui-elements/claim/Claim"
+import { ConferenceList } from "../ui-elements/conferences/list/ConferenceList"
 
 export function Head() {
   return (
@@ -17,6 +18,8 @@ type StartPageProps = {
   data: { allConferences: { nodes: Conference[] } }
 }
 export default function IndexPage(props: StartPageProps): ReactElement {
+  const conferences: Conference[] = props.data.allConferences.nodes
+
   return (
     <article className="container">
       <Claim />
@@ -37,17 +40,9 @@ export default function IndexPage(props: StartPageProps): ReactElement {
 
       <section>
         <h2 className="my-4">Upcoming Conferences</h2>
-        <ul>
-          {props.data.allConferences.nodes.map(conf => {
-            return <li key={conf.id}>{conf.name}</li>
-          })}
-        </ul>
+        <ConferenceList conferences={conferences} />
         <div className="text-center my-4">
-          <TextLink
-            to="/conference-list"
-            internal={true}
-            additionalClasses="fs-5"
-          >
+          <TextLink to="/conferences" internal={true} additionalClasses="fs-5">
             See all conferences &rarr;
           </TextLink>
         </div>
