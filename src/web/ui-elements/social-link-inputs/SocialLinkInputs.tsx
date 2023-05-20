@@ -47,6 +47,7 @@ function SocialLinkInputs(props: SocialLinksFieldsetProps): ReactElement {
           }
           placeholder={placeholder}
           ariaDescription={"Please enter a valid url."}
+          errorMessage={"Please enter a valid url."}
           disabled={disabled}
         />
       </div>
