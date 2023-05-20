@@ -4,12 +4,16 @@ import {
   PublicProfile,
 } from "../../../domain/public-profiles"
 
-export default function usePublicProfile(
-  profileId: string | undefined
-): UseQueryResult<PublicProfile> {
-  return useQuery(["profile", profileId], () => getPublicProfile(profileId), {
+export default function usePublicProfile({
+  username,
+  enabled,
+}: {
+  username: string
+  enabled: boolean
+}): UseQueryResult<PublicProfile> {
+  return useQuery(["profile", username], () => getPublicProfile(username), {
     refetchOnWindowFocus: false,
     retry: false,
-    enabled: Boolean(profileId),
+    enabled,
   })
 }

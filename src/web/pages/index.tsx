@@ -6,14 +6,6 @@ import { Conference } from "../../domain/conferences"
 import { Claim } from "../ui-elements/claim/Claim"
 import { ConferenceList } from "../ui-elements/conferences/list/ConferenceList"
 
-export function Head() {
-  return (
-    <div>
-      <PageHead title={"Welcome"} />
-    </div>
-  )
-}
-
 type StartPageProps = {
   data: { allConference: { nodes: Conference[] } }
 }
@@ -67,3 +59,7 @@ export const query = graphql`
     }
   }
 `
+
+export function Head() {
+  return <PageHead title={"Welcome"} />
+}

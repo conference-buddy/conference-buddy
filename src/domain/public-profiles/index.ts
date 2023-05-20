@@ -1,2 +1,2 @@
-export { PublicProfile } from "./types/types-public-profile"
-export { getPublicProfile, getPublicProfiles } from "./api/public-profiles-api"
+export type { PublicProfile } from "./types/types-public-profile"
+export { getPublicProfile } from "./api/public-profiles-api"

@@ -1,70 +1,32 @@
 import { supabase } from "../../_database/supabaseClient"
 import { PublicProfile } from "../types/types-public-profile"
-import {
-  transformPublicProfiles,
-  transformPublicProfile,
-} from "../utils/transform-data"
-import {
-  getAllSocialLinks,
-  getSocialLinksProfile,
-} from "../../_social-links/api/social-links-api"
+import { transformPublicProfile } from "../utils/transform-data"
+import { getSocialLinksProfile } from "../../_social-links/api/social-links-api"
 
 const getPublicProfile = async (
-  profileId: string | undefined
+  username: string
 ): Promise<PublicProfile | null> => {
-  if (!profileId) return null
-
-  const profile = supabase
+  const { data: profile, error: profileError } = await supabase
     .from("profiles")
     .select("id,name,username,about_text")
-    .eq("id", profileId)
+    .eq("username", username)
     .single()
 
-  const socialLinks = getSocialLinksProfile(profileId)
+  if (profileError) {
+    throw profileError
+  }
 
-  //eslint-disable-next-line
-  //@ts-ignore
-  return await Promise.all([profile, socialLinks])
-    .then(([profile, socialLinks]) => {
-      const { data: publicProfileFromDB } = profile
-      const { data: socialLinksFromDB } = socialLinks
+  const { data: socialLinks, error: socialLinksError } =
+    await getSocialLinksProfile(profile.id)
 
-      if (!socialLinksFromDB || !publicProfileFromDB) {
-        throw Error("social links or profile missing")
-      }
-      return transformPublicProfile({
-        publicProfileFromDB,
-        socialLinksFromDB,
-      })
-    })
-    .catch(error => {
-      throw Error(error)
-    })
+  if (socialLinksError) {
+    throw socialLinksError
+  }
+
+  return transformPublicProfile({
+    publicProfileFromDB: profile,
+    socialLinksFromDB: socialLinks,
+  })
 }
 
-const getPublicProfiles = async (): Promise<PublicProfile[] | undefined> => {
-  const profiles = supabase
-    .from("profiles")
-    .select("id,created_at,name,username,about_text")
-  const socialLinks = getAllSocialLinks()
-
-  return await Promise.all([profiles, socialLinks])
-    .then(([profiles, socialLinks]) => {
-      const { data: publicProfileFromDB } = profiles
-      const { data: socialLinksFromDB } = socialLinks
-
-      if (!publicProfileFromDB || !socialLinksFromDB) {
-        throw Error("No profile or social links created in DB")
-      }
-
-      return transformPublicProfiles({
-        publicProfilesFromDB: publicProfileFromDB,
-        socialLinksFromDB,
-      })
-    })
-    .catch(error => {
-      throw Error(error)
-    })
-}
-
-export { getPublicProfile, getPublicProfiles }
+export { getPublicProfile }
