@@ -61,8 +61,8 @@ function TextInput(props: TextInputProps): ReactElement {
             ? { borderColor: "#ced4da", backgroundImage: "none" }
             : {}
         }
-        onChange={e => onChange(e.target.value)}
-        onBlur={onBlur ? e => onBlur(e.target.value) : undefined}
+        onChange={e => onChange(e.target.value.trim())}
+        onBlur={onBlur ? e => onBlur(e.target.value.trim()) : undefined}
         placeholder={placeholder}
       />
 

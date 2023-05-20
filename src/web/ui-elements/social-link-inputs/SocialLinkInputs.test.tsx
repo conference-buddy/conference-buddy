@@ -14,7 +14,7 @@ const existingSocialLink: SocialLink = {
 const emptySocialLink: SocialLink = {
   platform: "website",
   platformName: "Website",
-  address: "",
+  address: null,
 }
 
 const requiredProps = {

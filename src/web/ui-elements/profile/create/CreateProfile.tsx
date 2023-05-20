@@ -1,32 +1,30 @@
-import React, { ReactElement, useEffect, useState } from "react"
+import React, { ReactElement, useState } from "react"
 import { navigate } from "gatsby"
 import { SocialLink, usernameExists } from "../../../../domain/profiles"
-import { useAuthUserContext } from "../../../../services/hooks/auth-user/useAuthUserContext"
 import useCreateProfile from "../../../../services/hooks/profile/useCreateProfile"
 import { TextInput } from "../../text-input/TextInput"
 import { MarkdownInput } from "../../markdown-input/MarkdownInput"
 import { SocialLinkInputs } from "../../social-link-inputs/SocialLinkInputs"
 import { generateEmptySocialLinks } from "../../../../domain/_social-links/helper/generate-social-links-for-profile"
+import { AuthUser } from "@supabase/supabase-js"
 
-function CreateProfile(): ReactElement {
-  const { authUser } = useAuthUserContext()
-
+type CreateProfileProps = {
+  authUser: AuthUser
+}
+function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
   const [formValidated, setFormValidated] = useState(false)
-  const [name, setName] = useState(authUser?.user_metadata.full_name)
-  const [username, setUsername] = useState<string>(
-    authUser?.user_metadata.preferred_username || ""
-  )
 
-  const [email, setEmail] = useState<string>(authUser?.email || "")
+  const [name, setName] = useState<string>("")
+  const [username, setUsername] = useState<string>(
+    authUser.user_metadata.preferred_username
+  )
+  const [email, setEmail] = useState<string>(authUser.email || "")
   const [usernameAvailable, setUsernameAvailable] = useState(false)
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>(
     generateEmptySocialLinks()
   )
   const [aboutMeText, setAboutMeText] = useState<string | undefined>(undefined)
 
-  useEffect(() => {
-    console.log("socialLinks", socialLinks)
-  })
   const updateSocialLinks = (address: string | null, index: number) => {
     const newArray = [...socialLinks]
     newArray[index] = { ...socialLinks[index], address }
