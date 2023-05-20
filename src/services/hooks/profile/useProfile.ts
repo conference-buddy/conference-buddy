@@ -9,5 +9,6 @@ export default function useProfile(): UseQueryResult<Profile | null> {
     refetchOnWindowFocus: false,
     refetchOnMount: true,
     retry: false,
+    enabled: !!authUser,
   })
 }
