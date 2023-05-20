@@ -62,72 +62,31 @@ async function getProfile(user: User | null): Promise<Profile | null> {
 async function createProfile(
   newProfile: Omit<Profile, "created_at" | "avatar_url" | "updated_at">
 ) {
-  const { data: profile, error: profileError } = await supabase
-    .from("profiles")
-    .insert([
-      {
-        provider: newProfile.provider,
-        email: newProfile.email,
-        username: newProfile.username,
-        name: newProfile.name,
-        id: newProfile.id,
-        about_text: newProfile.about_text,
-      },
-    ])
+  const { error: profileError } = await supabase.from("profiles").insert([
+    {
+      provider: newProfile.provider,
+      email: newProfile.email,
+      username: newProfile.username,
+      name: newProfile.name,
+      id: newProfile.id,
+      about_text: newProfile.about_text,
+    },
+  ])
 
   if (profileError) {
     throw profileError
   }
 
-  console.log("profile", profile)
-
-  const { data: socialLinks, error: socialLinksError } =
-    await createSocialLinks({
-      profileId: newProfile.id,
-      socialLinks: newProfile.social_links,
-    })
+  const { error: socialLinksError } = await createSocialLinks({
+    profileId: newProfile.id,
+    socialLinks: newProfile.social_links,
+  })
 
   if (socialLinksError) {
     throw profileError
   }
 
-  console.log("socialLinks", socialLinks)
-
   return true
-  // return Promise.all([profile, socialLinks])
-  //   .then(([profile, socialLinks]) => {
-  //     const { data: profileData, error: profilesError } = profile
-  //     const { data: socialLinksData, error: socialLinksError } = socialLinks
-  //
-  //     if (profilesError) {
-  //       throw profilesError
-  //     }
-  //
-  //     if (socialLinksError) {
-  //       throw profilesError
-  //     }
-  //
-  //     if (!profileData) {
-  //       debugger
-  //       throw Error("ne")
-  //     }
-  //
-  //     if (!socialLinksData) {
-  //       debugger
-  //       throw Error("ne")
-  //     }
-  //
-  //     const profileFromDB: ProfileDB = profileData[0]
-  //     const socialLinksFromDB: SocialLinksDB = socialLinksData[0]
-  //     return transformProfile({
-  //       profileFromDB,
-  //       socialLinksFromDB,
-  //     })
-  //   })
-  //   .catch(error => {
-  //     console.log(error)
-  //     debugger
-  //   })
 }
 
 async function updateProfile(profile: Profile) {
