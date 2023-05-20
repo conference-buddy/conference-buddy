@@ -3,6 +3,7 @@ import {
   createImageObject,
   ImageObject,
 } from "../../../services/storage/create-image-object"
+import { StaticImage } from "gatsby-plugin-image"
 
 type ImageUploadProps = {
   onFileAdded: (imageObject: ImageObject) => void
@@ -36,31 +37,42 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
 
   return (
     <>
-      {!currentImage?.dataUrl && !props.imagePublicUrl && (
-        <label>
-          <input
-            onChange={handleFilePicker}
-            type="file"
-            id="avatar"
-            name="avatar"
-            accept="image/png, image/jpeg, image/svg+xml"
+      <div className="col-12">
+        {props.imagePublicUrl && (
+          <img
+            className="rounded"
+            alt="Avatar"
+            src={props.imagePublicUrl}
+            loading="lazy"
           />
-        </label>
-      )}
+        )}
+        {!props.imagePublicUrl && (
+          <StaticImage
+            className="rounded"
+            src={`../../assets/images/avatar_placeholder.png`}
+            alt="placeholder"
+          />
+        )}
+      </div>
 
-      {props.imagePublicUrl && (
-        <img
-          className="img-fluid img-thumbnail this-is-the-public-url-image"
-          alt="Avatar"
-          src={props.imagePublicUrl}
-          loading="lazy"
-        />
-      )}
-      {props.imagePublicUrl && (
-        <button className="btn btn-primary" onClick={handleDeleteImage}>
-          Delete
-        </button>
-      )}
+      <div className="col-12 mt-2">
+        {!currentImage?.dataUrl && !props.imagePublicUrl && (
+          <label>
+            <input
+              onChange={handleFilePicker}
+              type="file"
+              id="avatar"
+              name="avatar"
+              accept="image/png, image/jpeg, image/svg+xml"
+            />
+          </label>
+        )}
+        {props.imagePublicUrl && (
+          <button className="btn btn-primary" onClick={handleDeleteImage}>
+            Delete
+          </button>
+        )}
+      </div>
     </>
   )
 }
