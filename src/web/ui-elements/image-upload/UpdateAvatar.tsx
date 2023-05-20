@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react"
+import React, { ReactElement } from "react"
 import { ImageUpload } from "./ImageUpload"
 import useUpdateAvatar from "../../../services/hooks/profile/useUpdateAvatar"
 import { getPublicAvatarUrl } from "../../../services/storage/avatar"
@@ -11,23 +11,14 @@ type UpdateAvatarProps = {
 }
 
 function UpdateAvatar(props: UpdateAvatarProps): ReactElement {
-  const [publicAvatarUrl, setPublicAvatarUrl] = useState<string | null>(null)
   const updateAvatar = useUpdateAvatar(props.profileId)
   const deleteAvatar = useDeleteAvatar(props.profileId)
 
-  useEffect(() => {
-    if (props.avatarUrl) {
-      setPublicAvatarUrl(getPublicAvatarUrl(props.avatarUrl))
-    }
-  }, [props.avatarUrl])
-
   async function uploadImage(imageObject: ImageObject) {
-    setPublicAvatarUrl(getPublicAvatarUrl(imageObject.name))
     updateAvatar.mutate({ avatarFile: imageObject })
   }
 
   async function deleteImage() {
-    setPublicAvatarUrl(null)
     if (props.avatarUrl) {
       deleteAvatar.mutate({ avatarUrl: props.avatarUrl })
     }
@@ -37,7 +28,7 @@ function UpdateAvatar(props: UpdateAvatarProps): ReactElement {
     <ImageUpload
       onFileAdded={uploadImage}
       onFileRemoved={deleteImage}
-      imagePublicUrl={publicAvatarUrl}
+      imagePublicUrl={props.avatarUrl && getPublicAvatarUrl(props.avatarUrl)}
     />
   )
 }
