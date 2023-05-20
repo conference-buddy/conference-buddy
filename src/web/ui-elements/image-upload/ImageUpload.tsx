@@ -49,15 +49,17 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
       )}
 
       {props.imagePublicUrl && (
-        <button onClick={handleDeleteImage}>Delete image here</button>
-      )}
-      {props.imagePublicUrl && (
         <img
           className="img-fluid img-thumbnail this-is-the-public-url-image"
           alt="Avatar"
           src={props.imagePublicUrl}
           loading="lazy"
         />
+      )}
+      {props.imagePublicUrl && (
+        <button className="btn btn-primary" onClick={handleDeleteImage}>
+          Delete
+        </button>
       )}
     </>
   )
