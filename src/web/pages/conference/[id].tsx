@@ -2,7 +2,7 @@ import React, { ReactElement } from "react"
 import { useConference } from "../../../services/hooks/conference/useConference"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
 import { ConferenceSingle } from "../../ui-elements/conferences/single/ConferenceSingle"
-import { BuddyPostList } from "../../ui-elements/buddy-posts/BuddyPosts"
+import { BuddyPosts } from "../../ui-elements/buddy-posts/BuddyPosts"
 
 // @TODO Loading information
 export default function Id({
@@ -23,7 +23,7 @@ export default function Id({
         </TextLink>
       </div>
       {!isLoading && data && <ConferenceSingle conference={data} />}
-      <BuddyPostList conferenceId={id} />
+      <BuddyPosts conferenceId={id} />
     </div>
   )
 }
