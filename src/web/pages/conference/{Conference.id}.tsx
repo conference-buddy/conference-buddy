@@ -4,6 +4,7 @@ import { TextLink } from "../../ui-elements/text-link/TextLink"
 import { ConferenceSingle } from "../../ui-elements/conferences/single/ConferenceSingle"
 import { Conference } from "../../../domain/conferences"
 import { PageHead } from "../../ui-elements/page-layout/PageHead"
+import { BuddyPostList } from "../../ui-elements/buddy-posts/BuddyPosts"
 
 type ConferencePageProps = {
   data: { conference: Conference }
@@ -27,6 +28,7 @@ const ConferenceSinglePage = (props: ConferencePageProps) => {
         </TextLink>
       </div>
       <ConferenceSingle conference={conference} />
+      <BuddyPostList conferenceId={props.data.conference.id} />
     </div>
   )
 }
