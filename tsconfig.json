@@ -25,5 +25,6 @@
     "./gatsby-node.js",
     "./gatsby-config.ts",
     "./plugins/**/*"
-  ]
+  ],
+  "exclude": ["*.d.ts"]
 }
