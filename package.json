@@ -71,6 +71,7 @@
     "jest-transform-stub": "2.0.0",
     "lint-staged": "13.2.2",
     "openapi-typescript": "6.2.4",
+    "gatsby-plugin-pnpm": "1.2.10",
     "prettier": "2.8.8",
     "sass": "1.62.1",
     "ts-jest": "29.1.0",
