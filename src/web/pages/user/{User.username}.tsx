@@ -19,7 +19,7 @@ const UserPage = (props: UserPageProps) => {
         <div className="row pt-4">
           <div className="col-4">
             <StaticImage
-              src={`../../assets/images/profilepicplaceholder.png`}
+              src={`../../assets/images/avatar_placeholder.png`}
               alt={"placeholder"}
               placeholder="blurred"
             />
