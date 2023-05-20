@@ -3,10 +3,18 @@ import { StaticImage } from "gatsby-plugin-image"
 import { useAuthUserContext } from "../../../services/hooks/auth-user/useAuthUserContext"
 import usePublicProfile from "../../../services/hooks/public-profile/usePublicProfile"
 import { navigate } from "gatsby"
+import { PageHead } from "../../ui-elements/page-layout/PageHead"
 
-function UserPage(): ReactElement {
+function UserPage({
+  params,
+}: {
+  params: Record<string, string>
+}): ReactElement {
   const { authUser, isLoading: authUserIsLoading } = useAuthUserContext()
-  const { data: user, isError } = usePublicProfile(authUser?.id)
+  const { data: user, isError } = usePublicProfile({
+    username: params.username,
+    enabled: Boolean(authUser),
+  })
 
   if (!authUserIsLoading && !authUser) {
     navigate("/")
@@ -64,3 +72,7 @@ function UserPage(): ReactElement {
 }
 
 export default UserPage
+
+export const Head = () => {
+  return <PageHead title={"Welcome"} />
+}

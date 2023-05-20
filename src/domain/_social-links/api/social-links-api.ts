@@ -18,10 +18,6 @@ function createSocialLinks({
   return supabase.from("profiles_social_links").insert([socialLinksForDB])
 }
 
-function getAllSocialLinks() {
-  return supabase.from("profiles_social_links").select("*")
-}
-
 // @TODO should social link stuff outside of this directory always return SocialLinks or does it make sense to have SocialLinksDB returned in some cases?
 function getSocialLinksProfile(profileId: string) {
   return supabase
@@ -31,4 +27,4 @@ function getSocialLinksProfile(profileId: string) {
     .single()
 }
 
-export { createSocialLinks, getAllSocialLinks, getSocialLinksProfile }
+export { createSocialLinks, getSocialLinksProfile }
