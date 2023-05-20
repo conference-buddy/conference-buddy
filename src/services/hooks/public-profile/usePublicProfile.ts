@@ -9,7 +9,7 @@ export default function usePublicProfile(
 ): UseQueryResult<PublicProfile> {
   return useQuery(["profile", profileId], () => getPublicProfile(profileId), {
     refetchOnWindowFocus: false,
-    refetchOnMount: false,
     retry: false,
+    enabled: Boolean(profileId),
   })
 }

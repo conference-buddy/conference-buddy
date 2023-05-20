@@ -53,10 +53,6 @@ const getPublicProfiles = async (): Promise<PublicProfile[] | undefined> => {
       const { data: publicProfileFromDB } = profiles
       const { data: socialLinksFromDB } = socialLinks
 
-      console.log("👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋")
-      console.log("here")
-      console.log("👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋")
-
       if (!publicProfileFromDB || !socialLinksFromDB) {
         throw Error("No profile or social links created in DB")
       }
@@ -67,9 +63,6 @@ const getPublicProfiles = async (): Promise<PublicProfile[] | undefined> => {
       })
     })
     .catch(error => {
-      console.log("👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋")
-      console.log("oh no")
-      console.log("👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋 👋")
       throw Error(error)
     })
 }

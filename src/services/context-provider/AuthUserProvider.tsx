@@ -16,10 +16,14 @@ export const AuthUserContext = createContext<{ authUser: User | null }>({
 
 export function AuthUserProvider({ children }: { children: ReactNode }) {
   const [authUser, setAuthUser] = useState<User | null>(null)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+
   useEffect(() => {
     async function initAuth() {
+      setIsLoading(true)
       const authUser = await getAuthUser()
       setAuthUser(authUser)
+      setIsLoading(false)
     }
     initAuth()
 
@@ -31,8 +35,9 @@ export function AuthUserProvider({ children }: { children: ReactNode }) {
   const memoedValue = useMemo(
     () => ({
       authUser,
+      isLoading,
     }),
-    [authUser]
+    [authUser, isLoading]
   )
 
   return (
