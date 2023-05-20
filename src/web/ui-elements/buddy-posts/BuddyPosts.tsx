@@ -1,23 +1,19 @@
 import React, { ReactElement } from "react"
 import useBuddyPosts from "../../../services/hooks/buddy-post/useBuddyPosts"
-import { BuddyPostSingle } from "./BuddyPost"
+import { BuddyPost } from "./BuddyPost"
+import { BuddyPostDB } from "../../../domain/buddy-posts"
 
-function BuddyPostList({
-  conferenceId,
-}: {
-  conferenceId: string
-}): ReactElement {
+function BuddyPosts({ conferenceId }: { conferenceId: string }): ReactElement {
   const { data: buddyPosts, isLoading } = useBuddyPosts(conferenceId)
 
   return (
     <>
       {!isLoading &&
-        //eslint-disable-next-line
-                buddyPosts.map((post: any, index: number) => {
-          return <BuddyPostSingle key={index} post={post} />
+        buddyPosts.map((post: BuddyPostDB, index: number) => {
+          return <BuddyPost key={index} post={post} />
         })}
     </>
   )
 }
 
-export { BuddyPostList }
+export { BuddyPosts }

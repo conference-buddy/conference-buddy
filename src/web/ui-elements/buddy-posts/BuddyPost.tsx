@@ -2,18 +2,25 @@ import React, { ReactElement } from "react"
 import { StaticImage } from "gatsby-plugin-image"
 import usePublicProfile from "../../../services/hooks/public-profile/usePublicProfile"
 import { TextLink } from "../text-link/TextLink"
+import { BuddyPostDB } from "../../../domain/buddy-posts"
+import { formatDateString } from "../../../services/string-formatter/format-date"
 
-//eslint-disable-next-line  @typescript-eslint/no-explicit-any
-function BuddyPostSingle({ post }: { post: any }): ReactElement {
-  const { data: publicProfile, isLoading } = usePublicProfile(post.profile_id)
+function BuddyPost({ post }: { post: BuddyPostDB }): ReactElement {
+  const { data: publicProfile, isLoading } = usePublicProfile({
+    username: post.profile_id,
+    enabled: true,
+  })
+  const formattedPostingDate = formatDateString(post.created_at)
+
+  console.log("publicProfile", { publicProfile })
 
   return (
-    <div className="card mb-3 container">
+    <div className="rounded bg-white mb-3 p-3 container">
       <div className="card-body">
         <div className="row">
           <div className="col-1">
             <StaticImage
-              src={"../../../assets/images/profilepicplaceholder.png"}
+              src={"../../assets/images/avatar_placeholder.png"}
               alt={"Placeholder image"}
               width={100}
               placeholder="blurred"
@@ -30,7 +37,7 @@ function BuddyPostSingle({ post }: { post: any }): ReactElement {
                   {publicProfile?.username}
                 </TextLink>
                 <div className="text-dark text-opacity-75">
-                  💬 {post.created_at}
+                  💬 {formattedPostingDate}
                 </div>
               </div>
 
@@ -52,7 +59,7 @@ function BuddyPostSingle({ post }: { post: any }): ReactElement {
               </div>
               <div className="placeholder-glow">
                 <span className="placeholder mt-2">
-                  This is a placeholder for a text that hopefully will appeare
+                  This is a placeholder for a text that hopefully will appear
                   pretty soon
                 </span>
               </div>
@@ -64,4 +71,4 @@ function BuddyPostSingle({ post }: { post: any }): ReactElement {
   )
 }
 
-export { BuddyPostSingle }
+export { BuddyPost }
