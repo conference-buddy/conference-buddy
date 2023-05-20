@@ -2,18 +2,20 @@ import React, { useEffect } from "react"
 import { CreateProfile } from "../../../ui-elements/profile/create/CreateProfile"
 import useProfile from "../../../../services/hooks/profile/useProfile"
 import { navigate } from "gatsby"
+import { useAuthUserContext } from "../../../../services/hooks/auth-user/useAuthUserContext"
 
 export default function CreateProfilePage() {
   const { data: profile, isLoading } = useProfile()
+  const { authUser } = useAuthUserContext()
 
   useEffect(() => {
-    if (profile) {
+    if (profile || !authUser) {
       // in case a user navigates here who already
-      // has a profile, redirect
+      // has a profile or is not authenticated
       navigate("/profile")
       return
     }
-  }, [isLoading, profile])
+  }, [isLoading, profile, authUser])
 
   return (
     <div className="container">
@@ -26,7 +28,7 @@ export default function CreateProfilePage() {
       </p>
 
       <div className="mt-5">
-        <CreateProfile />
+        {!profile && authUser && <CreateProfile authUser={authUser} />}
       </div>
     </div>
   )
