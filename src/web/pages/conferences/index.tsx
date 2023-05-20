@@ -11,13 +11,16 @@ export default function ConferenceListPage(props: ConferenceListPage) {
 
   return (
     <>
-      <h1>Conference List</h1>
-      <p>
-        If you want to be a Conference Buddy at one of these conferences, click
-        the button 🐶 and leave a comment! You are not sure you want to be one,
-        but you want to keep updated? Be a Lurker 👀 and get notifications.
-      </p>
-      <ConferenceList conferences={conferences} />
+      <div className="container">
+        <h1>Conference List</h1>
+        <p>
+          If you want to be a Conference Buddy at one of these conferences,
+          click the button 🐶 and leave a comment! You are not sure you want to
+          be one, but you want to keep updated? Be a Lurker 👀 and get
+          notifications.
+        </p>
+        <ConferenceList conferences={conferences} />
+      </div>
     </>
   )
 }
