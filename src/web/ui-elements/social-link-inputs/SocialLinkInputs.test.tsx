@@ -35,14 +35,14 @@ describe("SocialLinksFieldset", () => {
       jest.clearAllMocks()
     })
 
-    it(`shows an enabled url input for ${existingSocialLink.platformName}`, () => {
+    it(`shows an enabled url input for ${existingSocialLink.platformName} set to required for validation`, () => {
       const input = screen.getByRole("textbox", {
         name: existingSocialLink.platformName,
       })
 
       expect(input).toBeEnabled()
       expect(input).toHaveAttribute("type", "url")
-      expect(input).not.toBeRequired()
+      expect(input).toBeRequired()
     })
 
     it(`shows a prefilled value for ${existingSocialLink.platformName}`, () => {

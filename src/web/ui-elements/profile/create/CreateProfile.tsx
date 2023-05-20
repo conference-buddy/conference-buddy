@@ -11,6 +11,7 @@ import { generateEmptySocialLinks } from "../../../../domain/_social-links/helpe
 function CreateProfile(): ReactElement {
   const { authUser } = useAuthUserContext()
 
+  const [formValidated, setFormValidated] = useState(false)
   const [name, setName] = useState(authUser?.user_metadata.full_name)
   const [username, setUsername] = useState<string>(
     authUser?.user_metadata.preferred_username || ""
@@ -62,9 +63,11 @@ function CreateProfile(): ReactElement {
 
   return (
     <form
+      className={formValidated ? "was-validated" : ""}
       onSubmit={async event => {
         event.preventDefault()
         await checkUsername(username)
+        //@TODO add error handling for username not available
         if (!usernameAvailable) return
         createUserMutation.mutate()
       }}
@@ -75,6 +78,7 @@ function CreateProfile(): ReactElement {
           <div className="col-md-6">
             <TextInput
               type={"email"}
+              errorMessage={"Please enter a valid email."}
               value={email}
               onChange={value => setEmail(value)}
               label={
@@ -95,6 +99,7 @@ function CreateProfile(): ReactElement {
         <div className="row">
           <div className="col-md-6">
             <TextInput
+              errorMessage={"Please enter a full name."}
               onChange={value => setName(value)}
               label={
                 <>
@@ -109,6 +114,7 @@ function CreateProfile(): ReactElement {
           <div className="col-md-6">
             <TextInput
               value={username}
+              errorMessage={"Please enter a username."}
               onChange={value => setUsername(value)}
               onBlur={value => checkUsername(value)}
               label={
@@ -140,7 +146,13 @@ function CreateProfile(): ReactElement {
         />
       </fieldset>
       <div className="text-end mb-3">
-        <button type="submit" className="btn col-12 btn-confbuddy-green">
+        <button
+          type="submit"
+          className="btn col-12 btn-confbuddy-green"
+          onClick={() => {
+            setFormValidated(true)
+          }}
+        >
           Submit Form
         </button>
       </div>

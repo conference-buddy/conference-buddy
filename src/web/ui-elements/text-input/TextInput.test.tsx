@@ -10,6 +10,7 @@ const requiredProps = {
   onChange: mockOnChange,
   label: <>{testLabel}</>,
   placeholder: testPlaceholder,
+  errorMessage: "error",
 }
 
 describe("TextInput", () => {
