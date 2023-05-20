@@ -6,4 +6,5 @@ gatsby-node.js
 .yarn
 .node_modules
 .public
-src/domain/_database/types/supabase.ts
+src/domain/_database/types.ts
+src/gatsby-types.d.ts
