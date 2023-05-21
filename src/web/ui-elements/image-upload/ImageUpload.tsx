@@ -37,8 +37,8 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
   }
 
   return (
-    <>
-      <div className="col-12">
+    <div className={"form-control text-center p-3"}>
+      <div>
         {props.imagePublicUrl && (
           <img
             className="rounded"
@@ -56,8 +56,7 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
           />
         )}
       </div>
-
-      <div className="col-12 mt-2">
+      <div className="mt-2">
         {!currentImage?.dataUrl && !props.imagePublicUrl && (
           <label>
             <input
@@ -75,7 +74,7 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
           </button>
         )}
       </div>
-    </>
+    </div>
   )
 }
 

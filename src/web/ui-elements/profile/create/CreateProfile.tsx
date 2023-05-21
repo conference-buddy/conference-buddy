@@ -148,7 +148,6 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
           {} as Omit<SocialLinksDB, "id">
         ),
       }
-      console.log(newProfile)
       createProfile(newProfile)
     }
   }
