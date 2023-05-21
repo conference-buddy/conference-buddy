@@ -8,7 +8,18 @@ const getPublicProfile = async (
 ): Promise<PublicProfile | null> => {
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
-    .select("id,name,username,about_text")
+    .select(
+      `
+        id,
+        name,
+        username,
+        about_text, 
+        avatar_url,
+        social_links:profiles_social_links(
+            *
+        )
+    `
+    )
     .eq("username", username)
     .single()
 

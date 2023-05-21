@@ -1,9 +1,10 @@
 import React, { ReactElement } from "react"
-import { StaticImage } from "gatsby-plugin-image"
 import { useAuthUserContext } from "../../../services/hooks/auth-user/useAuthUserContext"
 import usePublicProfile from "../../../services/hooks/public-profile/usePublicProfile"
 import { navigate } from "gatsby"
 import { PageHead } from "../../ui-elements/page-layout/PageHead"
+import { AvatarImage } from "../../ui-elements/profile/AvatarImage"
+import SociasLinks from "../../ui-elements/profile/SociasLinks"
 
 function UserPage({
   params,
@@ -32,38 +33,33 @@ function UserPage({
 
   return (
     <>
-      <div className="container p-5">
-        <h1>Meet your fellow Conference Buddy</h1>
-      </div>
-      <div className="container p-5 bg-white mb-3">
-        <h2 className="text-center">{user?.name}</h2>
-        <hr className="text-confbuddy-pink" />
-        <div className="row pt-4">
-          <div className="col-4">
-            <StaticImage
-              src={`../../assets/images/avatar_placeholder.png`}
-              alt={"placeholder"}
-              placeholder="blurred"
-            />
-          </div>
-          <div className="col-8">
-            <>about text</>
-          </div>
-        </div>
-      </div>
-      <div className="container bg-white">
+      <div className="container">
         <div className="row">
-          <div className="col p-5">
-            <h3>NEXT: I'm a 🐶 Buddy at:</h3>
-            <li>Conference name</li>
-            <li>Conference name</li>
-            <li>Conference name</li>
+          <div className="col-lg-4 mb-3">
+            <div className="card border-0">
+              <div className="card-body">
+                <div className="d-flex flex-column align-items-center text-center">
+                  <AvatarImage
+                    avatarUrl={user.avatar_url}
+                    height={200}
+                    width={200}
+                  ></AvatarImage>
+                  <div className="mt-3">
+                    <h4>{user?.name}</h4>
+                  </div>
+                </div>
+                <hr className="text-confbuddy-pink" />
+                <SociasLinks socialLinks={user?.social_links}></SociasLinks>
+              </div>
+            </div>
           </div>
-          <div className="col p-5">
-            <h3>Previous was a 🐶 Buddy at:</h3>
-            <li>Conference name</li>
-            <li>Conference name</li>
-            <li>Conference name</li>
+          <div className="col-lg-8">
+            <div className="card border-0">
+              <div className="card-body">
+                <h4>About me</h4>
+                {user.about_text}
+              </div>
+            </div>
           </div>
         </div>
       </div>
