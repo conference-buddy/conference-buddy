@@ -11,12 +11,14 @@ const publicProfilesFromDB: PublicProfileDB[] = [
     name: "Mirjam",
     username: "programmiri",
     about_text: "#About me",
+    avatar_url: "https://some-image.de/foo.png",
   },
   {
     id: "934233523523-234234-234234--2351fgk",
     name: "Not Mirjam",
     username: "progranono",
     about_text: "More text about me",
+    avatar_url: "https://some-image.de/foo.png",
   },
 ]
 
@@ -58,6 +60,7 @@ describe("transform-data", () => {
         about_text: "#About me",
         name: "Mirjam",
         username: "programmiri",
+        avatar_url: "https://some-image.de/foo.png",
         social_links: [
           {
             platform: "website",
@@ -96,6 +99,7 @@ describe("transform-data", () => {
         about_text: "More text about me",
         name: "Not Mirjam",
         username: "progranono",
+        avatar_url: "https://some-image.de/foo.png",
         social_links: [
           {
             platform: "website",
@@ -147,6 +151,7 @@ describe("transform-data", () => {
       about_text: "#About me",
       name: "Mirjam",
       username: "programmiri",
+      avatar_url: "https://some-image.de/foo.png",
       social_links: [
         {
           platform: "website",

@@ -10,8 +10,9 @@ import { getAuthUser } from "../../domain/auth-user"
 import { handleAuthUserEvents } from "../../domain/auth-user/api/auth-user-api"
 
 //eslint-disable-next-line
-export const AuthUserContext = createContext<{ authUser: User | null }>({
+export const AuthUserContext = createContext<{ authUser: User | null, isLoading: boolean }>({
   authUser: null,
+  isLoading: false,
 })
 
 export function AuthUserProvider({ children }: { children: ReactNode }) {
