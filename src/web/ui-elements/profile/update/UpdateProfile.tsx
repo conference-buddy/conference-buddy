@@ -1,12 +1,11 @@
 import React, { ReactElement, useState } from "react"
 import { Profile } from "../../../../domain/profiles"
 import useUpdateProfile from "../../../../services/hooks/profile/useUpdateProfile"
-import { TextInput } from "../../text-input/TextInput"
 import { UpdateAvatar } from "../../image-upload/UpdateAvatar"
 
 // @TODO implement update profile components
 function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
-  const [name, setName] = useState(profile.name)
+  const [name] = useState(profile.name)
   const updateUserMutation = useUpdateProfile({
     ...profile,
     name,
@@ -37,15 +36,15 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
           updateUserMutation.mutate()
         }}
       >
-        <TextInput
-          required
-          errorMessage={"Please provide a name"}
-          label={<>Full name</>}
-          value={name || ""}
-          type="text"
-          onChange={setName}
-          placeholder="Name"
-        />
+        {/*<TextInput*/}
+        {/*  required*/}
+        {/*  errorMessage={"Please provide a name"}*/}
+        {/*  label={<>Full name</>}*/}
+        {/*  value={name || ""}*/}
+        {/*  type="text"*/}
+        {/*  onChange={setName}*/}
+        {/*  placeholder="Name"*/}
+        {/*/>*/}
         <br />
         <br />
         <button type="submit" className="btn btn-primary">

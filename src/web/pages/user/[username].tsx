@@ -4,7 +4,7 @@ import { navigate } from "gatsby"
 import { PageHead } from "../../ui-elements/page-layout/PageHead"
 import useProfile from "../../../services/hooks/profile/useProfile"
 import { AvatarImage } from "../../ui-elements/profile/AvatarImage"
-import SociasLinks from "../../ui-elements/profile/SociasLinks"
+import SociasLinks from "../../ui-elements/profile/SocialLinks"
 import { BuddyPostsOfUser } from "../../ui-elements/buddy-posts/BuddyPostsOfUser"
 
 function UserPage({

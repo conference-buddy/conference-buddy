@@ -1,32 +1,17 @@
-import React, { ReactElement, useEffect } from "react"
+import React, { ReactElement } from "react"
 
 import {
   ProfileCreate,
   SocialLink,
   usernameExists,
 } from "../../../../domain/profiles"
-
 import { AuthUser } from "@supabase/supabase-js"
-import {
-  Controller,
-  FieldErrors,
-  FieldValue,
-  FieldValues,
-  SubmitErrorHandler,
-  SubmitHandler,
-  useForm,
-  useFormState,
-  useWatch,
-} from "react-hook-form"
+import { Controller, FieldErrors, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { TextInputTest } from "../../text-input/TextInputTest"
 import { TextInput } from "../../text-input/TextInput"
 import { MarkdownInput } from "../../markdown-input/MarkdownInput"
-import { SocialLinkInputs } from "../../social-link-inputs/SocialLinkInputs"
 import { SocialLinksDB } from "../../../../domain/_social-links/types/types-social-links"
-import { generateEmptySocialLinks } from "../../../../domain/_social-links/helper/generate-social-links-for-profile"
-import { string } from "zod"
 import useCreateProfile from "../../../../services/hooks/profile/useCreateProfile"
 
 type CreateProfileProps = {

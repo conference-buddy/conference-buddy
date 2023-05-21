@@ -30,6 +30,8 @@ function generateSocialLink({
 }): SocialLink {
   return {
     platform: platform,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     platformName: platformNameMap[platform].name,
     address: address,
   }
