@@ -2,7 +2,6 @@ import { cleanup, render, screen } from "@testing-library/react"
 import React from "react"
 import { SignIn } from "./SignIn"
 import { getAuthUser } from "../../../domain/auth-user"
-import { User } from "@supabase/gotrue-js/src/lib/types"
 import { createWrapperWithQueryClient } from "../../../services/test-utils/wrapper"
 import { getProfile, Profile } from "../../../domain/profiles"
 import userEvent from "@testing-library/user-event"
@@ -10,6 +9,7 @@ import {
   signInWithGithub,
   signOut,
 } from "../../../domain/auth-user/api/auth-user-api"
+import { User } from "@supabase/supabase-js"
 
 jest.mock("@supabase/supabase-js")
 
