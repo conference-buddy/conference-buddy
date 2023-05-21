@@ -63,6 +63,7 @@ async function createProfile(newProfile: ProfileCreate) {
       name: newProfile.name,
       id: newProfile.id,
       about_text: newProfile.about_text,
+      avatar_url: newProfile.avatar_url,
     },
   ])
 

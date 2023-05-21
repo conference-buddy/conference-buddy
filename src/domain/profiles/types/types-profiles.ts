@@ -13,7 +13,7 @@ type Profile = Prettify<
 >
 
 type ProfileCreate = Prettify<
-  Omit<Profile, "created_at" | "avatar_url" | "updated_at" | "social_links"> & {
+  Omit<Profile, "created_at" | "updated_at" | "social_links"> & {
     social_links: Omit<SocialLinksDB, "id">
   }
 >

@@ -17,6 +17,7 @@ export async function uploadAvatar(avatarFile: ImageObject) {
       upsert: false,
     })
 
+  console.log("upload image")
   if (error) {
     throw new Error(error.message)
   }

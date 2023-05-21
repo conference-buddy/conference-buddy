@@ -9,6 +9,7 @@ type ImageUploadProps = {
   onFileAdded: (imageObject: ImageObject) => void
   onFileRemoved: () => void
   imagePublicUrl: string | null
+  maxWidth?: string
 }
 
 function ImageUpload(props: ImageUploadProps): ReactElement {
@@ -44,6 +45,7 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
             alt="Avatar"
             src={props.imagePublicUrl}
             loading="lazy"
+            style={{ maxWidth: props.maxWidth }}
           />
         )}
         {!props.imagePublicUrl && (
