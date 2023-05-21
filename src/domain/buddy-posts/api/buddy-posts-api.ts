@@ -1,5 +1,8 @@
 import { supabase } from "../../_database/supabaseClient"
-import { BuddyPostDB, BuddyPostWithProfile } from "../types/types-buddy-posts"
+import {
+  BuddyPostOfUser,
+  BuddyPostWithProfile,
+} from "../types/types-buddy-posts"
 
 const getBuddyPosts = async (
   conferenceId: string
@@ -33,7 +36,7 @@ const getBuddyPosts = async (
 
 const getBuddyPostsOfUser = async (
   profileId: string
-): Promise<BuddyPostDB[]> => {
+): Promise<BuddyPostOfUser[]> => {
   const { data: buddyPosts, error } = await supabase
     .from("buddy_posts")
     .select(
@@ -56,7 +59,9 @@ const getBuddyPostsOfUser = async (
     throw new Error("Buddy posts for user not found")
   }
 
-  return buddyPosts
+  // There is always just one author of a profile. Supabase thinks it could be an array of profiles.
+  // See: https://github.com/orgs/supabase/discussions/7610
+  return buddyPosts as BuddyPostOfUser[]
 }
 
 export { getBuddyPosts, getBuddyPostsOfUser }
