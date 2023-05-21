@@ -5,6 +5,7 @@ import { navigate } from "gatsby"
 import { PageHead } from "../../ui-elements/page-layout/PageHead"
 import { AvatarImage } from "../../ui-elements/profile/AvatarImage"
 import SociasLinks from "../../ui-elements/profile/SociasLinks"
+import { BuddyPostsOfUser } from "../../ui-elements/buddy-posts/BuddyPostsOfUser"
 
 function UserPage({
   params,
@@ -54,10 +55,17 @@ function UserPage({
             </div>
           </div>
           <div className="col-lg-8">
-            <div className="card border-0">
+            <div className="card border-0 mb-3">
               <div className="card-body">
                 <h4>About me</h4>
                 {user.about_text}
+              </div>
+            </div>
+
+            <div className="card border-0">
+              <div className="card-body">
+                <h4>Was buddy at conference</h4>
+                <BuddyPostsOfUser profileId={user.id}></BuddyPostsOfUser>
               </div>
             </div>
           </div>

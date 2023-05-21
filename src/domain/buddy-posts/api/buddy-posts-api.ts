@@ -1,7 +1,6 @@
 import { supabase } from "../../_database/supabaseClient"
-import { BuddyPostWithProfile } from "../types/types-buddy-posts"
+import { BuddyPostDB, BuddyPostWithProfile } from "../types/types-buddy-posts"
 
-//eslint-disable-next-line  @typescript-eslint/no-explicit-any
 const getBuddyPosts = async (
   conferenceId: string
 ): Promise<BuddyPostWithProfile[]> => {
@@ -32,4 +31,32 @@ const getBuddyPosts = async (
   return buddyPosts as BuddyPostWithProfile[]
 }
 
-export { getBuddyPosts }
+const getBuddyPostsOfUser = async (
+  profileId: string
+): Promise<BuddyPostDB[]> => {
+  const { data: buddyPosts, error } = await supabase
+    .from("buddy_posts")
+    .select(
+      `
+        *,
+        conference:conferences(
+            name
+        )
+      `
+    )
+    .eq("profile_id", profileId)
+
+  console.log("buddyPosts", buddyPosts)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  if (!buddyPosts) {
+    throw new Error("Buddy posts for user not found")
+  }
+
+  return buddyPosts
+}
+
+export { getBuddyPosts, getBuddyPostsOfUser }

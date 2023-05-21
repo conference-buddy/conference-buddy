@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react"
-import useBuddyPosts from "../../../services/hooks/buddy-post/useBuddyPosts"
 import { BuddyPost } from "./BuddyPost"
+import { useBuddyPosts } from "../../../services/hooks/buddy-post/useBuddyPosts"
 
 function BuddyPosts({ conferenceId }: { conferenceId: string }): ReactElement {
   const { data: buddyPosts, isLoading } = useBuddyPosts(conferenceId)
@@ -9,7 +9,15 @@ function BuddyPosts({ conferenceId }: { conferenceId: string }): ReactElement {
     <>
       {!isLoading && buddyPosts ? (
         buddyPosts.map((post, index: number) => {
-          return <BuddyPost key={index} post={post} />
+          return (
+            <BuddyPost
+              key={index}
+              text={post.text}
+              createdAt={post.created_at}
+              username={post.profile?.username}
+              avatarUrl={post.profile?.avatar_url}
+            />
+          )
         })
       ) : (
         <div className="container text-center">

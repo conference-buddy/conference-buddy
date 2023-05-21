@@ -1,10 +1,22 @@
 import { getBuddyPosts } from "../../../domain/buddy-posts"
 import { useQuery } from "@tanstack/react-query"
+import { getBuddyPostsOfUser } from "../../../domain/buddy-posts/api/buddy-posts-api"
 
-export default function useBuddyPosts(conferenceId: string) {
+export function useBuddyPosts(conferenceId: string) {
   return useQuery(
     ["buddy_posts", conferenceId],
     () => getBuddyPosts(conferenceId),
+    {
+      retry: false,
+      refetchOnWindowFocus: false,
+    }
+  )
+}
+
+export function useBuddyPostsOfUser(profileId: string) {
+  return useQuery(
+    ["buddy_posts_of_user", profileId],
+    () => getBuddyPostsOfUser(profileId),
     {
       retry: false,
       refetchOnWindowFocus: false,
