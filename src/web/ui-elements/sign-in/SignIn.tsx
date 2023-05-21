@@ -7,7 +7,7 @@ import {
 import { useAuthUserContext } from "../../../services/hooks/auth-user/useAuthUserContext"
 import useProfile from "../../../services/hooks/profile/useProfile"
 
-function SignIn(): ReactElement {
+function SignIn({ standAlone }: { standAlone?: boolean }): ReactElement {
   const { authUser } = useAuthUserContext()
 
   //@TODO add proper error handling
@@ -16,7 +16,9 @@ function SignIn(): ReactElement {
   if (!authUser) {
     return (
       <button
-        className="btn btn-outline-light btn-sm"
+        className={`btn btn-sm  ${
+          !standAlone ? "btn-outline-light " : "btn-primary"
+        }`}
         onClick={signInWithGithub}
       >
         Sign in

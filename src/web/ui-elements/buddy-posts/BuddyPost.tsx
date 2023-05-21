@@ -5,8 +5,6 @@ import { AvatarImage } from "../profile/AvatarImage"
 
 function BuddyPost({
   avatarUrl,
-  conferenceId,
-  conferenceName,
   createdAt,
   text,
   username,
@@ -31,17 +29,9 @@ function BuddyPost({
           )}
           <div className="col">
             <div className="d-flex justify-content-between">
-              {username && (
-                <TextLink to={`/user/${username}`} internal={true}>
-                  {username}
-                </TextLink>
-              )}
-
-              {conferenceId && (
-                <TextLink to={`/conference/${conferenceId}`} internal={true}>
-                  {conferenceName}
-                </TextLink>
-              )}
+              <TextLink to={`/user/${username}`} internal={true}>
+                {username}
+              </TextLink>
               <div className="text-dark text-opacity-75">
                 💬 {formattedPostingDate}
               </div>
