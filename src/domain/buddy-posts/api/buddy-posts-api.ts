@@ -49,8 +49,6 @@ const getBuddyPostsOfUser = async (
     )
     .eq("profile_id", profileId)
 
-  console.log("buddyPosts", buddyPosts)
-
   if (error) {
     throw new Error(error.message)
   }
@@ -64,4 +62,21 @@ const getBuddyPostsOfUser = async (
   return buddyPosts as BuddyPostOfUser[]
 }
 
-export { getBuddyPosts, getBuddyPostsOfUser }
+const createBuddyPost = async (
+  profileId: string,
+  conferenceId: string,
+  text: string
+): Promise<void> => {
+  const { data: buddyPost, error } = await supabase
+    .from("buddy_posts")
+    .insert({ profile_id: profileId, conference_id: conferenceId, text: text })
+    .eq("profile_id", profileId)
+
+  console.log("created buddypost:", buddyPost)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+}
+
+export { getBuddyPosts, getBuddyPostsOfUser, createBuddyPost }

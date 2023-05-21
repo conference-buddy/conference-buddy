@@ -19,14 +19,6 @@ function BuddyPost({
   username?: string | undefined
 }): ReactElement {
   const formattedPostingDate = formatDateString(createdAt)
-  console.log("eeee", {
-    avatarUrl,
-    conferenceId,
-    conferenceName,
-    createdAt,
-    text,
-    username,
-  })
 
   return (
     <div className="rounded bg-white mb-3 p-3 container">
