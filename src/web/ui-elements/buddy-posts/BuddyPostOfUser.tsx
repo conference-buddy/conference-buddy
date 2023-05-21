@@ -16,24 +16,20 @@ function BuddyPostOfUser({
   const formattedPostingDate = formatDateString(createdAt)
 
   return (
-    <div className="rounded bg-white mb-3 p-3 container">
-      <div className="card-body">
-        <div className="row">
-          <div className="col">
-            <div className="d-flex justify-content-between">
-              {conferenceId && (
-                <TextLink to={`/conference/${conferenceId}`} internal={true}>
-                  {conferenceName}
-                </TextLink>
-              )}
-              <div className="text-dark text-opacity-75">
-                💬 {formattedPostingDate}
-              </div>
-            </div>
-
-            <p className="card-text pt-2">{text}</p>
+    <div className="row">
+      <div className="col">
+        <div className="d-flex justify-content-between">
+          {conferenceId && (
+            <TextLink to={`/conference/${conferenceId}`} internal={true}>
+              {conferenceName}
+            </TextLink>
+          )}
+          <div className="text-dark text-opacity-75">
+            💬 {formattedPostingDate}
           </div>
         </div>
+
+        <p className="card-text pt-2">{text}</p>
       </div>
     </div>
   )
