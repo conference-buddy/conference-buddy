@@ -2,6 +2,7 @@ import React from "react"
 import { Conference } from "../../../../domain/conferences"
 import { ConferenceLocation } from "../elements/ConferenceLocation"
 import { ConferenceDates } from "../elements/ConferenceDates"
+import { TextLink } from "../../text-link/TextLink"
 
 type ConferenceSingleProps = {
   conference: Conference
@@ -9,44 +10,42 @@ type ConferenceSingleProps = {
 
 function ConferenceSingle({ conference }: ConferenceSingleProps) {
   return (
-    <article className="bg-white rounded p-3 mb-5">
-      <h1 className="mt-2 mb-3">{conference.name}</h1>
-      {conference.url && (
-        <p className="mb-1">
-          <span aria-hidden="true" className="me-2">
-            🌍
-          </span>
-          <a href={conference.url}>{conference.url}</a>
-        </p>
-      )}
-      <ConferenceLocation city={conference.city} country={conference.country} />
-      <ConferenceDates
-        startDate={conference.start_date}
-        endDate={conference.end_date}
-      />
-      <div className="my-4 row px-2">
-        <div className="visually-hidden">14 are following this event</div>
-        <button
-          type="button"
-          className="col col-md-2 btn btn-outline-secondary me-1"
-        >
-          <span aria-hidden="true" className="me-2">
-            👀 14
-          </span>
-          <span className="visually-hidden">Become a lurker</span>
-        </button>
-        <div className="visually-hidden">2 buddies for this event</div>
-        <button
-          type="button"
-          className="col col-md-2 btn btn-outline-secondary ms-1"
-        >
-          <span aria-hidden="true" className="me-2">
-            🐶 2
-          </span>
-          <span className="visually-hidden">Become a Conference Buddy</span>
-        </button>
+    <article className="card mb-5">
+      <div className="card-header small d-flex flex-column flex-md-row justify-content-md-between">
+        <ConferenceLocation
+          city={conference.city}
+          country={conference.country}
+        />
+        <ConferenceDates
+          startDate={conference.start_date}
+          endDate={conference.start_date}
+        />
       </div>
-      <p>{conference.description}</p>
+      <div className="card-body">
+        <h1 className="mt-2 mb-3">{conference.name}</h1>
+        {conference.url && (
+          <p className="mb-1">
+            <span aria-hidden="true" className="me-2">
+              🌐
+            </span>
+            <TextLink to={conference.url} internal={false}>
+              {conference.url}
+            </TextLink>
+          </p>
+        )}
+        <p className="mt-5">{conference.description}</p>
+        <div className="d-flex align-items-center flex-column mt-5">
+          <p className="lead">
+            🐶&nbsp;&nbsp;2 Conference Buddies for this event
+          </p>
+          <button
+            type="button"
+            className="col col-md-4 btn btn-primary mt-2 mb-2"
+          >
+            Become a Conference Buddy
+          </button>
+        </div>
+      </div>
     </article>
   )
 }
