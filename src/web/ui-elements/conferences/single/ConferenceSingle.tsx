@@ -4,8 +4,8 @@ import { ConferenceLocation } from "../elements/ConferenceLocation"
 import { ConferenceDates } from "../elements/ConferenceDates"
 import { TextLink } from "../../text-link/TextLink"
 import { BuddyPostForm } from "../../buddy-posts/BuddyPostForm"
-import { useAuthUserContext } from "../../../../services/hooks/auth-user/useAuthUserContext"
 import { SignIn } from "../../sign-in/SignIn"
+import useProfile from "../../../../services/hooks/profile/useProfile"
 
 type ConferenceSingleProps = {
   conference: Conference
@@ -13,7 +13,7 @@ type ConferenceSingleProps = {
 
 function ConferenceSingle({ conference }: ConferenceSingleProps) {
   const [showConferenceBuddyForm, setShowConferenceBuddyForm] = useState(false)
-  const authUserContext = useAuthUserContext()
+  const { data: profile } = useProfile()
 
   return (
     <>
@@ -45,7 +45,7 @@ function ConferenceSingle({ conference }: ConferenceSingleProps) {
             <p className="lead">
               🐶&nbsp;&nbsp;2 Conference Buddies for this event
             </p>
-            {authUserContext.authUser ? (
+            {profile ? (
               <button
                 disabled={showConferenceBuddyForm}
                 onClick={() =>
@@ -64,10 +64,10 @@ function ConferenceSingle({ conference }: ConferenceSingleProps) {
           </div>
         </div>
       </article>
-      {showConferenceBuddyForm && authUserContext.authUser?.id && (
+      {showConferenceBuddyForm && profile && (
         <BuddyPostForm
           conferenceId={conference.id}
-          profileId={authUserContext.authUser.id}
+          profileId={profile.id}
           cancelEvent={() =>
             setShowConferenceBuddyForm(!showConferenceBuddyForm)
           }

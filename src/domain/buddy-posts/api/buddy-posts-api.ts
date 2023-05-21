@@ -62,11 +62,15 @@ const getBuddyPostsOfUser = async (
   return buddyPosts as BuddyPostOfUser[]
 }
 
-const createBuddyPost = async (
-  profileId: string,
-  conferenceId: string,
+const createBuddyPost = async ({
+  profileId,
+  conferenceId,
+  text,
+}: {
+  profileId: string
+  conferenceId: string
   text: string
-): Promise<void> => {
+}): Promise<void> => {
   const { data: buddyPost, error } = await supabase
     .from("buddy_posts")
     .insert({ profile_id: profileId, conference_id: conferenceId, text: text })
