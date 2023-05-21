@@ -1,50 +1,26 @@
 import React, { ReactElement } from "react"
 import { TextLink } from "../text-link/TextLink"
 import { formatDateString } from "../../../services/string-formatter/format-date"
-import { AvatarImage } from "../profile/AvatarImage"
 
-function BuddyPost({
-  avatarUrl,
+function BuddyPostOfUser({
   conferenceId,
   conferenceName,
   createdAt,
   text,
-  username,
 }: {
-  avatarUrl?: string | null | undefined
   conferenceId?: string | undefined
   conferenceName?: string | undefined
   createdAt: string
   text: string
-  username?: string | undefined
 }): ReactElement {
   const formattedPostingDate = formatDateString(createdAt)
-  console.log("eeee", {
-    avatarUrl,
-    conferenceId,
-    conferenceName,
-    createdAt,
-    text,
-    username,
-  })
 
   return (
     <div className="rounded bg-white mb-3 p-3 container">
       <div className="card-body">
         <div className="row">
-          {avatarUrl && (
-            <div className="col-1">
-              <AvatarImage avatarUrl={avatarUrl}></AvatarImage>
-            </div>
-          )}
           <div className="col">
             <div className="d-flex justify-content-between">
-              {username && (
-                <TextLink to={`/user/${username}`} internal={true}>
-                  {username}
-                </TextLink>
-              )}
-
               {conferenceId && (
                 <TextLink to={`/conference/${conferenceId}`} internal={true}>
                   {conferenceName}
@@ -63,4 +39,4 @@ function BuddyPost({
   )
 }
 
-export { BuddyPost }
+export { BuddyPostOfUser }
