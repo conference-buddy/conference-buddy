@@ -38,7 +38,7 @@ function UserPage({
       <div className="container">
         <div className="row">
           <div className="col-lg-4 mb-3">
-            <div className="card border-0">
+            <div className="card">
               <div className="card-body">
                 <div className="d-flex flex-column align-items-center text-center">
                   <AvatarImage
@@ -56,14 +56,14 @@ function UserPage({
             </div>
           </div>
           <div className="col-lg-8">
-            <div className="card border-0 mb-3">
+            <div className="card mb-3">
               <div className="card-body">
                 <h4>About me</h4>
                 {user.about_text}
               </div>
             </div>
 
-            <div className="card border-0">
+            <div className="card">
               <div className="card-body">
                 <h4>Was buddy at conference</h4>
                 <BuddyPostsOfUser profileId={user.id}></BuddyPostsOfUser>

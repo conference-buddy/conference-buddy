@@ -19,7 +19,7 @@ function BuddyPost({
   const formattedPostingDate = formatDateString(createdAt)
 
   return (
-    <div className="rounded bg-white mb-3 p-3 container">
+    <div className="card mb-3 container">
       <div className="card-body">
         <div className="row">
           {avatarUrl && (
