@@ -8,28 +8,44 @@ import useDeleteAvatar from "../../../services/hooks/profile/useDeleteAvatar"
 type UpdateAvatarProps = {
   profileId: string
   avatarUrl: string | null
+  maxWidth?: string
 }
 
 function UpdateAvatar(props: UpdateAvatarProps): ReactElement {
-  const updateAvatar = useUpdateAvatar(props.profileId)
-  const deleteAvatar = useDeleteAvatar(props.profileId)
+  const { mutate: updateAvatar, isSuccess: isSuccessUpload } = useUpdateAvatar(
+    props.profileId
+  )
+  const { mutate: deleteAvatar, isSuccess: isSuccessDelete } = useDeleteAvatar(
+    props.profileId
+  )
 
   async function uploadImage(imageObject: ImageObject) {
-    updateAvatar.mutate({ avatarFile: imageObject })
+    updateAvatar({ avatarFile: imageObject })
   }
 
   async function deleteImage() {
     if (props.avatarUrl) {
-      deleteAvatar.mutate({ avatarUrl: props.avatarUrl })
+      deleteAvatar({ avatarUrl: props.avatarUrl })
     }
   }
 
   return (
-    <ImageUpload
-      onFileAdded={uploadImage}
-      onFileRemoved={deleteImage}
-      imagePublicUrl={props.avatarUrl && getPublicAvatarUrl(props.avatarUrl)}
-    />
+    <>
+      <div className={"text-success p-2"}>
+        {(isSuccessUpload || isSuccessDelete) && (
+          <>
+            <span aria-hidden={true}> ✅ </span>That worked!
+          </>
+        )}
+      </div>
+
+      <ImageUpload
+        onFileAdded={uploadImage}
+        onFileRemoved={deleteImage}
+        imagePublicUrl={props.avatarUrl && getPublicAvatarUrl(props.avatarUrl)}
+        maxWidth={props.maxWidth}
+      />
+    </>
   )
 }
 

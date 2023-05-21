@@ -12,10 +12,24 @@ type Profile = Prettify<
   }
 >
 
+type ProfileUpdate = Prettify<
+  Omit<
+    Profile,
+    | "created_at"
+    | "updated_at"
+    | "social_links"
+    | "avatar_url"
+    | "provider"
+    | "username"
+  > & {
+    social_links: Omit<SocialLinksDB, "id">
+  }
+>
+
 type ProfileCreate = Prettify<
   Omit<Profile, "created_at" | "updated_at" | "social_links"> & {
     social_links: Omit<SocialLinksDB, "id">
   }
 >
 
-export { ProfileDB, Profile, ProfileCreate }
+export { ProfileDB, Profile, ProfileCreate, ProfileUpdate }

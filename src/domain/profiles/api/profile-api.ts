@@ -1,5 +1,10 @@
 import { User } from "@supabase/supabase-js"
-import { Profile, ProfileCreate, ProfileDB } from "../types/types-profiles"
+import {
+  Profile,
+  ProfileCreate,
+  ProfileDB,
+  ProfileUpdate,
+} from "../types/types-profiles"
 import { supabase } from "../../_database/supabaseClient"
 import { transformProfile } from "../utils/transform-data"
 import { createSocialLinks } from "../../_social-links/api/social-links-api"
@@ -83,19 +88,31 @@ async function createProfile(newProfile: ProfileCreate) {
   return true
 }
 
-async function updateProfile(profile: Profile) {
-  const { data: insertData, error: insertError } = await supabase
+async function updateProfile(profile: ProfileUpdate) {
+  const { error: profileError, data } = await supabase
     .from("profiles")
     .update({
-      username: profile.username,
+      about_text: profile.about_text,
+      email: profile.email,
+      id: profile.id,
       name: profile.name,
     })
-    .match({ id: profile.id })
+    .eq("id", profile.id)
 
-  if (insertError) {
-    throw insertError
+  console.log("data", data)
+
+  debugger
+  const { error: socialLinksError } = await supabase
+    .from("profiles_social_links")
+    .update({ ...profile.social_links })
+    .eq("id", profile.id)
+    .select()
+
+  if (socialLinksError || profileError) {
+    throw profileError || socialLinksError
   }
-  return insertData
+
+  return true
 }
 
 export { getProfile, createProfile, updateProfile, usernameExists }
