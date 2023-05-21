@@ -1,18 +1,16 @@
 import { supabase } from "../../_database/supabaseClient"
-
-import { flattenSocialLinks } from "../helper/flattenSocialLinksForDB"
-import { SocialLink, SocialLinksDB } from "../types/types-social-links"
+import { SocialLinksDB } from "../types/types-social-links"
 
 function createSocialLinks({
   profileId,
   socialLinks,
 }: {
   profileId: string
-  socialLinks: SocialLink[]
+  socialLinks: Omit<SocialLinksDB, "id">
 }) {
   const socialLinksForDB: SocialLinksDB = {
     id: profileId,
-    ...flattenSocialLinks(socialLinks),
+    ...socialLinks,
   }
 
   return supabase.from("profiles_social_links").insert([socialLinksForDB])

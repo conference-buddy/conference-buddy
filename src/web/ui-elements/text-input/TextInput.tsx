@@ -1,39 +1,46 @@
 import React, { ReactElement } from "react"
 import { v4 as uuidv4 } from "uuid"
+import { FieldValues, Path, UseFormRegister } from "react-hook-form"
 
 type TextInputTypes = "text" | "url" | "date" | "email"
 
-type TextInputProps = {
-  onChange: (value: string) => void
-  value?: string
+type TextInputProps<T extends FieldValues> = {
+  register: UseFormRegister<T>
+  name: Path<T>
   label: ReactElement
   placeholder: string
-  errorMessage: string
-  onBlur?: (value: string) => void
+  error: string
   required?: boolean
   disabled?: boolean
   type?: TextInputTypes
   list?: string[]
   ariaDescription?: string
+  validated: boolean
 }
 
-function TextInput(props: TextInputProps): ReactElement {
+function TextInput<T extends FieldValues>(
+  props: TextInputProps<T>
+): ReactElement {
   const {
-    label,
-    onChange,
-    onBlur,
     ariaDescription,
+    disabled,
+    error,
+    label,
+    list,
     placeholder,
-    value,
-    errorMessage,
+    register,
+    required,
+    type,
+    name,
+
+    validated,
   } = props
-  const required = props.required ? props.required : false
-  const disabled = props.disabled ? props.disabled : false
-  const type = props.type ? props.type : "text"
   const idForTextInput = uuidv4()
   const idForDescription = uuidv4()
   const idForDataList = uuidv4()
 
+  const invalidClass = error ? `is-invalid` : ""
+  const validClass = validated && !error ? "is-valid" : ""
   return (
     <div className="mb-5">
       <label
@@ -48,34 +55,24 @@ function TextInput(props: TextInputProps): ReactElement {
         </div>
       )}
       <input
-        value={value}
-        list={props.list && idForDataList}
+        {...register(name)}
+        list={list && idForDataList}
         id={idForTextInput}
         aria-describedby={ariaDescription && idForDescription}
-        required={required || Boolean(value && value?.length > 0)}
+        aria-required={required}
+        aria-invalid={Boolean(error)}
         disabled={disabled}
-        type={type}
-        className={`form-control form-control-lg`}
-        style={
-          !required && Boolean(value?.length === 0)
-            ? { borderColor: "#ced4da", backgroundImage: "none" }
-            : {}
-        }
-        onChange={e => onChange(e.target.value.trim())}
-        onBlur={onBlur ? e => onBlur(e.target.value.trim()) : undefined}
+        type={type || "text"}
+        className={`form-control form-control-lg ${invalidClass} ${validClass}`}
         placeholder={placeholder}
       />
 
-      {required ||
-        (Boolean(value && value?.length > 0) && (
-          <>
-            <div className="valid-feedback">Looks good!</div>
-            <div className="invalid-feedback">{errorMessage}</div>
-          </>
-        ))}
-      {props.list?.length && (
+      <div className="valid-feedback">Looks good!</div>
+      <div className={"invalid-feedback"}>{error}</div>
+
+      {list?.length && (
         <datalist id={idForDataList}>
-          {props.list.map((entry, index) => {
+          {list.map((entry, index) => {
             return (
               <option value={entry} key={index}>
                 {entry}

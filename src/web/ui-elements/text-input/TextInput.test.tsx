@@ -1,22 +1,24 @@
 import { render, screen, cleanup } from "@testing-library/react"
 import { TextInput } from "./TextInput"
-import userEvent from "@testing-library/user-event"
+import React from "react"
 
-const mockOnChange = jest.fn()
 const testLabel = "Label of the input"
 const testPlaceholder = "Label of the placeholder"
 
 const requiredProps = {
-  onChange: mockOnChange,
   label: <>{testLabel}</>,
   placeholder: testPlaceholder,
-  errorMessage: "error",
+  error: "error",
+  validated: false,
+  name: "testname",
 }
+
+const mockRegister = jest.fn()
 
 describe("TextInput", () => {
   describe("renders all necessary elements", () => {
     beforeAll(() => {
-      render(<TextInput {...requiredProps} />)
+      render(<TextInput register={mockRegister} {...requiredProps} />)
     })
 
     afterAll(() => {
@@ -37,17 +39,6 @@ describe("TextInput", () => {
 
       expect(input).toHaveAttribute("placeholder", testPlaceholder)
     })
-
-    it("takes a function as onChange event", async () => {
-      const input = screen.getByRole("textbox", { name: testLabel })
-
-      await userEvent.type(input, "one")
-
-      expect(mockOnChange).toHaveBeenCalledWith("o")
-      expect(mockOnChange).toHaveBeenCalledWith("on")
-      expect(mockOnChange).toHaveBeenCalledWith("one")
-      expect(mockOnChange).toHaveBeenCalledTimes(3)
-    })
   })
 
   describe("renders dependent on props", () => {
@@ -58,32 +49,33 @@ describe("TextInput", () => {
 
     describe("disables input", () => {
       it("disables input based on prop", () => {
-        render(<TextInput {...requiredProps} disabled={true} />)
+        render(
+          <TextInput
+            register={mockRegister}
+            {...requiredProps}
+            disabled={true}
+          />
+        )
         const input = screen.getByRole("textbox", { name: testLabel })
 
         expect(input).toBeDisabled()
-      })
-
-      it("blocks onChange event if input is disabled", async () => {
-        render(<TextInput {...requiredProps} disabled={true} />)
-        const input = screen.getByRole("textbox", { name: testLabel })
-
-        await userEvent.type(input, "one")
-
-        expect(mockOnChange).not.toHaveBeenCalled()
       })
     })
 
     describe("changes the type of input based on prop", () => {
       it("shows a input for an url", () => {
-        render(<TextInput {...requiredProps} type="url" />)
+        render(
+          <TextInput register={mockRegister} {...requiredProps} type={"url"} />
+        )
         const input = screen.getByRole("textbox", { name: testLabel })
 
         expect(input).toHaveAttribute("type", "url")
       })
 
       it("shows a input for a date", () => {
-        render(<TextInput {...requiredProps} type="date" />)
+        render(
+          <TextInput register={mockRegister} {...requiredProps} type="date" />
+        )
         // type="date" does not translate to an accessible element
         // in testing library
         const input = screen.getByLabelText(testLabel)
@@ -100,7 +92,13 @@ describe("TextInput", () => {
       ]
 
       it("shows a input with a datalist", () => {
-        render(<TextInput {...requiredProps} list={testDataList} />)
+        render(
+          <TextInput
+            register={mockRegister}
+            {...requiredProps}
+            list={testDataList}
+          />
+        )
 
         const input = screen.getByRole("combobox", { name: testLabel })
 
@@ -109,7 +107,13 @@ describe("TextInput", () => {
 
       testDataList.forEach(entry => {
         it(`shows the entry ${entry} as an option`, () => {
-          render(<TextInput {...requiredProps} list={testDataList} />)
+          render(
+            <TextInput
+              register={mockRegister}
+              {...requiredProps}
+              list={testDataList}
+            />
+          )
 
           const input = screen.getByRole("combobox", { name: testLabel })
           const option = screen.getByRole("option", {
@@ -122,21 +126,12 @@ describe("TextInput", () => {
         })
       })
     })
-
-    it("takes a onBlur function as prop", async () => {
-      const mockOnBlur = jest.fn()
-      render(<TextInput {...requiredProps} onBlur={mockOnBlur} />)
-
-      const input = screen.getByRole("textbox", { name: testLabel })
-      await userEvent.type(input, "one")
-      await userEvent.tab()
-
-      expect(mockOnBlur).toHaveBeenCalled()
-    })
   })
 
   it("makes an input required based on a prop", () => {
-    render(<TextInput {...requiredProps} required={true} />)
+    render(
+      <TextInput register={mockRegister} {...requiredProps} required={true} />
+    )
     const input = screen.getByRole("textbox", { name: testLabel })
 
     expect(input).toBeEnabled()

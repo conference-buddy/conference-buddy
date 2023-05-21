@@ -1,8 +1,21 @@
-import { SocialLink } from "../../_social-links/types/types-social-links"
+import {
+  SocialLink,
+  SocialLinksDB,
+} from "../../_social-links/types/types-social-links"
 import { Database } from "../../_database/types"
 
-export type ProfileDB = Database["public"]["Tables"]["profiles"]["Row"]
+type ProfileDB = Prettify<Database["public"]["Tables"]["profiles"]["Row"]>
 
-export interface Profile extends ProfileDB {
-  social_links: SocialLink[]
-}
+type Profile = Prettify<
+  ProfileDB & {
+    social_links: SocialLink[]
+  }
+>
+
+type ProfileCreate = Prettify<
+  Omit<Profile, "created_at" | "avatar_url" | "updated_at" | "social_links"> & {
+    social_links: Omit<SocialLinksDB, "id">
+  }
+>
+
+export { ProfileDB, Profile, ProfileCreate }
