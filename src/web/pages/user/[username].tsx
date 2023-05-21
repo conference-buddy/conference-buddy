@@ -1,8 +1,8 @@
 import React, { ReactElement } from "react"
-import { useAuthUserContext } from "../../../services/hooks/auth-user/useAuthUserContext"
 import usePublicProfile from "../../../services/hooks/public-profile/usePublicProfile"
 import { navigate } from "gatsby"
 import { PageHead } from "../../ui-elements/page-layout/PageHead"
+import useProfile from "../../../services/hooks/profile/useProfile"
 import { AvatarImage } from "../../ui-elements/profile/AvatarImage"
 import SociasLinks from "../../ui-elements/profile/SociasLinks"
 import { BuddyPostsOfUser } from "../../ui-elements/buddy-posts/BuddyPostsOfUser"
@@ -12,13 +12,14 @@ function UserPage({
 }: {
   params: Record<string, string>
 }): ReactElement {
-  const { authUser, isLoading: authUserIsLoading } = useAuthUserContext()
+  const { data: profile, isLoading } = useProfile()
+
   const { data: user, isError } = usePublicProfile({
     username: params.username,
-    enabled: Boolean(authUser),
+    enabled: Boolean(!isLoading && profile),
   })
 
-  if (!authUserIsLoading && !authUser) {
+  if (!isLoading && !profile) {
     navigate("/")
     return <></>
   }

@@ -1,21 +1,22 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { CreateProfile } from "../../../ui-elements/profile/create/CreateProfile"
 import useProfile from "../../../../services/hooks/profile/useProfile"
 import { navigate } from "gatsby"
 import { useAuthUserContext } from "../../../../services/hooks/auth-user/useAuthUserContext"
 
 export default function CreateProfilePage() {
-  const { data: profile, isLoading } = useProfile()
-  const { authUser } = useAuthUserContext()
+  const { data: profile, isLoading: profileIsLoading } = useProfile()
+  const { authUser, isLoading: authUserIsLoading } = useAuthUserContext()
 
-  useEffect(() => {
-    if (profile || !authUser) {
-      // in case a user navigates here who already
-      // has a profile or is not authenticated
-      navigate("/profile")
-      return
-    }
-  }, [isLoading, profile, authUser])
+  if (!authUserIsLoading && !authUser) {
+    navigate("/")
+    return
+  }
+
+  if (!profileIsLoading && profile) {
+    navigate("/")
+    return
+  }
 
   return (
     <div className="container">

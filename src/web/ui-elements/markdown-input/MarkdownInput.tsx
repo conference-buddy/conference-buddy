@@ -11,12 +11,21 @@ type MarkDownInputProps = {
   onBlur?: (value: string) => void
   required?: boolean
   disabled?: boolean
+  validated: boolean
+  error: string
 }
 
 function MarkdownInput(props: MarkDownInputProps): ReactElement {
-  const { value, label, onChange, placeholder } = props
-  const required = props.required ? props.required : false
-  const disabled = props.disabled ? props.disabled : false
+  const {
+    value,
+    label,
+    onChange,
+    placeholder,
+    required,
+    disabled,
+    validated,
+    error,
+  } = props
   const idForMarkdownInput = uuidv4()
 
   function removeCommands(cmd: ICommand): false | ICommand {
@@ -24,6 +33,10 @@ function MarkdownInput(props: MarkDownInputProps): ReactElement {
       ? false
       : cmd
   }
+
+  const defaultClass = !validated ? "p-0 m-1 border-0" : ""
+  const invalidClass = error ? `is-invalid` : ""
+  const validClass = validated && !error ? "is-valid p-1 border-2" : ""
 
   return (
     <div data-color-mode="light">
@@ -35,22 +48,27 @@ function MarkdownInput(props: MarkDownInputProps): ReactElement {
       >
         📝 {label} <span className={"visually-hidden"}>, markdown editor</span>
       </label>
-      <MDEditor
-        id={idForMarkdownInput}
-        value={value}
-        aria-label={label}
-        placeholder={placeholder}
-        aria-required={required}
-        aria-disabled={disabled}
-        onChange={e => onChange(e)}
-        previewOptions={{
-          rehypePlugins: [[rehypeSanitize]],
-        }}
-        draggable={false}
-        preview="edit"
-        commandsFilter={cmd => removeCommands(cmd)}
-        className={"pb-3"}
-      />
+      <div
+        className={`form-control ${defaultClass} ${invalidClass} ${validClass}`}
+      >
+        <MDEditor
+          id={idForMarkdownInput}
+          value={value}
+          aria-label={label}
+          placeholder={placeholder}
+          aria-required={required}
+          aria-disabled={disabled}
+          onChange={e => onChange(e)}
+          previewOptions={{
+            rehypePlugins: [[rehypeSanitize]],
+          }}
+          draggable={false}
+          preview="edit"
+          commandsFilter={cmd => removeCommands(cmd)}
+        />
+      </div>
+      <div className="valid-feedback">Looks good!</div>
+      <div className={"invalid-feedback"}>{error}</div>
     </div>
   )
 }

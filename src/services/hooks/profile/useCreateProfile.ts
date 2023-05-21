@@ -1,13 +1,12 @@
-import { createProfile, Profile } from "../../../domain/profiles"
+import { createProfile, ProfileCreate } from "../../../domain/profiles"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
-export default function useCreateProfile(
-  profile: Omit<Profile, "created_at" | "avatar_url" | "updated_at">
-) {
+export default function useCreateProfile() {
   const queryClient = useQueryClient()
-  return useMutation(() => createProfile(profile), {
+  const { mutate } = useMutation((data: ProfileCreate) => createProfile(data), {
     onSuccess: async () => {
       await queryClient.invalidateQueries(["profile"])
     },
   })
+  return mutate
 }

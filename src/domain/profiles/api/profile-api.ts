@@ -1,21 +1,16 @@
 import { User } from "@supabase/supabase-js"
-import { Profile, ProfileDB } from "../types/types-profiles"
+import { Profile, ProfileCreate, ProfileDB } from "../types/types-profiles"
 import { supabase } from "../../_database/supabaseClient"
 import { transformProfile } from "../utils/transform-data"
 import { createSocialLinks } from "../../_social-links/api/social-links-api"
 import { SocialLinksDB } from "src/domain/_social-links/types/types-social-links"
 
 async function usernameExists(username: string): Promise<boolean> {
-  const matchingUserNames = await supabase
+  const { count } = await supabase
     .from("profiles")
-    .select()
+    .select("username", { count: "exact" })
     .eq("username", username)
-
-  return !!(
-    matchingUserNames &&
-    matchingUserNames.data &&
-    matchingUserNames.data.length > 0
-  )
+  return Boolean(count && count > 0)
 }
 
 async function getProfile(user: User | null): Promise<Profile | null> {
@@ -59,9 +54,7 @@ async function getProfile(user: User | null): Promise<Profile | null> {
   })
 }
 
-async function createProfile(
-  newProfile: Omit<Profile, "created_at" | "avatar_url" | "updated_at">
-) {
+async function createProfile(newProfile: ProfileCreate) {
   const { error: profileError } = await supabase.from("profiles").insert([
     {
       provider: newProfile.provider,
