@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react"
-
 import {
   ProfileCreate,
   SocialLink,
@@ -13,6 +12,10 @@ import { TextInput } from "../../text-input/TextInput"
 import { MarkdownInput } from "../../markdown-input/MarkdownInput"
 import { SocialLinksDB } from "../../../../domain/_social-links/types/types-social-links"
 import useCreateProfile from "../../../../services/hooks/profile/useCreateProfile"
+import { CreateAvatar } from "../../image-upload/CreateAvatar"
+import { ImageObject } from "../../../../services/storage/create-image-object"
+import { uploadAvatar } from "../../../../services/storage/avatar"
+import { navigate } from "gatsby"
 
 type CreateProfileProps = {
   authUser: AuthUser
@@ -35,14 +38,38 @@ const schema = z.object({
     .regex(userNameRegex, {
       message: "Username can only contain letters, numbers, underscore, dash.",
     }),
-
+  avatar_image: z.any().optional(),
   social_links: z.object({
-    github: z.string().optional(),
-    gitlab: z.string().optional(),
-    mastodon: z.string().optional(),
-    linkedin: z.string().optional(),
-    twitter: z.string().optional(),
-    website: z.string().optional(),
+    github: z
+      .string()
+      .url({ message: "This does not look like a valid url." })
+      .optional()
+      .or(z.literal("")),
+    gitlab: z
+      .string()
+      .url({ message: "This does not look like a valid url." })
+      .optional()
+      .or(z.literal("")),
+    mastodon: z
+      .string()
+      .url({ message: "This does not look like a valid url." })
+      .optional()
+      .or(z.literal("")),
+    linkedin: z
+      .string()
+      .url({ message: "This does not look like a valid url." })
+      .optional()
+      .or(z.literal("")),
+    twitter: z
+      .string()
+      .url({ message: "This does not look like a valid url." })
+      .optional()
+      .or(z.literal("")),
+    website: z
+      .string()
+      .url({ message: "This does not look like a valid url." })
+      .optional()
+      .or(z.literal("")),
   }),
 })
 
@@ -91,7 +118,7 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
 
   watch("social_links")
 
-  const createProfile = useCreateProfile()
+  const { mutate: createProfile, isSuccess } = useCreateProfile()
 
   const onSubmit = async (data: FormSchema) => {
     const userNameTaken = await usernameExists(data.username)
@@ -106,9 +133,14 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
         { shouldFocus: true }
       )
     } else {
+      let avatarUrl: null | string = null
+      if (data.avatar_image) {
+        avatarUrl = await uploadAvatar(data.avatar_image)
+      }
       const newProfile: ProfileCreate = {
         ...data,
         about_text: data.about_text ? data.about_text : null,
+        avatar_url: avatarUrl,
         social_links: Object.entries(data.social_links).reduce(
           (acc, [key, value]) => {
             return { ...acc, [key]: value ? value : null }
@@ -116,6 +148,7 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
           {} as Omit<SocialLinksDB, "id">
         ),
       }
+      console.log(newProfile)
       createProfile(newProfile)
     }
   }
@@ -125,11 +158,39 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
     console.log(errors)
   }
 
+  if (isSuccess) {
+    navigate(`/user/${getValues("username")}`)
+  }
+
   return (
     <form className="has-validation" onSubmit={handleSubmit(onSubmit, onError)}>
       <section className="bg-white rounded p-3 mb-3">
+        <h3>Picture</h3>
+        <p>
+          You can upload a profile picture if you want. Otherwise, you will keep
+          the 🐶placeholder :)
+        </p>
+        <div className="row d-flex align-items-center mb-3">
+          <Controller<FormSchema>
+            name="avatar_image"
+            control={control}
+            render={({ field }) => {
+              return (
+                <CreateAvatar
+                  imageFile={field.value as ImageObject | undefined}
+                  onChange={newImage => {
+                    setValue("avatar_image", newImage, {
+                      shouldTouch: true,
+                      shouldValidate: true,
+                    })
+                  }}
+                />
+              )
+            }}
+          />
+        </div>
         <h3>Personal</h3>
-        <section className="row d-flex align-items-center">
+        <div className="row d-flex align-items-center mb-3">
           <div className="row d-flex align-items-center">
             <div className="col-md-6">
               <TextInput<FormSchema>
@@ -215,7 +276,7 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
               )
             }}
           />
-        </section>
+        </div>
 
         <fieldset className="bg-white rounded p-3 pb-0 mb-3">
           <h3>Social links</h3>

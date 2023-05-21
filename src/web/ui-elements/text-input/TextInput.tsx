@@ -45,7 +45,7 @@ function TextInput<T extends FieldValues>(
     <div className="mb-5">
       <label
         htmlFor={idForTextInput}
-        className="form-label ms-2 col-form-label col-form-label-lg mb-0"
+        className="form-label ms-2 col-form-label mb-0"
       >
         {label}
       </label>
@@ -63,7 +63,7 @@ function TextInput<T extends FieldValues>(
         aria-invalid={Boolean(error)}
         disabled={disabled}
         type={type || "text"}
-        className={`form-control form-control-lg ${invalidClass} ${validClass}`}
+        className={`form-control  ${invalidClass} ${validClass}`}
         placeholder={placeholder}
       />
 
