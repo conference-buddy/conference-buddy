@@ -60,6 +60,7 @@ type Conference = Node & {
   readonly internal: Internal;
   readonly name: Maybe<Scalars['String']>;
   readonly parent: Maybe<Node>;
+  readonly slug: Maybe<Scalars['String']>;
   readonly start_date: Maybe<Scalars['Date']>;
   readonly updated_at: Maybe<Scalars['Date']>;
   readonly url: Maybe<Scalars['String']>;
@@ -159,6 +160,7 @@ type ConferenceFieldSelector = {
   readonly internal: InputMaybe<InternalFieldSelector>;
   readonly name: InputMaybe<FieldSelectorEnum>;
   readonly parent: InputMaybe<NodeFieldSelector>;
+  readonly slug: InputMaybe<FieldSelectorEnum>;
   readonly start_date: InputMaybe<FieldSelectorEnum>;
   readonly updated_at: InputMaybe<FieldSelectorEnum>;
   readonly url: InputMaybe<FieldSelectorEnum>;
@@ -176,6 +178,7 @@ type ConferenceFilterInput = {
   readonly internal: InputMaybe<InternalFilterInput>;
   readonly name: InputMaybe<StringQueryOperatorInput>;
   readonly parent: InputMaybe<NodeFilterInput>;
+  readonly slug: InputMaybe<StringQueryOperatorInput>;
   readonly start_date: InputMaybe<DateQueryOperatorInput>;
   readonly updated_at: InputMaybe<DateQueryOperatorInput>;
   readonly url: InputMaybe<StringQueryOperatorInput>;
@@ -234,6 +237,7 @@ type ConferenceSortInput = {
   readonly internal: InputMaybe<InternalSortInput>;
   readonly name: InputMaybe<SortOrderEnum>;
   readonly parent: InputMaybe<NodeSortInput>;
+  readonly slug: InputMaybe<SortOrderEnum>;
   readonly start_date: InputMaybe<SortOrderEnum>;
   readonly updated_at: InputMaybe<SortOrderEnum>;
   readonly url: InputMaybe<SortOrderEnum>;
@@ -1600,6 +1604,7 @@ type Query_conferenceArgs = {
   internal: InputMaybe<InternalFilterInput>;
   name: InputMaybe<StringQueryOperatorInput>;
   parent: InputMaybe<NodeFilterInput>;
+  slug: InputMaybe<StringQueryOperatorInput>;
   start_date: InputMaybe<DateQueryOperatorInput>;
   updated_at: InputMaybe<DateQueryOperatorInput>;
   url: InputMaybe<StringQueryOperatorInput>;
