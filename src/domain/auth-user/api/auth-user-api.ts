@@ -1,5 +1,6 @@
 import {
   AuthChangeEvent,
+  Provider,
   Session,
   User as SupaBaseUser,
 } from "@supabase/supabase-js"
@@ -25,11 +26,14 @@ function handleAuthUserEvents(callback: authUserEventCallback) {
   }
 }
 
-async function signInWithGithub() {
+type AvailableProvider = "github" | "gitlab"
+
+async function signInWithProvider(availableProvider: AvailableProvider) {
+  const provider: Provider = availableProvider
   return await supabase.auth.signInWithOAuth({
-    provider: "github",
+    provider,
     options: {
-      redirectTo: `${window.location.href}`,
+      redirectTo: `${window.location.origin}/profile`,
     },
   })
 }
@@ -38,4 +42,4 @@ async function signOut() {
   await supabase.auth.signOut()
 }
 
-export { getAuthUser, handleAuthUserEvents, signInWithGithub, signOut }
+export { getAuthUser, handleAuthUserEvents, signInWithProvider, signOut }

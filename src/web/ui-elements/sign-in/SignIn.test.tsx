@@ -6,7 +6,7 @@ import { createWrapperWithQueryClient } from "../../../services/test-utils/wrapp
 import { getProfile, Profile } from "../../../domain/profiles"
 import userEvent from "@testing-library/user-event"
 import {
-  signInWithGithub,
+  signInWithProvider,
   signOut,
 } from "../../../domain/auth-user/api/auth-user-api"
 import { User } from "@supabase/supabase-js"
@@ -17,8 +17,8 @@ jest.mock("../../../domain/auth-user/api/auth-user-api.ts")
 jest.mock("../../../domain/profiles/api/profile-api.ts")
 
 const mockGetAuthUser = getAuthUser as jest.MockedFunction<typeof getAuthUser>
-const mockSignInWithGithub = signInWithGithub as jest.MockedFunction<
-  typeof signInWithGithub
+const mockSignInWithGithub = signInWithProvider as jest.MockedFunction<
+  typeof signInWithProvider
 >
 const mockSignOut = signOut as jest.MockedFunction<typeof signOut>
 const mockGetProfile = getProfile as jest.MockedFunction<typeof getProfile>
