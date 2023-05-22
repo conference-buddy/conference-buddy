@@ -10,10 +10,9 @@
     animation: animate infinite 6s step-start;
   }
 
-
   @keyframes animate {
-
-    0%, 100% {
+    0%,
+    100% {
       content: "🎉 approachable";
       color: $pink;
     }
