@@ -1,5 +1,6 @@
 import { createElement } from "react"
 
+jest.mock("@supabase/supabase-js")
 function mockGatsbyImagePlugin() {
   // @TODO look if there's a better solution to handle StaticImage (etc) in tests
   // if not, add to setupAfterEnv

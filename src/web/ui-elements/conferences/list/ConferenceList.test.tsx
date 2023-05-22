@@ -1,6 +1,14 @@
 import { cleanup, render, screen } from "@testing-library/react"
 import { testConference } from "../../../../domain/conferences/test-data"
 import { ConferenceList } from "./ConferenceList"
+import { getBuddyCount } from "../../../../domain/buddy-posts/api/buddy-posts-api"
+import { createWrapperWithQueryClient } from "../../../../services/test-utils/wrapper"
+
+jest.mock("../../../../domain/buddy-posts/api/buddy-posts-api.ts")
+
+const mockGetBuddyCount = getBuddyCount as jest.MockedFunction<
+  typeof getBuddyCount
+>
 
 const conferenceNames = [
   "First Conference",
@@ -10,10 +18,13 @@ const conferenceNames = [
 const testConferenceList = conferenceNames.map((name, index) => {
   return { ...testConference, name, id: testConference.id + index }
 })
+
+const wrapper = createWrapperWithQueryClient({})
 describe("ConferenceList.vue", () => {
   describe("handles an empty list", () => {
     beforeAll(() => {
-      render(<ConferenceList conferences={[]} />)
+      mockGetBuddyCount.mockResolvedValue(0)
+      render(<ConferenceList conferences={[]} />, { wrapper })
     })
 
     afterAll(cleanup)
@@ -31,7 +42,8 @@ describe("ConferenceList.vue", () => {
 
   describe("handles a list of conferences", () => {
     beforeAll(() => {
-      render(<ConferenceList conferences={testConferenceList} />)
+      mockGetBuddyCount.mockResolvedValue(0)
+      render(<ConferenceList conferences={testConferenceList} />, { wrapper })
     })
 
     afterAll(cleanup)

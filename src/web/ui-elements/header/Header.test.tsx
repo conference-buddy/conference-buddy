@@ -7,7 +7,6 @@ jest.mock("../sign-in/SignIn", () => ({
   SignIn: jest.fn(() => <div data-testid="SignIn" />),
 }))
 
-jest.mock("@supabase/supabase-js")
 jest.mock("../../../domain/profiles/api/profile-api.ts")
 
 describe("Header", () => {

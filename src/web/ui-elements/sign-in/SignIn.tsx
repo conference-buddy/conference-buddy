@@ -6,10 +6,21 @@ import useProfile from "../../../services/hooks/profile/useProfile"
 import { Link } from "gatsby"
 
 function SignIn({ standAlone }: { standAlone?: boolean }): ReactElement {
-  const { authUser, isLoading } = useAuthUserContext()
+  const { authUser, isLoading: isLoadingAuthUser } = useAuthUserContext()
   const { data: profile, isLoading: isLoadingProfile } = useProfile()
 
-  if (!isLoading && !authUser || isLoadingProfile) {
+  if (isLoadingAuthUser || isLoadingProfile) {
+    return (
+      <div
+        className="small spinner-border spinner-border-sm text-light"
+        role="status"
+      >
+        <span className="visually-hidden">Loading authentication status</span>
+      </div>
+    )
+  }
+
+  if (!authUser || isLoadingProfile) {
     return (
       <Link
         className={`btn btn-sm  ${
