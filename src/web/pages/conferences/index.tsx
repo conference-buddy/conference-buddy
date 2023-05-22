@@ -2,6 +2,7 @@ import React from "react"
 import { graphql } from "gatsby"
 import { Conference } from "../../../domain/conferences"
 import { ConferenceList } from "../../ui-elements/conferences/list/ConferenceList"
+import { PageHead } from "../../ui-elements/page-layout/PageHead"
 
 type ConferenceListPage = {
   data: { allConference: { nodes: Conference[] } }
@@ -22,6 +23,10 @@ export default function ConferenceListPage(props: ConferenceListPage) {
       </div>
     </>
   )
+}
+
+export function Head() {
+  return <PageHead title={"All conferences"} />
 }
 
 export const query = graphql`

@@ -3,6 +3,7 @@ import { CreateProfile } from "../../../ui-elements/profile/create/CreateProfile
 import useProfile from "../../../../services/hooks/profile/useProfile"
 import { navigate } from "gatsby"
 import { useAuthUserContext } from "../../../../services/hooks/auth-user/useAuthUserContext"
+import { PageHead } from "../../../ui-elements/page-layout/PageHead"
 
 export default function CreateProfilePage() {
   const { data: profile, isLoading: profileIsLoading } = useProfile()
@@ -33,4 +34,8 @@ export default function CreateProfilePage() {
       </div>
     </div>
   )
+}
+
+export function Head() {
+  return <PageHead title={"Create profile"} />
 }
