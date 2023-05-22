@@ -3,6 +3,7 @@ import { useConference } from "../../../../services/hooks/conference/useConferen
 import { TextLink } from "../../../ui-elements/text-link/TextLink"
 import { ConferenceSingle } from "../../../ui-elements/conferences/single/ConferenceSingle"
 import { BuddyPosts } from "../../../ui-elements/buddy-posts/BuddyPosts"
+import { BecomeABuddy } from "../../../ui-elements/buddy-posts/BecomeABuddy"
 
 // @TODO Loading information
 export default function Id({
@@ -23,6 +24,7 @@ export default function Id({
         </TextLink>
       </div>
       {!isLoading && data && <ConferenceSingle conference={data} />}
+      {!isLoading && data && <BecomeABuddy conferenceId={data.id} />}
       {!isLoading && data && <BuddyPosts conferenceId={data.id} />}
     </div>
   )

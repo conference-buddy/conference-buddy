@@ -1,22 +1,14 @@
-import React, { useState } from "react"
+import React from "react"
 import { Conference } from "../../../../domain/conferences"
 import { ConferenceLocation } from "../elements/ConferenceLocation"
 import { ConferenceDates } from "../elements/ConferenceDates"
 import { TextLink } from "../../text-link/TextLink"
-import { BuddyPostForm } from "../../buddy-posts/BuddyPostForm"
-import { SignIn } from "../../sign-in/SignIn"
-import useProfile from "../../../../services/hooks/profile/useProfile"
-import { useBuddyCount } from "../../../../services/hooks/buddy-post/useBuddyPosts"
 
 type ConferenceSingleProps = {
   conference: Conference
 }
 
 function ConferenceSingle({ conference }: ConferenceSingleProps) {
-  const [showConferenceBuddyForm, setShowConferenceBuddyForm] = useState(false)
-  const { data: profile } = useProfile()
-  const { data: count } = useBuddyCount(conference.id)
-
   return (
     <>
       <article className="card mb-4">
@@ -43,39 +35,8 @@ function ConferenceSingle({ conference }: ConferenceSingleProps) {
             </p>
           )}
           <p className="mt-5">{conference.description}</p>
-          <div className="d-flex align-items-center flex-column mt-5">
-            <p className="lead">
-              <span aria-hidden={"true"}> 🐶 </span>
-              {count} Conference Buddies for this event
-            </p>
-            {profile ? (
-              <button
-                disabled={showConferenceBuddyForm}
-                onClick={() =>
-                  setShowConferenceBuddyForm(!showConferenceBuddyForm)
-                }
-                className="col col-md-4 btn btn-primary mt-2 mb-2"
-              >
-                Become a Conference Buddy
-              </button>
-            ) : (
-              <>
-                <p>Sign in to be able to become a ConferenceBuddy as well</p>
-                <SignIn standAlone={true} />
-              </>
-            )}
-          </div>
         </div>
       </article>
-      {showConferenceBuddyForm && profile && (
-        <BuddyPostForm
-          conferenceId={conference.id}
-          profileId={profile.id}
-          cancelEvent={() =>
-            setShowConferenceBuddyForm(!showConferenceBuddyForm)
-          }
-        ></BuddyPostForm>
-      )}
     </>
   )
 }
