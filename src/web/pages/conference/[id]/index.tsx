@@ -1,9 +1,8 @@
 import React, { ReactElement } from "react"
-import { useConference } from "../../../services/hooks/conference/useConference"
-import { TextLink } from "../../ui-elements/text-link/TextLink"
-import { ConferenceSingle } from "../../ui-elements/conferences/single/ConferenceSingle"
-import { BuddyPosts } from "../../ui-elements/buddy-posts/BuddyPosts"
-import { PageHead } from "../../ui-elements/page-layout/PageHead"
+import { useConference } from "../../../../services/hooks/conference/useConference"
+import { TextLink } from "../../../ui-elements/text-link/TextLink"
+import { ConferenceSingle } from "../../../ui-elements/conferences/single/ConferenceSingle"
+import { BuddyPosts } from "../../../ui-elements/buddy-posts/BuddyPosts"
 
 // @TODO Loading information
 export default function Id({
@@ -24,11 +23,7 @@ export default function Id({
         </TextLink>
       </div>
       {!isLoading && data && <ConferenceSingle conference={data} />}
-      <BuddyPosts conferenceId={id} />
+      {!isLoading && data && <BuddyPosts conferenceId={data.id} />}
     </div>
   )
-}
-
-export function Head() {
-  return <PageHead title={"Conference details"} />
 }
