@@ -29,8 +29,8 @@ function ConferenceCard({ conference }: ConferenceCardProps) {
           <div className="flex-grow-1">
             <h5 className="card-title ">{conference.name}</h5>
             <p>
-              <span aria-hidden={"true"}>🐶 </span> {count} buddies for this
-              event
+              <span aria-hidden={"true"}>🐶 </span> {count} Conference Buddies
+              for this event
             </p>
           </div>
           <p className="d-flex flex-column">
