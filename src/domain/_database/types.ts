@@ -70,6 +70,66 @@ export interface Database {
           url?: string
         }
       }
+      conferences_tags_junction: {
+        Row: {
+          conference_id: string
+          created_at: string
+          id: string
+          tag_id: string
+        }
+        Insert: {
+          conference_id: string
+          created_at?: string
+          id: string
+          tag_id: string
+        }
+        Update: {
+          conference_id?: string
+          created_at?: string
+          id?: string
+          tag_id?: string
+        }
+      }
+      discussion_posts: {
+        Row: {
+          created_at: string | null
+          discussion_id: string
+          id: string
+          profile_id: string
+          text: string
+        }
+        Insert: {
+          created_at?: string | null
+          discussion_id: string
+          id: string
+          profile_id: string
+          text: string
+        }
+        Update: {
+          created_at?: string | null
+          discussion_id?: string
+          id?: string
+          profile_id?: string
+          text?: string
+        }
+      }
+      discussions: {
+        Row: {
+          conference_id: string
+          created_at: string | null
+          id: string
+        }
+        Insert: {
+          conference_id: string
+          created_at?: string | null
+          id: string
+        }
+        Update: {
+          conference_id?: string
+          created_at?: string | null
+          id?: string
+        }
+      }
       profiles: {
         Row: {
           about_text: string | null
@@ -138,23 +198,46 @@ export interface Database {
         Row: {
           conference_id: string
           created_at: string
+          discussion_id: string | null
           id: string
           profile_id: string
-          type: string
         }
         Insert: {
           conference_id: string
           created_at?: string
+          discussion_id?: string | null
           id?: string
           profile_id: string
-          type: string
         }
         Update: {
           conference_id?: string
           created_at?: string
+          discussion_id?: string | null
           id?: string
           profile_id?: string
-          type?: string
+        }
+      }
+      tags: {
+        Row: {
+          color: string | null
+          created_at: string
+          icon: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string
+          icon?: string | null
+          id: string
+          name: string
+        }
+        Update: {
+          color?: string | null
+          created_at?: string
+          icon?: string | null
+          id?: string
+          name?: string
         }
       }
     }
