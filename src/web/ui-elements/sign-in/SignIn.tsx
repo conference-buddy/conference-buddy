@@ -11,9 +11,9 @@ function SignIn({ standAlone }: { standAlone?: boolean }): ReactElement {
   const { authUser } = useAuthUserContext()
 
   //@TODO add proper error handling
-  const { data: profile } = useProfile()
+  const { data: profile, isLoading: isLoadingProfile } = useProfile()
 
-  if (!authUser) {
+  if (!authUser || isLoadingProfile) {
     return (
       <button
         className={`btn btn-sm  ${
