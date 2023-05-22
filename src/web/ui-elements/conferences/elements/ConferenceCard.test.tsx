@@ -1,10 +1,19 @@
 import { cleanup, render, screen } from "@testing-library/react"
 import { ConferenceCard } from "./ConferenceCard"
 import { testConference } from "../../../../domain/conferences/test-data"
+import { createWrapperWithQueryClient } from "../../../../services/test-utils/wrapper"
+import { getBuddyCount } from "../../../../domain/buddy-posts/api/buddy-posts-api"
 
+jest.mock("../../../../domain/buddy-posts/api/buddy-posts-api.ts")
+const mockGetBuddyCount = getBuddyCount as jest.MockedFunction<
+  typeof getBuddyCount
+>
+
+const wrapper = createWrapperWithQueryClient({})
 describe("ConferenceCard", () => {
   beforeAll(() => {
-    render(<ConferenceCard conference={testConference} />)
+    mockGetBuddyCount.mockResolvedValue(2)
+    render(<ConferenceCard conference={testConference} />, { wrapper })
   })
 
   afterAll(cleanup)
@@ -45,8 +54,8 @@ describe("ConferenceCard", () => {
     )
   })
 
-  it("shows information about the amount of buddies", () => {
-    const buddies = screen.getByText("2 buddies for this event")
+  it("shows information about the amount of buddies", async () => {
+    const buddies = await screen.findByText("2 buddies for this event")
 
     expect(buddies).toBeVisible()
   })

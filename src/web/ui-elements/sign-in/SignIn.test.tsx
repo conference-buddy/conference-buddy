@@ -1,4 +1,9 @@
-import { cleanup, render, screen } from "@testing-library/react"
+import {
+  cleanup,
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from "@testing-library/react"
 import React from "react"
 import { SignIn } from "./SignIn"
 import { getAuthUser } from "../../../domain/auth-user"
@@ -11,13 +16,11 @@ import {
 } from "../../../domain/auth-user/api/auth-user-api"
 import { User } from "@supabase/supabase-js"
 
-jest.mock("@supabase/supabase-js")
-
 jest.mock("../../../domain/auth-user/api/auth-user-api.ts")
 jest.mock("../../../domain/profiles/api/profile-api.ts")
 
 const mockGetAuthUser = getAuthUser as jest.MockedFunction<typeof getAuthUser>
-const mockSignInWithGithub = signInWithProvider as jest.MockedFunction<
+const mockSignInWithProvider = signInWithProvider as jest.MockedFunction<
   typeof signInWithProvider
 >
 const mockSignOut = signOut as jest.MockedFunction<typeof signOut>
@@ -28,8 +31,8 @@ describe("SignIn", () => {
   const user = userEvent.setup()
 
   describe("if user is not authenticated", () => {
-    beforeEach(() => {
-      mockSignInWithGithub.mockResolvedValue({
+    beforeEach(async () => {
+      mockSignInWithProvider.mockResolvedValue({
         data: {
           provider: "github",
           url: "",
@@ -39,6 +42,10 @@ describe("SignIn", () => {
       mockGetAuthUser.mockResolvedValue(null)
       mockGetProfile.mockResolvedValue(null)
       render(<SignIn />, { wrapper })
+
+      await waitForElementToBeRemoved(
+        screen.queryByText("Loading authentication status")
+      )
     })
 
     afterEach(() => {
@@ -46,23 +53,17 @@ describe("SignIn", () => {
       jest.resetAllMocks()
     })
 
-    it("shows a button to sign in", () => {
-      const button = screen.getByRole("button", { name: "Sign in" })
+    it("shows a link to sign in", () => {
+      const link = screen.getByRole("link", { name: "Sign in" })
 
-      expect(button).toBeEnabled()
+      expect(link).toBeVisible()
+      expect(link).toHaveAttribute("href", "/signin")
     })
 
     it("shows no button to sign out", () => {
       const button = screen.queryByRole("button", { name: "Sign out" })
 
       expect(button).not.toBeInTheDocument()
-    })
-
-    it("redirects user to authenticate with github as provider", async () => {
-      const button = screen.getByRole("button", { name: "Sign in" })
-
-      await user.click(button)
-      expect(mockSignInWithGithub).toHaveBeenCalledTimes(1)
     })
   })
 

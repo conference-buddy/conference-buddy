@@ -6,15 +6,21 @@ import { Profile } from "../../../../domain/profiles"
 import useProfile from "../../../../services/hooks/profile/useProfile"
 import { UseQueryResult } from "@tanstack/react-query"
 import { getBuddyPosts } from "../../../../domain/buddy-posts"
-import { createBuddyPost } from "../../../../domain/buddy-posts/api/buddy-posts-api"
+import {
+  createBuddyPost,
+  getBuddyCount,
+} from "../../../../domain/buddy-posts/api/buddy-posts-api"
 
-jest.mock("@supabase/supabase-js")
 jest.mock("../../../../services/hooks/profile/useProfile")
 jest.mock("../../../../domain/buddy-posts/api/buddy-posts-api.ts")
 
 const mockUseProfile = useProfile as jest.MockedFunction<typeof useProfile>
 const mockGetBuddyPosts = getBuddyPosts as jest.MockedFunction<
   typeof getBuddyPosts
+>
+
+const mockGetBuddyCount = getBuddyCount as jest.MockedFunction<
+  typeof getBuddyCount
 >
 const mockCreateBuddyPosts = createBuddyPost as jest.MockedFunction<
   typeof createBuddyPost
@@ -29,6 +35,7 @@ describe("ConferenceSingle.vue", () => {
     } as UseQueryResult<Profile, never>)
     mockGetBuddyPosts.mockResolvedValue([])
     mockCreateBuddyPosts.mockImplementation(jest.fn())
+    mockGetBuddyCount.mockResolvedValue(2)
     render(<ConferenceSingle conference={testConference} />, { wrapper })
   })
 
@@ -77,11 +84,11 @@ describe("ConferenceSingle.vue", () => {
     expect(dates).toBeVisible()
   })
 
-  it("shows information about the amount of buddies", () => {
+  it("shows information about the amount of buddies", async () => {
     const article = screen.getByRole("article")
     // text is split into multiple elements, so using a test-id is
     // a good workaround enabling testing
-    const buddies = within(article).getByText(
+    const buddies = await within(article).findByText(
       "2 Conference Buddies for this event"
     )
 

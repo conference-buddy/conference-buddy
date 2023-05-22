@@ -10,7 +10,6 @@ type ConferenceCardProps = {
 }
 function ConferenceCard({ conference }: ConferenceCardProps) {
   const { data: count } = useBuddyCount(conference.id)
-  console.log("count in ConferenceCard", count)
 
   return (
     <div className="card mb-3">
