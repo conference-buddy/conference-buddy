@@ -1,8 +1,10 @@
 import { getBuddyPosts } from "../../../domain/buddy-posts"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import {
+  deleteBuddyPost,
   getBuddyCount,
   getBuddyPostsOfUser,
+  isBuddy,
 } from "../../../domain/buddy-posts/api/buddy-posts-api"
 
 export function useBuddyPosts(conferenceId: string) {
@@ -23,6 +25,42 @@ export function useBuddyCount(conferenceId: string) {
     {
       retry: false,
       refetchOnWindowFocus: false,
+    }
+  )
+}
+
+export function useIsBuddy(
+  conferenceId: string,
+  profileId: string | undefined | null
+) {
+  return useQuery(
+    ["is_buddy", conferenceId, profileId],
+    () => isBuddy(conferenceId, profileId),
+    {
+      retry: false,
+      refetchOnWindowFocus: false,
+    }
+  )
+}
+
+export function useDeleteBuddyPost() {
+  const queryClient = useQueryClient()
+
+  return useMutation(
+    ["delete_buddy_post"],
+    ({
+      conferenceId,
+      profileId,
+    }: {
+      conferenceId: string
+      profileId: string
+    }) => deleteBuddyPost(conferenceId, profileId),
+    {
+      retry: false,
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(["is_buddy"])
+        await queryClient.invalidateQueries(["buddy_count"])
+      },
     }
   )
 }

@@ -7,10 +7,12 @@ function BuddyPostForm({
   conferenceId,
   profileId,
   cancelEvent,
+  successEvent,
 }: {
   conferenceId: string
   profileId: string
   cancelEvent: () => void
+  successEvent: () => void
 }): ReactElement {
   const queryClient = useQueryClient()
   const [value, setValue] = useState("")
@@ -33,6 +35,9 @@ function BuddyPostForm({
     {
       onSuccess: async () => {
         await queryClient.invalidateQueries(["buddy_posts"])
+        await queryClient.invalidateQueries(["is_buddy"])
+        await queryClient.invalidateQueries(["buddy_count"])
+        successEvent()
       },
     }
   )
