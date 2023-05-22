@@ -43,7 +43,8 @@ function ConferenceSingle({ conference }: ConferenceSingleProps) {
           <p className="mt-5">{conference.description}</p>
           <div className="d-flex align-items-center flex-column mt-5">
             <p className="lead">
-              🐶&nbsp;&nbsp;2 Conference Buddies for this event
+              <span aria-hidden={"true"}> 🐶 </span>2 Conference Buddies for
+              this event
             </p>
             {profile ? (
               <button

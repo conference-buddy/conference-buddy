@@ -1,10 +1,35 @@
 import { cleanup, render, screen, within } from "@testing-library/react"
 import { ConferenceSingle } from "./ConferenceSingle"
 import { testConference } from "../../../../domain/conferences/test-data"
+import { createWrapperWithQueryClient } from "../../../../services/test-utils/wrapper"
+import { Profile } from "../../../../domain/profiles"
+import useProfile from "../../../../services/hooks/profile/useProfile"
+import { UseQueryResult } from "@tanstack/react-query"
+import { getBuddyPosts } from "../../../../domain/buddy-posts"
+import { createBuddyPost } from "../../../../domain/buddy-posts/api/buddy-posts-api"
+
+jest.mock("@supabase/supabase-js")
+jest.mock("../../../../services/hooks/profile/useProfile")
+jest.mock("../../../../domain/buddy-posts/api/buddy-posts-api.ts")
+
+const mockUseProfile = useProfile as jest.MockedFunction<typeof useProfile>
+const mockGetBuddyPosts = getBuddyPosts as jest.MockedFunction<
+  typeof getBuddyPosts
+>
+const mockCreateBuddyPosts = createBuddyPost as jest.MockedFunction<
+  typeof createBuddyPost
+>
+
+const wrapper = createWrapperWithQueryClient({})
 
 describe("ConferenceSingle.vue", () => {
   beforeAll(() => {
-    render(<ConferenceSingle conference={testConference} />)
+    mockUseProfile.mockReturnValue({
+      data: { username: "me" },
+    } as UseQueryResult<Profile, never>)
+    mockGetBuddyPosts.mockResolvedValue([])
+    mockCreateBuddyPosts.mockImplementation(jest.fn())
+    render(<ConferenceSingle conference={testConference} />, { wrapper })
   })
 
   afterAll(cleanup)
@@ -52,65 +77,15 @@ describe("ConferenceSingle.vue", () => {
     expect(dates).toBeVisible()
   })
 
-  it("shows a screen reader only information about the amount of lurkers", () => {
+  it("shows information about the amount of buddies", () => {
     const article = screen.getByRole("article")
     // text is split into multiple elements, so using a test-id is
     // a good workaround enabling testing
-    const lurkers = within(article).getByText("14 are following this event")
-
-    expect(lurkers).toBeVisible()
-    expect(lurkers).toHaveClass("visually-hidden")
-  })
-
-  it("shows a visual information about the amount of lurkers hidden for screen readers", () => {
-    const article = screen.getByRole("article")
-    // text is split into multiple elements, so using a test-id is
-    // a good workaround enabling testing
-    const lurkerButton = within(article).getByRole("button", {
-      name: "Become a lurker",
-    })
-    const text = within(lurkerButton).getByText("👀 14")
-
-    expect(text).toBeInTheDocument()
-    expect(text).toHaveAttribute("aria-hidden", "true")
-  })
-
-  it("shows a button to subscribe as a lurker", () => {
-    const article = screen.getByRole("article")
-    // text is split into multiple elements, so using a test-id is
-    // a good workaround enabling testing
-    const lurkerButton = within(article).getByRole("button", {
-      name: "Become a lurker",
-    })
-
-    const visuallyHiddenText = within(lurkerButton).getByText("Become a lurker")
-
-    expect(lurkerButton).toBeEnabled()
-    expect(visuallyHiddenText).toHaveClass("visually-hidden")
-  })
-
-  it("shows a screen reader only information about the amount of buddies", () => {
-    const article = screen.getByRole("article")
-    // text is split into multiple elements, so using a test-id is
-    // a good workaround enabling testing
-    const buddies = within(article).getByText("2 buddies for this event")
+    const buddies = within(article).getByText(
+      "2 Conference Buddies for this event"
+    )
 
     expect(buddies).toBeVisible()
-    expect(buddies).toHaveClass("visually-hidden")
-  })
-
-  it("shows a visual information about the amount of buddies hidden for screen readers", () => {
-    const article = screen.getByRole("article")
-    // text is split into multiple elements, so using a test-id is
-    // a good workaround enabling testing
-    const buddyButton = within(article).getByRole("button", {
-      name: "Become a Conference Buddy",
-    })
-
-    const text = within(buddyButton).getByText("🐶 2")
-
-    expect(text).toBeInTheDocument()
-    expect(text).toHaveAttribute("aria-hidden", "true")
   })
 
   it("shows a button to join as a Conference Buddy", () => {
@@ -120,12 +95,8 @@ describe("ConferenceSingle.vue", () => {
     const buddyButton = within(article).getByRole("button", {
       name: "Become a Conference Buddy",
     })
-    const visuallyHiddenText = within(buddyButton).getByText(
-      "Become a Conference Buddy"
-    )
 
     expect(buddyButton).toBeEnabled()
-    expect(visuallyHiddenText).toHaveClass("visually-hidden")
   })
 
   it("shows a description of the conference", () => {
