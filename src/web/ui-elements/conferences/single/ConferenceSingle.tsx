@@ -6,6 +6,7 @@ import { TextLink } from "../../text-link/TextLink"
 import { BuddyPostForm } from "../../buddy-posts/BuddyPostForm"
 import { SignIn } from "../../sign-in/SignIn"
 import useProfile from "../../../../services/hooks/profile/useProfile"
+import { useBuddyCount } from "../../../../services/hooks/buddy-post/useBuddyPosts"
 
 type ConferenceSingleProps = {
   conference: Conference
@@ -14,6 +15,7 @@ type ConferenceSingleProps = {
 function ConferenceSingle({ conference }: ConferenceSingleProps) {
   const [showConferenceBuddyForm, setShowConferenceBuddyForm] = useState(false)
   const { data: profile } = useProfile()
+  const { data: count } = useBuddyCount(conference.id)
 
   return (
     <>
@@ -43,8 +45,8 @@ function ConferenceSingle({ conference }: ConferenceSingleProps) {
           <p className="mt-5">{conference.description}</p>
           <div className="d-flex align-items-center flex-column mt-5">
             <p className="lead">
-              <span aria-hidden={"true"}> 🐶 </span>2 Conference Buddies for
-              this event
+              <span aria-hidden={"true"}> 🐶 </span>
+              {count} Conference Buddies for this event
             </p>
             {profile ? (
               <button
