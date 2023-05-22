@@ -14,7 +14,7 @@ function ConferenceCard({ conference }: ConferenceCardProps) {
 
   return (
     <div className="card mb-3">
-      <div className="card-header small d-flex flex-column flex-md-row justify-content-md-between">
+      <div className="card-header small d-flex flex-column flex-md-row justify-content-md-between border-0">
         <ConferenceLocation
           city={conference.city}
           country={conference.country}
@@ -26,13 +26,7 @@ function ConferenceCard({ conference }: ConferenceCardProps) {
       </div>
       <div className="card-body">
         <div className="d-flex">
-          <div className="flex-grow-1">
-            <h5 className="card-title ">{conference.name}</h5>
-            <p>
-              <span aria-hidden={"true"}>🐶 </span> {count} Conference Buddies
-              for this event
-            </p>
-          </div>
+          <h5 className="card-title flex-grow-1">{conference.name}</h5>
           <p className="d-flex flex-column">
             <Link
               to={`/conference/${conference.id}`}
@@ -42,6 +36,10 @@ function ConferenceCard({ conference }: ConferenceCardProps) {
             </Link>
           </p>
         </div>
+      </div>
+      <div className="card-footer border-0">
+        <span aria-hidden={"true"}> 🐶 </span>
+        <span className="fw-bold text-primary">{count}</span> Conference Buddies
       </div>
     </div>
   )
