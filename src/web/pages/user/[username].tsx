@@ -79,5 +79,5 @@ function UserPage({
 export default UserPage
 
 export const Head = () => {
-  return <PageHead title={"Welcome"} />
+  return <PageHead title={"User"} />
 }

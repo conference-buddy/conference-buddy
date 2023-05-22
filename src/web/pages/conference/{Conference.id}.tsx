@@ -10,14 +10,6 @@ type ConferencePageProps = {
   data: { conference: Conference }
 }
 
-export function Head() {
-  return (
-    <div>
-      <PageHead title={"Conference Detail View"} />
-    </div>
-  )
-}
-
 const ConferenceSinglePage = (props: ConferencePageProps) => {
   const conference = props.data.conference
   return (
@@ -47,5 +39,9 @@ export const query = graphql`
     }
   }
 `
+
+export function Head() {
+  return <PageHead title={"Conference details"} />
+}
 
 export default ConferenceSinglePage

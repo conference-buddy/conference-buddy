@@ -1,6 +1,7 @@
 import React, { useEffect } from "react"
 import { Link, navigate } from "gatsby"
 import useProfile from "../../../services/hooks/profile/useProfile"
+import { PageHead } from "../../ui-elements/page-layout/PageHead"
 
 export default function ProfilePage() {
   const { data: profile, isLoading } = useProfile()
@@ -19,4 +20,8 @@ export default function ProfilePage() {
       <Link to={`/user/${profile?.username}`}>public profile</Link>
     </div>
   )
+}
+
+export function Head() {
+  return <PageHead title={"Your profile"} />
 }

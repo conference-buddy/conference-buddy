@@ -3,6 +3,7 @@ import { useConference } from "../../../services/hooks/conference/useConference"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
 import { ConferenceSingle } from "../../ui-elements/conferences/single/ConferenceSingle"
 import { BuddyPosts } from "../../ui-elements/buddy-posts/BuddyPosts"
+import { PageHead } from "../../ui-elements/page-layout/PageHead"
 
 // @TODO Loading information
 export default function Id({
@@ -26,4 +27,8 @@ export default function Id({
       <BuddyPosts conferenceId={id} />
     </div>
   )
+}
+
+export function Head() {
+  return <PageHead title={"Conference details"} />
 }
