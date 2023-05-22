@@ -197,4 +197,4 @@ function SocialLinks({
   )
 }
 
-export default SocialLinks
+export { SocialLinks }

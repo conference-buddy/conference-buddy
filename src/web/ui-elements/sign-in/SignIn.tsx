@@ -1,28 +1,24 @@
 import React, { ReactElement } from "react"
 import { TextLink } from "../text-link/TextLink"
-import {
-  signInWithGithub,
-  signOut,
-} from "../../../domain/auth-user/api/auth-user-api"
+import { signOut } from "../../../domain/auth-user/api/auth-user-api"
 import { useAuthUserContext } from "../../../services/hooks/auth-user/useAuthUserContext"
 import useProfile from "../../../services/hooks/profile/useProfile"
+import { Link } from "gatsby"
 
 function SignIn({ standAlone }: { standAlone?: boolean }): ReactElement {
-  const { authUser } = useAuthUserContext()
-
-  //@TODO add proper error handling
+  const { authUser, isLoading } = useAuthUserContext()
   const { data: profile, isLoading: isLoadingProfile } = useProfile()
 
-  if (!authUser || isLoadingProfile) {
+  if (!isLoading && !authUser || isLoadingProfile) {
     return (
-      <button
+      <Link
         className={`btn btn-sm  ${
           !standAlone ? "btn-outline-light " : "btn-primary"
         }`}
-        onClick={signInWithGithub}
+        to={"/signin"}
       >
         Sign in
-      </button>
+      </Link>
     )
   }
 
