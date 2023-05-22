@@ -34,6 +34,19 @@ const getBuddyPosts = async (
   return buddyPosts as BuddyPostWithProfile[]
 }
 
+const getBuddyCount = async (conferenceId: string): Promise<number | null> => {
+  const { error, count } = await supabase
+    .from("buddy_posts")
+    .select("*", { count: "exact" })
+    .eq("conference_id", conferenceId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return count
+}
+
 const getBuddyPostsOfUser = async (
   profileId: string
 ): Promise<BuddyPostOfUser[]> => {
@@ -83,4 +96,4 @@ const createBuddyPost = async ({
   }
 }
 
-export { getBuddyPosts, getBuddyPostsOfUser, createBuddyPost }
+export { getBuddyPosts, getBuddyPostsOfUser, createBuddyPost, getBuddyCount }
