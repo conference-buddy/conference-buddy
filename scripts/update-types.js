@@ -1,4 +1,4 @@
-process.env.NODE_ENV = "production"
+process.env.NODE_ENV = "development"
 
 // eslint-disable-next-line
 const { exec } = require("child_process")
