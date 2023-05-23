@@ -29,31 +29,29 @@ export default function ProfilePage() {
     <div className="container">
       <h1>My Profile</h1>
 
-      <div
-        className={
-          "p-4 bg-white border border-1 d-flex flex-row align-items-center justify-content-between"
-        }
-      >
-        <div className={"d-flex align-items-center"}>
-          <AvatarImage
-            avatarUrl={(profile as Profile).avatar_url}
-            circle={true}
-          ></AvatarImage>
-          <div className={"ms-3"}>
-            <div className={"h4"}>{(profile as Profile).name}</div>
-            <div className={"h6"}>{(profile as Profile).username}</div>
-            <TextLink
-              internal={true}
-              to={`/user/${(profile as Profile).username}`}
-            >
-              See public profile
-            </TextLink>
+      <div className={"card"}>
+        <div className="card-body row">
+          <div className={"d-flex align-items-center col-12 col-md-10"}>
+            <AvatarImage
+              avatarUrl={(profile as Profile).avatar_url}
+              circle={true}
+            ></AvatarImage>
+            <div className={"ms-3"}>
+              <div className={"h4"}>{(profile as Profile).name}</div>
+              <div className={"h6"}>{(profile as Profile).username}</div>
+              <TextLink
+                internal={true}
+                to={`/user/${(profile as Profile).username}`}
+              >
+                See public profile
+              </TextLink>
+            </div>
           </div>
-        </div>
-        <div>
-          <Link className={"btn btn-primary"} to={`edit`}>
-            Edit profile
-          </Link>
+          <div className="mt-3 mt-md-0 col-12 col-md-2">
+            <Link className={"btn btn-primary"} to={`edit`}>
+              Edit profile
+            </Link>
+          </div>
         </div>
       </div>
 
