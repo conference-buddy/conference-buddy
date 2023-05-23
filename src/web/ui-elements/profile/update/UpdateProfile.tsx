@@ -140,8 +140,8 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
     <div className="mb-5">
       <h2>Update Profile</h2>
 
-      <section className="bg-white rounded p-3 mb-5">
-        <h3>Update picture</h3>
+      <section className="card p-3 mb-3">
+        <h3>Your picture</h3>
         <p>
           Delete or update your picture. To upload a new one, you have to delete
           the existing picture first.
@@ -157,9 +157,9 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
         className="has-validation pt-5"
         onSubmit={handleSubmit(onSubmit, onError)}
       >
-        <section className="bg-white rounded p-3 mb-3">
+        <section className="card p-3 mb-3">
           <h3>Personal</h3>
-          <div className="row d-flex align-items-center mb-3">
+          <div className=" mb-3">
             <div className="row d-flex align-items-center">
               <div className="col-md-6">
                 <TextInput<FormSchema>
@@ -249,9 +249,9 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
             />
           </div>
 
-          <fieldset className="bg-white rounded p-3 pb-0 mb-3">
+          <fieldset className="pb-0 mb-5">
             <h3>Social links</h3>
-            <div className="input-group mb-5 row">
+            <div className="row">
               {Object.keys(socialLinksMap).map((key, index) => {
                 const platform = key as keyof FormSchema["social_links"]
                 return (
@@ -282,10 +282,12 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
               })}
             </div>
           </fieldset>
-          <div className="row col-md-6 offset-md-3 mb-3">
-            <button type="submit" className={"btn btn-primary btn-lg"}>
-              Update profile
-            </button>
+          <div className="row mb-3">
+            <div className="col-md-6 col-sm-12 offset-md-3">
+              <button type="submit" className="btn btn-primary btn-lg w-100">
+                Update profile
+              </button>
+            </div>
           </div>
         </section>
       </form>
