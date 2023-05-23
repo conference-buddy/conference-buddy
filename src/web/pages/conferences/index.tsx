@@ -16,8 +16,8 @@ export default function ConferenceListPage(props: ConferenceListPage) {
         <h1>Conference List</h1>
         <p>
           If you want to be a Conference Buddy at one of these conferences,
-          visit the details page. There you can click the button 🐶 and leave a
-          comment.
+          visit the details page. There you can leave a comment and become a
+          buddy.
         </p>
         <ConferenceList conferences={conferences} />
       </div>
