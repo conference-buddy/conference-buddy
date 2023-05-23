@@ -3,13 +3,20 @@ import { PublicProfile } from "../types/types-public-profile"
 import { transformPublicProfile } from "../utils/transform-data"
 import { getSocialLinksProfile } from "../../_social-links/api/social-links-api"
 
-const getPublicProfile = async (
-  username: string
-): Promise<PublicProfile | null> => {
-  const { data: profile, error: profileError } = await supabase
-    .from("profiles")
-    .select(
-      `
+const getPublicProfile = async ({
+  username,
+  profileId,
+}: {
+  username?: string
+  profileId?: string
+}): Promise<PublicProfile | null> => {
+  if (!username && !profileId) {
+    console.error("username or profileId needed")
+    return null
+  }
+
+  const query = supabase.from("profiles").select(
+    `
         id,
         name,
         username,
@@ -19,9 +26,14 @@ const getPublicProfile = async (
             *
         )
     `
-    )
-    .eq("username", username)
-    .single()
+  )
+
+  if (username) {
+    query.eq("username", username)
+  } else {
+    query.eq("id", profileId)
+  }
+  const { data: profile, error: profileError } = await query.single()
 
   if (profileError) {
     throw profileError

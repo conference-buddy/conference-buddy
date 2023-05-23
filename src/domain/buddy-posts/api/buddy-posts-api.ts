@@ -75,7 +75,6 @@ const deleteBuddyPost = async (
     .eq("conference_id", conferenceId)
     .eq("profile_id", profileId)
 
-  console.log("data", data)
   if (error) {
     throw new Error(error.message)
   }

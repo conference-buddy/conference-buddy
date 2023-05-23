@@ -38,9 +38,11 @@ export interface Database {
           country: string
           created_at: string
           description: string
+          discussion_id: string
           end_date: string
           id: string
           name: string
+          slug: string
           start_date: string
           updated_at: string | null
           url: string
@@ -50,9 +52,11 @@ export interface Database {
           country: string
           created_at?: string
           description: string
+          discussion_id?: string
           end_date: string
           id?: string
           name: string
+          slug: string
           start_date: string
           updated_at?: string | null
           url: string
@@ -62,9 +66,11 @@ export interface Database {
           country?: string
           created_at?: string
           description?: string
+          discussion_id?: string
           end_date?: string
           id?: string
           name?: string
+          slug?: string
           start_date?: string
           updated_at?: string | null
           url?: string
@@ -80,7 +86,7 @@ export interface Database {
         Insert: {
           conference_id: string
           created_at?: string
-          id: string
+          id?: string
           tag_id: string
         }
         Update: {
@@ -101,7 +107,7 @@ export interface Database {
         Insert: {
           created_at?: string | null
           discussion_id: string
-          id: string
+          id?: string
           profile_id: string
           text: string
         }
@@ -122,7 +128,7 @@ export interface Database {
         Insert: {
           conference_id: string
           created_at?: string | null
-          id: string
+          id?: string
         }
         Update: {
           conference_id?: string
@@ -229,7 +235,7 @@ export interface Database {
           color?: string | null
           created_at?: string
           icon?: string | null
-          id: string
+          id?: string
           name: string
         }
         Update: {
