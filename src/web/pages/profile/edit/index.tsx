@@ -13,6 +13,7 @@ export default function UpdateProfilePage() {
   return (
     <div className="container">
       {!data && !isLoading && <div>No profile found.</div>}
+
       {data && !isLoading && <UpdateProfile profile={data} />}
     </div>
   )
