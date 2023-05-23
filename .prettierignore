@@ -1,0 +1,13 @@
+# Project directory
+.cache
+package.json
+package-lock.json
+pnpm-lock.yaml
+coverage
+
+# Build directory
+/public
+.DS_Store
+
+# Gatbsy
+src/gatsby-types.d.ts

@@ -1,0 +1,20 @@
+// This file is the main application css.
+
+// Import Bootstrap config first
+@import "bootstrap/config";
+
+// Import all Bootstrap_ext here
+@import "bootstrap_ext/buttons";
+
+// Import Components, Pages etc.
+@import "components/text-link";
+@import "components/claim";
+
+body {
+  background: url("../images/bg_patten.png"),
+    linear-gradient(90deg, $confbuddy-green-light, $confbuddy-pink-light);
+}
+
+strong {
+  font-weight: bold;
+}

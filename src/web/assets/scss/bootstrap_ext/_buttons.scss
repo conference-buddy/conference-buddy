@@ -1,0 +1,10 @@
+.btn {
+  font-weight: 500;
+  letter-spacing: initial;
+  transition: all 0.2s ease 0s;
+
+  &:hover {
+    letter-spacing: 0.2px;
+    transition: all 0.2s ease 0s;
+  }
+}
