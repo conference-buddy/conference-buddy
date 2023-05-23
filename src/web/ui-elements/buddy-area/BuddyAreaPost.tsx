@@ -22,7 +22,10 @@ function BuddyAreaPost({ post, currentProfile }: BuddyAreaPostProp) {
   return (
     <div className={`row ${flexDirection}`}>
       <div className="col-2">
-        <AvatarImage avatarUrl={undefined} circle={true}></AvatarImage>
+        <AvatarImage
+          avatarUrl={publicProfilePoster?.avatar_url}
+          circle={true}
+        ></AvatarImage>
       </div>
 
       <div className="col-10 card p-0">

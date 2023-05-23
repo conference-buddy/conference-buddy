@@ -62,13 +62,6 @@ function UserPage({
                 {user.about_text}
               </div>
             </div>
-
-            <div className="card">
-              <div className="card-body">
-                <h4>Was buddy at conference</h4>
-                <BuddyPostsOfUser profileId={user.id}></BuddyPostsOfUser>
-              </div>
-            </div>
           </div>
         </div>
       </div>
