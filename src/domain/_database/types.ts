@@ -38,7 +38,6 @@ export interface Database {
           country: string
           created_at: string
           description: string
-          discussion_id: string
           end_date: string
           id: string
           name: string
@@ -52,7 +51,6 @@ export interface Database {
           country: string
           created_at?: string
           description: string
-          discussion_id?: string
           end_date: string
           id?: string
           name: string
@@ -66,7 +64,6 @@ export interface Database {
           country?: string
           created_at?: string
           description?: string
-          discussion_id?: string
           end_date?: string
           id?: string
           name?: string
@@ -98,21 +95,21 @@ export interface Database {
       }
       discussion_posts: {
         Row: {
-          created_at: string | null
+          created_at: string
           discussion_id: string
           id: string
           profile_id: string
           text: string
         }
         Insert: {
-          created_at?: string | null
+          created_at?: string
           discussion_id: string
           id?: string
           profile_id: string
           text: string
         }
         Update: {
-          created_at?: string | null
+          created_at?: string
           discussion_id?: string
           id?: string
           profile_id?: string
@@ -202,21 +199,21 @@ export interface Database {
       }
       subscriptions: {
         Row: {
-          conference_id: string
+          conference_id: string | null
           created_at: string
           discussion_id: string | null
           id: string
           profile_id: string
         }
         Insert: {
-          conference_id: string
+          conference_id?: string | null
           created_at?: string
           discussion_id?: string | null
           id?: string
           profile_id: string
         }
         Update: {
-          conference_id?: string
+          conference_id?: string | null
           created_at?: string
           discussion_id?: string | null
           id?: string

@@ -1,21 +1,29 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Link, navigate } from "gatsby"
 import useProfile from "../../../services/hooks/profile/useProfile"
 import { PageHead } from "../../ui-elements/page-layout/PageHead"
 import { BuddyPostsOfUser } from "../../ui-elements/buddy-posts/BuddyPostsOfUser"
 import { AvatarImage } from "../../ui-elements/profile/AvatarImage"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
+import { Profile } from "../../../domain/profiles"
 
 export default function ProfilePage() {
   const { data: profile, isLoading } = useProfile()
 
-  useEffect(() => {
-    if (!isLoading && !profile) {
-      navigate("/")
-      return
-    }
-  }, [profile, isLoading])
+  if (isLoading) {
+    return (
+      <div className="container text-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    )
+  }
 
+  if (!profile && !isLoading) {
+    navigate("/")
+    return <></>
+  }
   return (
     <div className="container">
       <h1>My Profile</h1>
@@ -27,13 +35,16 @@ export default function ProfilePage() {
       >
         <div className={"d-flex align-items-center"}>
           <AvatarImage
-            avatarUrl={profile?.avatar_url}
+            avatarUrl={(profile as Profile).avatar_url}
             circle={true}
           ></AvatarImage>
           <div className={"ms-3"}>
-            <div className={"h4"}>{profile?.name}</div>
-            <div className={"h6"}>{profile?.username}</div>
-            <TextLink internal={true} to={`/user/${profile?.username}`}>
+            <div className={"h4"}>{(profile as Profile).name}</div>
+            <div className={"h6"}>{(profile as Profile).username}</div>
+            <TextLink
+              internal={true}
+              to={`/user/${(profile as Profile).username}`}
+            >
               See public profile
             </TextLink>
           </div>
@@ -49,7 +60,9 @@ export default function ProfilePage() {
         <h3>You are a Conference Buddy ♥️</h3>
         <div className="card">
           <div className="card-body">
-            <BuddyPostsOfUser profileId={profile?.id}></BuddyPostsOfUser>
+            <BuddyPostsOfUser
+              profileId={(profile as Profile).id}
+            ></BuddyPostsOfUser>
           </div>
         </div>
       </div>

@@ -1,4 +1,7 @@
-export function formatDateString(inputDate: string, withTime?: false): string {
+export function formatDateString(
+  inputDate: string,
+  withTime?: boolean
+): string {
   const dateObject: Date = new Date(inputDate)
 
   if (isNaN(dateObject.getTime())) {

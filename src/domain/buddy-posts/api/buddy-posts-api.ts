@@ -69,7 +69,7 @@ const deleteBuddyPost = async (
   conferenceId: string,
   profileId: string
 ): Promise<void> => {
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("buddy_posts")
     .delete()
     .eq("conference_id", conferenceId)

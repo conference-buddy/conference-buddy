@@ -11,6 +11,7 @@ const testConference: Conference = {
   country: "Germany",
   description: "This is a really nice test conference.",
   url: "test-conference.link",
+  slug: "something-for-later",
 }
 
 export { testConference }

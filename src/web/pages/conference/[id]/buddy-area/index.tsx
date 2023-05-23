@@ -3,7 +3,6 @@ import { PageHead } from "../../../../ui-elements/page-layout/PageHead"
 import { TextLink } from "../../../../ui-elements/text-link/TextLink"
 import { BuddyArea } from "../../../../ui-elements/buddy-area/BuddyArea"
 import { useConference } from "../../../../../services/hooks/conference/useConference"
-import useProfile from "../../../../../services/hooks/profile/useProfile"
 
 type BuddyAreaPageProps = {
   params: {
