@@ -10,16 +10,16 @@ import {
   DiscussionPost,
   DiscussionPostCreate,
 } from "../../../domain/discussion/types/discussion-types"
-import useProfile from "../../../services/hooks/profile/useProfile"
-import { navigate } from "gatsby"
 import { TextArea } from "../textarea/TextArea"
 import * as z from "zod"
 import { FieldErrors, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Profile } from "../../../domain/profiles"
 
 type BuddyAreaProps = {
   conferenceId: string
   conferenceName: string | undefined
+  profile: Profile
 }
 
 const schema = z.object({
@@ -30,19 +30,15 @@ const schema = z.object({
 })
 
 type FormSchema = z.infer<typeof schema>
-function BuddyArea({ conferenceId, conferenceName }: BuddyAreaProps) {
+function BuddyArea({ conferenceId, conferenceName, profile }: BuddyAreaProps) {
   const queryClient = useQueryClient()
   const [showPostError, setShowPostError] = useState(false)
-  const {
-    data: profile,
-    isLoading: isLoadingProfile,
-    isError: isErrorProfile,
-  } = useProfile()
 
-  const { data: discussionId, isError: isErrorDiscussionId } = useQuery(
-    ["discussions"],
-    () => getDiscussionId(conferenceId)
-  )
+  const {
+    data: discussionId,
+    isLoading: isLoadingDiscussionId,
+    isError: isErrorDiscussionId,
+  } = useQuery(["discussions"], () => getDiscussionId(conferenceId))
 
   const { data: posts, isLoading: isLoadingPosts } = useQuery(
     ["discussion_posts", discussionId],
@@ -77,12 +73,17 @@ function BuddyArea({ conferenceId, conferenceName }: BuddyAreaProps) {
     mode: "onTouched",
   })
 
-  if (!profile && !isLoadingProfile) {
-    navigate(`/conference/${conferenceId}`)
-    return <></>
+  if ((!discussionId && isLoadingDiscussionId) || (!posts && isLoadingPosts)) {
+    return (
+      <div className="container text-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    )
   }
 
-  if (!posts || isErrorProfile || isErrorDiscussionId) {
+  if (!posts || isErrorDiscussionId) {
     return <>Something went wrong :/.</>
   }
 
