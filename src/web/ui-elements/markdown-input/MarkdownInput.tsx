@@ -2,6 +2,7 @@ import React, { Dispatch, ReactElement, SetStateAction } from "react"
 import MDEditor, { ICommand } from "@uiw/react-md-editor"
 import rehypeSanitize from "rehype-sanitize"
 import { v4 as uuidv4 } from "uuid"
+import { IconFilePencil } from "@tabler/icons-react"
 
 type MarkDownInputProps = {
   onChange: Dispatch<SetStateAction<string | undefined>>
@@ -44,9 +45,10 @@ function MarkdownInput(props: MarkDownInputProps): ReactElement {
 
       <label
         htmlFor={idForMarkdownInput}
-        className="form-label ms-2 col-form-label col-form-label-lg mb-0 d-block"
+        className="form-label col-form-label col-form-label-lg mb-0 d-block"
       >
-        📝 {label} <span className={"visually-hidden"}>, markdown editor</span>
+        <IconFilePencil />
+        {label} <span className={"visually-hidden"}>, markdown editor</span>
       </label>
       <div
         className={`form-control ${defaultClass} ${invalidClass} ${validClass}`}

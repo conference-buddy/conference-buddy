@@ -45,7 +45,7 @@ function TextInput<T extends FieldValues>(
     <div className="mb-3">
       <label
         htmlFor={idForTextInput}
-        className="form-label ms-2 col-form-label mb-0"
+        className="form-label col-form-label mb-0"
       >
         {label}
       </label>

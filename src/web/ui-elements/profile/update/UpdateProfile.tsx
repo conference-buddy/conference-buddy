@@ -10,6 +10,17 @@ import { MarkdownInput } from "../../markdown-input/MarkdownInput"
 import { navigate } from "gatsby"
 import { SocialLinksDB } from "../../../../domain/_social-links/types/types-social-links"
 import { ProfileUpdate } from "../../../../domain/profiles/types/types-profiles"
+import {
+  IconBrandGithub,
+  IconBrandGitlab,
+  IconBrandLinkedin,
+  IconBrandMastodon,
+  IconBrandTwitter,
+  IconId,
+  IconMail,
+  IconWorld,
+  IconWritingSign,
+} from "@tabler/icons-react"
 
 const schema = z.object({
   about_text: z.string().optional(),
@@ -57,20 +68,37 @@ type FormSchema = z.infer<typeof schema>
 
 const socialLinksMap: Record<
   SocialLink["platform"],
-  { name: SocialLink["platformName"]; icon: string }
+  { name: SocialLink["platformName"]; icon: () => React.ReactElement }
 > = {
-  github: { name: "GitHub", icon: "🐙" },
-  gitlab: { name: "GitLab", icon: "🦊" },
-  mastodon: { name: "Mastodon", icon: "🐘" },
-  linkedin: { name: "LinkedIn", icon: "👥" },
-  twitter: { name: "Twitter", icon: "🐦" },
-  website: { name: "Website", icon: "🌐" },
+  github: {
+    name: "GitHub",
+    icon: () => <IconBrandGithub aria-hidden="true" />,
+  },
+  gitlab: {
+    name: "GitLab",
+    icon: () => <IconBrandGitlab color="#fc6d26" aria-hidden="true" />,
+  },
+  mastodon: {
+    name: "Mastodon",
+    icon: () => <IconBrandMastodon color="#595aff" aria-hidden="true" />,
+  },
+  linkedin: {
+    name: "LinkedIn",
+    icon: () => <IconBrandLinkedin color="#0A66C2" aria-hidden="true" />,
+  },
+  twitter: {
+    name: "Twitter",
+    icon: () => <IconBrandTwitter color="#1DA1F2" aria-hidden="true" />,
+  },
+  website: { name: "Website", icon: () => <IconWorld aria-hidden="true" /> },
 }
 
-function getSocialLinkIcon(platform: string | SocialLink["platform"]): string {
+function getSocialLinkIcon(
+  platform: string | SocialLink["platform"]
+): () => React.ReactElement {
   return socialLinksMap.hasOwnProperty(platform)
     ? socialLinksMap[platform as SocialLink["platform"]].icon
-    : ""
+    : () => <IconWorld aria-hidden="true" />
 }
 
 function getSocialLinkName(platform: string | SocialLink["platform"]): string {
@@ -170,7 +198,7 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
                   error={errors?.email?.message as string}
                   label={
                     <>
-                      <span aria-hidden={true}>📬</span> Email (only visible for
+                      <IconMail aria-hidden="true" /> Email (only visible for
                       you)
                     </>
                   }
@@ -192,7 +220,7 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
                   error={errors?.name?.message as string}
                   label={
                     <>
-                      <span aria-hidden={true}>🙋</span> Full Name
+                      <IconId aria-hidden="true" /> Full Name
                     </>
                   }
                   placeholder="Your full name"
@@ -203,9 +231,9 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
                 <div className="mb-5">
                   <label
                     htmlFor={"username-field"}
-                    className="form-label ms-2 col-form-label mb-0"
+                    className="form-label col-form-label mb-0"
                   >
-                    <span aria-hidden={true}>🥷</span> Username
+                    <IconWritingSign aria-hidden="true" /> Username
                   </label>
                   <input
                     id={"username-field"}
@@ -249,7 +277,7 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
             />
           </div>
 
-          <fieldset className="pb-0 mb-5">
+          <fieldset className="pb-0 mb-5 mt-3">
             <h3>Social links</h3>
             <div className="row">
               {Object.keys(socialLinksMap).map((key, index) => {
@@ -269,9 +297,7 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
                       }
                       label={
                         <>
-                          <span aria-hidden={"true"}>
-                            {getSocialLinkIcon(platform)}
-                          </span>{" "}
+                          {getSocialLinkIcon(platform)()}{" "}
                           {getSocialLinkName(platform)}{" "}
                         </>
                       }

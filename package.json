@@ -30,6 +30,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.1.0",
     "@supabase/supabase-js": "2.22.0",
+    "@tabler/icons-react": "2.20.0",
     "@tanstack/react-query": "4.29.7",
     "@uiw/react-md-editor": "3.22.0",
     "gatsby": "5.10.0",

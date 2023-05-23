@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
 import { ConferenceSingle } from "../../ui-elements/conferences/single/ConferenceSingle"
 import { Conference } from "../../../domain/conferences"
