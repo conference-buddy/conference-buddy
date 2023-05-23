@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
 import { ConferenceSingle } from "../../ui-elements/conferences/single/ConferenceSingle"
 import { Conference } from "../../../domain/conferences"
@@ -19,6 +19,10 @@ const ConferenceSinglePage = (props: ConferencePageProps) => {
         <TextLink internal={true} to={"/conferences"}>
           &larr; Back to Conferences
         </TextLink>
+
+        <div className={"pt-5 pt-5"}>
+          <Link to={"buddy-area"}>LINK</Link>
+        </div>
       </div>
       <ConferenceSingle conference={conference} />
       <BecomeABuddy conferenceId={conference.id} />

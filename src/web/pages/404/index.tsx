@@ -2,14 +2,6 @@ import React from "react"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
 import { PageHead } from "../../ui-elements/page-layout/PageHead"
 
-export function Head() {
-  return (
-    <div>
-      <PageHead title={"404"} />
-    </div>
-  )
-}
-
 export default function NotFoundPage() {
   return (
     <div className="container">
@@ -23,4 +15,7 @@ export default function NotFoundPage() {
       .
     </div>
   )
+}
+export function Head() {
+  return <PageHead title={"404"} />
 }
