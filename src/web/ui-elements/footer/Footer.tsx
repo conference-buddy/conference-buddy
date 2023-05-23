@@ -1,96 +1,72 @@
 import React from "react"
 import { TextLink } from "../text-link/TextLink"
+import {
+  IconBrandGithub,
+  IconBrandMastodon,
+  IconBrandTwitter,
+  IconSpy,
+} from "@tabler/icons-react"
 function Footer() {
   return (
     <footer
-      className="bg-dark pt-4 pt-md-5 pb-3"
+      className="bg-dark pt-4 pb-4"
       role="contentinfo"
       aria-labelledby="aria-label-footer"
     >
       <div id="aria-label-footer" className="visually-hidden">
         Conference Buddy Footer
       </div>
-      <div className="container text-white pb-2">
-        <div className="row justify-content-evenly">
-          <div className="col-12 col-md-3 text-center text-center">
-            <h5 id="aria-label-nav-platform">Platform</h5>
-            <nav aria-labelledby="aria-label-nav-platform">
-              <ul className="list-unstyled">
-                <li>
-                  <TextLink internal={true} light={true} to="/">
-                    <>How does this work?</>
-                  </TextLink>
-                </li>
-                <li>
-                  <TextLink internal={true} light={true} to="/">
-                    <>Support ConfBuddy</>
-                  </TextLink>
-                </li>
-              </ul>
-            </nav>
-          </div>
-
-          <div className="col-12 col-md-3 text-center mt-3 mt-md-0">
-            <h5 id="aria-label-nav-social" aria-hidden="true">
-              Social
-            </h5>
-
-            <ul
-              aria-label="Links to our social media"
-              className="list-unstyled"
+      <div className="container small bg-dark text-light d-flex flex-column flex-md-row justify-content-between">
+        <ul
+          className="list-unstyled d-flex m-0 text-center pb-5 pb-md-0"
+          aria-label="Links to our social media"
+        >
+          <li className="me-3">
+            <TextLink
+              internal={false}
+              light={true}
+              to="https://github.com/conference-buddy/"
             >
-              <li>
-                <TextLink
-                  internal={false}
-                  light={true}
-                  to="https://github.com/conference-buddy/"
-                >
-                  <>Github</>
-                </TextLink>
-              </li>
-              <li>
-                <TextLink
-                  internal={false}
-                  light={true}
-                  to="https://hachyderm.io/@ConfBuddy"
-                >
-                  <>Mastodon</>
-                </TextLink>
-              </li>
-              <li>
-                <TextLink
-                  internal={false}
-                  light={true}
-                  to="https://twitter.com/confbuddy"
-                >
-                  <>Twitter</>
-                </TextLink>
-              </li>
-            </ul>
-          </div>
+              <IconBrandGithub /> Github
+            </TextLink>
+          </li>
+          <li className="me-3">
+            <TextLink
+              internal={false}
+              light={true}
+              to="https://hachyderm.io/@ConfBuddy"
+            >
+              <IconBrandMastodon /> Mastodon
+            </TextLink>
+          </li>
+          <li>
+            <TextLink
+              internal={false}
+              light={true}
+              to="https://twitter.com/confbuddy"
+            >
+              <IconBrandTwitter /> Twitter
+            </TextLink>
+          </li>
+        </ul>
+        <p className="m-0 pb-5 pb-md-0">
+          Made with ❤️ lots of ☕️ and an awesome ⌨️
+        </p>
 
-          <div className="col-12 col-md-3 text-center mt-3 mt-md-0">
-            <h5 id="aria-label-nav-about" aria-hidden="true">
-              More
-            </h5>
-
-            <ul className="list-unstyled" aria-label="Misc links about us">
-              <li>
-                <TextLink
-                  internal={false}
-                  light={true}
-                  to="https://www.iubenda.com/privacy-policy/44138766"
-                >
-                  <>Privacy Policy</>
-                </TextLink>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <hr />
-      <div className="container small bg-dark text-light text-center">
-        Made with ❤️ lots of ☕️ and an awesome ⌨️
+        <ul
+          className="list-unstyled m-0 pb-3 pb-md-0"
+          aria-label="Misc links about us"
+        >
+          <li>
+            <TextLink
+              internal={false}
+              light={true}
+              to="https://www.iubenda.com/privacy-policy/44138766"
+            >
+              <IconSpy /> Privacy Policy
+            </TextLink>
+          </li>
+        </ul>
       </div>
     </footer>
   )
