@@ -4,6 +4,7 @@ import { ConferenceLocation } from "../elements/ConferenceLocation"
 import { ConferenceDates } from "../elements/ConferenceDates"
 import { TextLink } from "../../text-link/TextLink"
 import { useBuddyCount } from "../../../../services/hooks/buddy-post/useBuddyPosts"
+import { StaticImage } from "gatsby-plugin-image"
 
 type ConferenceSingleProps = {
   conference: Conference
@@ -40,7 +41,13 @@ function ConferenceSingle({ conference }: ConferenceSingleProps) {
           <p className="mt-5">{conference.description}</p>
         </div>
         <div className="card-footer lead text-pr text-center border-0">
-          <span aria-hidden={"true"}> 🐶 </span>
+          <StaticImage
+            aria-hidden={true}
+            src="../../../assets/images/icon.png"
+            alt={"Conference buddy logo"}
+            width={35}
+            className="me-2"
+          />
           <span className="fw-bold text-primary">{count}</span> Conference
           Buddies
         </div>

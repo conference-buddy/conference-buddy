@@ -6,6 +6,7 @@ import { BuddyPostsOfUser } from "../../ui-elements/buddy-posts/BuddyPostsOfUser
 import { AvatarImage } from "../../ui-elements/profile/AvatarImage"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
 import { Profile } from "../../../domain/profiles"
+import { StaticImage } from "gatsby-plugin-image"
 
 export default function ProfilePage() {
   const { data: profile, isLoading } = useProfile()
@@ -57,7 +58,16 @@ export default function ProfilePage() {
       </div>
 
       <div className={"pt-5"}>
-        <h3>You are a Conference Buddy ♥️</h3>
+        <h3>
+          <StaticImage
+            aria-hidden={true}
+            src="../../assets/images/icon.png"
+            alt={"Conference buddy logo"}
+            width={40}
+            className="me-2"
+          />
+          You are a Conference Buddy
+        </h3>
         <div className="card">
           <div className="card-body">
             <BuddyPostsOfUser

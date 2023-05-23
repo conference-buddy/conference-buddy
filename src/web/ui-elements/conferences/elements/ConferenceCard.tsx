@@ -4,6 +4,7 @@ import { Conference } from "../../../../domain/conferences"
 import { ConferenceDates } from "./ConferenceDates"
 import { Link } from "gatsby"
 import { useBuddyCount } from "../../../../services/hooks/buddy-post/useBuddyPosts"
+import { StaticImage } from "gatsby-plugin-image"
 
 type ConferenceCardProps = {
   conference: Conference
@@ -37,7 +38,13 @@ function ConferenceCard({ conference }: ConferenceCardProps) {
         </div>
       </div>
       <div className="card-footer border-0">
-        <span aria-hidden={"true"}> 🐶 </span>
+        <StaticImage
+          aria-hidden={true}
+          src="../../../assets/images/icon.png"
+          alt={"Conference buddy logo"}
+          width={30}
+          className="me-2"
+        />
         <span className="fw-bold text-primary">{count}</span> Conference Buddies
       </div>
     </div>

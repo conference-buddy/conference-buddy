@@ -2,6 +2,7 @@ import React, { ReactElement } from "react"
 import { TextLink } from "../text-link/TextLink"
 import { formatDateString } from "../../../services/string-formatter/format-date"
 import { AvatarImage } from "../profile/AvatarImage"
+import { IconClockHour2 } from "@tabler/icons-react"
 
 function BuddyPost({
   avatarUrl,
@@ -33,7 +34,7 @@ function BuddyPost({
                 {username}
               </TextLink>
               <div className="text-dark text-opacity-75">
-                💬 {formattedPostingDate}
+                <IconClockHour2 aria-hidden={true} /> {formattedPostingDate}
               </div>
             </div>
 

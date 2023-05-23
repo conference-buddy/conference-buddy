@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react"
 import { TextLink } from "../text-link/TextLink"
 import { formatDateString } from "../../../services/string-formatter/format-date"
+import { IconClockHour2 } from "@tabler/icons-react"
 
 function BuddyPostOfUser({
   conferenceId,
@@ -25,7 +26,7 @@ function BuddyPostOfUser({
             </TextLink>
           )}
           <div className="text-dark text-opacity-75">
-            💬 {formattedPostingDate}
+            <IconClockHour2 aria-hidden={true} /> {formattedPostingDate}
           </div>
         </div>
 

@@ -7,6 +7,8 @@ import {
 import { BuddyPostForm } from "./BuddyPostForm"
 import useProfile from "../../../services/hooks/profile/useProfile"
 import { TextLink } from "../text-link/TextLink"
+import { IconConfetti } from "@tabler/icons-react"
+import { StaticImage } from "gatsby-plugin-image"
 
 function BecomeABuddy({ conferenceId }: { conferenceId: string }) {
   const [isLoading, setIsLoading] = useState(true)
@@ -35,7 +37,16 @@ function BecomeABuddy({ conferenceId }: { conferenceId: string }) {
             <>
               {isBuddy && profile && (
                 <>
-                  <h3>🎉 You are a Conference Buddy for this event</h3>
+                  <h3>
+                    <StaticImage
+                      aria-hidden={true}
+                      src="../../assets/images/icon.png"
+                      alt={"Conference buddy logo"}
+                      width={40}
+                      className="me-2"
+                    />{" "}
+                    You are a Conference Buddy for this event
+                  </h3>
                   <div className="alert alert-info" role="alert">
                     ℹ️ If you don't want to be a Conference Buddy anymore, you
                     can delete you post: &nbsp;&nbsp;
