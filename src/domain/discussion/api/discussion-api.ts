@@ -1,28 +1,34 @@
 import { supabase } from "../../_database/supabaseClient"
-import { DiscussionPost } from "../types/discussion-types"
+import { DiscussionPost, DiscussionPostCreate } from "../types/discussion-types"
 
-async function getDiscussionPosts(
-  conferenceId: string
-): Promise<DiscussionPost> {
-  const { data: discussion, error: errorDiscussion } = await supabase
+async function getDiscussionId(conferenceId: string): Promise<string> {
+  const { data, error } = await supabase
     .from("discussions")
     .select("id")
     .eq("conference_id", conferenceId)
     .single()
-
-  if (errorDiscussion) {
-    throw errorDiscussion
+  if (error) {
+    throw error
   }
 
-  if (!discussion.id) {
-    throw Error("There is no buddy area at the moment. Please try again later!")
+  if (!data || !data.id) {
+    throw Error("No discussion found.")
   }
-
+  const id: string = data.id
+  return id
+}
+async function getDiscussionPosts(
+  discussionId: string
+): Promise<DiscussionPost[]> {
+  console.log("getDiscussionPosts", discussionId)
   const { data: discussionPosts, error: discussionPostsError } = await supabase
     .from("discussion_posts")
-    .select("*")
-    .eq("discussion_id", discussion.id)
+    .select()
+    .eq("discussion_id", discussionId)
+    .order("created_at", { ascending: false })
 
+  console.log("data", discussionPosts)
+  console.log("discussionPostsError", discussionPostsError)
   if (discussionPostsError) {
     throw discussionPostsError
   }
@@ -30,4 +36,9 @@ async function getDiscussionPosts(
   return discussionPosts
 }
 
-export { getDiscussionPosts }
+async function createDiscussionPost(discussionPost: DiscussionPostCreate) {
+  const data = await supabase.from("discussion_posts").insert([discussionPost])
+  return data
+}
+
+export { getDiscussionPosts, createDiscussionPost, getDiscussionId }

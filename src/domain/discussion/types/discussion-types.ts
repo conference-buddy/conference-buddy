@@ -1,7 +1,9 @@
 import { Database } from "../../_database/types"
 
-type DiscussionPostDB = Database["public"]["Tables"]["discussion_post"]["Row"]
+type DiscussionPostDB = Database["public"]["Tables"]["discussion_posts"]["Row"]
 
 type DiscussionPost = DiscussionPostDB
 
-export type { DiscussionPost }
+type DiscussionPostCreate = Prettify<Omit<DiscussionPost, "id" | "created_at">>
+
+export type { DiscussionPost, DiscussionPostCreate }

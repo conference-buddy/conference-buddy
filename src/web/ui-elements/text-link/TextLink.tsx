@@ -21,7 +21,7 @@ function TextLink(props: TextLinkProps): ReactElement {
   }`
 
   return (
-    <>
+    <span>
       {!props.internal ? (
         <a href={props.to} className={linkClasses}>
           {props.children}
@@ -31,7 +31,7 @@ function TextLink(props: TextLinkProps): ReactElement {
           {props.children}
         </Link>
       )}
-    </>
+    </span>
   )
 }
 

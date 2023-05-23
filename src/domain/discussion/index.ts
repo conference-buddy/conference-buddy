@@ -1,1 +1,2 @@
-export { getDiscussion } from "./api/discussion-api"
+export { getDiscussionPosts, createDiscussionPost } from "./api/discussion-api"
+export type { DiscussionPostCreate } from "./types/discussion-types"

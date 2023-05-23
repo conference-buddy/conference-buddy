@@ -6,13 +6,16 @@ function AvatarImage({
   avatarUrl,
   width,
   height,
+  circle,
 }: {
   avatarUrl: string | null | undefined
   width?: number
   height?: number
+  circle?: boolean
 }): ReactElement {
   const avatarPublicUrl = avatarUrl ? getPublicAvatarUrl(avatarUrl) : null
 
+  const imageClass = circle ? "rounded-circle" : "rounded"
   return (
     <>
       {avatarPublicUrl ? (
@@ -23,7 +26,7 @@ function AvatarImage({
             width={width || 80}
             height={height || 80}
             placeholder="blurred"
-            className="rounded"
+            className={imageClass}
           />
         </picture>
       ) : (
@@ -32,7 +35,7 @@ function AvatarImage({
           alt={"Placeholder image"}
           width={100}
           placeholder="blurred"
-          className="rounded"
+          className={imageClass}
         />
       )}
     </>
