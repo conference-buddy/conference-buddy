@@ -10,13 +10,13 @@ export default function PageLayout({
   children: ReactNode
 }): ReactElement {
   return (
-    <>
+    <div className={"min-vh-100"}>
       <Header />
-      <div className="min-vh-100 d-flex flex-column">
+      <div className="d-flex flex-column">
         <CreateProfileAlert />
         <main className="flex-grow-1 py-3 py-md-4">{children}</main>
       </div>
       <Footer />
-    </>
+    </div>
   )
 }

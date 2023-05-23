@@ -67,8 +67,12 @@ function TextInput<T extends FieldValues>(
         placeholder={placeholder}
       />
 
-      <div className="valid-feedback">Looks good!</div>
-      <div className={"invalid-feedback"}>{error}</div>
+      <div style={{ height: "16px" }} className="valid-feedback">
+        Looks good!
+      </div>
+      <div style={{ height: "16px" }} className={"invalid-feedback"}>
+        {error}
+      </div>
 
       {list?.length && (
         <datalist id={idForDataList}>
