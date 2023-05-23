@@ -18,12 +18,10 @@ export default function Index({
 
   return (
     <div className="container">
-      <h1>
-        Buddy area -{" "}
-        <TextLink internal={true} to={`/conference/${conferenceId}`}>
-          {conference?.name}
-        </TextLink>
-      </h1>
+      <h1>Buddy area {conference?.name}</h1>
+      <TextLink internal={true} to={`/conference/${conferenceId}`}>
+        &larr; Back to conference
+      </TextLink>
       <div className={"mt-3"}>
         {params?.id && <BuddyArea conferenceId={params?.id} />}
       </div>
@@ -32,5 +30,5 @@ export default function Index({
 }
 
 export function Head() {
-  return <PageHead title={"Conference details"} />
+  return <PageHead title={"Buddy area"} />
 }

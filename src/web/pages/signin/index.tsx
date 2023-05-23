@@ -40,5 +40,5 @@ export default function SignInPage(): ReactElement {
 }
 
 export function Head() {
-  return <PageHead title={"Welcome"} />
+  return <PageHead title={"Sign in"} />
 }

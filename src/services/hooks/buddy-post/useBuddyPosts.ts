@@ -60,6 +60,7 @@ export function useDeleteBuddyPost() {
       onSuccess: async () => {
         await queryClient.invalidateQueries(["is_buddy"])
         await queryClient.invalidateQueries(["buddy_count"])
+        await queryClient.invalidateQueries(["buddy_posts"])
       },
     }
   )
