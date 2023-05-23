@@ -7,7 +7,6 @@ import {
 import { BuddyPostForm } from "./BuddyPostForm"
 import useProfile from "../../../services/hooks/profile/useProfile"
 import { TextLink } from "../text-link/TextLink"
-import { IconConfetti } from "@tabler/icons-react"
 import { StaticImage } from "gatsby-plugin-image"
 
 function BecomeABuddy({ conferenceId }: { conferenceId: string }) {

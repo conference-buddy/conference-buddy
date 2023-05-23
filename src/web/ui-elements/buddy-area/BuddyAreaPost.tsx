@@ -5,7 +5,7 @@ import { TextLink } from "../text-link/TextLink"
 import { DiscussionPost } from "../../../domain/discussion/types/discussion-types"
 import { formatDateString } from "../../../services/string-formatter/format-date"
 import { Profile } from "../../../domain/profiles"
-import { IconClockHour2, IconClockHour3 } from "@tabler/icons-react"
+import { IconClockHour2 } from "@tabler/icons-react"
 
 type BuddyAreaPostProp = {
   post: DiscussionPost

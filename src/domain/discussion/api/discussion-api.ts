@@ -20,15 +20,12 @@ async function getDiscussionId(conferenceId: string): Promise<string> {
 async function getDiscussionPosts(
   discussionId: string
 ): Promise<DiscussionPost[]> {
-  console.log("getDiscussionPosts", discussionId)
   const { data: discussionPosts, error: discussionPostsError } = await supabase
     .from("discussion_posts")
     .select()
     .eq("discussion_id", discussionId)
     .order("created_at", { ascending: false })
 
-  console.log("data", discussionPosts)
-  console.log("discussionPostsError", discussionPostsError)
   if (discussionPostsError) {
     throw discussionPostsError
   }

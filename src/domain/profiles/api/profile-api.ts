@@ -89,7 +89,7 @@ async function createProfile(newProfile: ProfileCreate) {
 }
 
 async function updateProfile(profile: ProfileUpdate) {
-  const { error: profileError, data } = await supabase
+  const { error: profileError } = await supabase
     .from("profiles")
     .update({
       about_text: profile.about_text,
@@ -99,9 +99,6 @@ async function updateProfile(profile: ProfileUpdate) {
     })
     .eq("id", profile.id)
 
-  console.log("data", data)
-
-  debugger
   const { error: socialLinksError } = await supabase
     .from("profiles_social_links")
     .update({ ...profile.social_links })
