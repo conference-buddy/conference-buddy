@@ -163,13 +163,13 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
 
   return (
     <form className="has-validation" onSubmit={handleSubmit(onSubmit, onError)}>
-      <section className="bg-white rounded p-3 mb-3">
-        <h3>Picture</h3>
+      <section className="card p-3 mb-3">
+        <h3>Your picture</h3>
         <p>
           You can upload a profile picture if you want. Otherwise, you will keep
           the 🐶placeholder :)
         </p>
-        <div className="row d-flex align-items-center mb-3">
+        <div className="row d-flex align-items-center mb-5 p-3">
           <Controller<FormSchema>
             name="avatar_image"
             control={control}
@@ -189,7 +189,7 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
           />
         </div>
         <h3>Personal</h3>
-        <div className="row d-flex align-items-center mb-3">
+        <div className="mb-3">
           <div className="row d-flex align-items-center">
             <div className="col-md-6">
               <TextInput<FormSchema>
@@ -277,9 +277,9 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
           />
         </div>
 
-        <fieldset className="bg-white rounded p-3 pb-0 mb-3">
+        <fieldset className="pb-0 mb-5">
           <h3>Social links</h3>
-          <div className="input-group mb-5 row">
+          <div className="row">
             {Object.keys(socialLinksMap).map((key, index) => {
               const platform = key as keyof FormSchema["social_links"]
               return (
@@ -310,10 +310,12 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
         </fieldset>
       </section>
 
-      <div className="row col-md-6 offset-md-3 mb-3">
-        <button type="submit" className={"btn btn-primary btn-lg"}>
-          Submit Form
-        </button>
+      <div className="row mb-3">
+        <div className="col-md-6 col-sm-12 offset-md-3">
+          <button type="submit" className="btn btn-primary btn-lg w-100">
+            Create profile
+          </button>
+        </div>
       </div>
     </form>
   )

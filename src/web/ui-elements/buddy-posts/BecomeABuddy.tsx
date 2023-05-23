@@ -60,7 +60,10 @@ function BecomeABuddy({ conferenceId }: { conferenceId: string }) {
                     </button>
                   </div>
                   <div className="lead d-flex w-100 justify-content-center">
-                    <TextLink to="" internal={true}>
+                    <TextLink
+                      to={`/conference/${conferenceId}/buddy-area`}
+                      internal={true}
+                    >
                       Go to Buddy area &rarr;
                     </TextLink>
                   </div>

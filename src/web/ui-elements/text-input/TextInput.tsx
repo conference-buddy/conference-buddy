@@ -42,7 +42,7 @@ function TextInput<T extends FieldValues>(
   const invalidClass = error ? `is-invalid` : ""
   const validClass = validated && !error ? "is-valid" : ""
   return (
-    <div className="mb-5">
+    <div className="mb-3">
       <label
         htmlFor={idForTextInput}
         className="form-label ms-2 col-form-label mb-0"

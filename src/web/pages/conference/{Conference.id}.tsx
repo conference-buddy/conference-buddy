@@ -19,10 +19,6 @@ const ConferenceSinglePage = (props: ConferencePageProps) => {
         <TextLink internal={true} to={"/conferences"}>
           &larr; Back to Conferences
         </TextLink>
-
-        <div className={"pt-5 pt-5"}>
-          <Link to={"buddy-area"}>LINK</Link>
-        </div>
       </div>
       <ConferenceSingle conference={conference} />
       <BecomeABuddy conferenceId={conference.id} />
