@@ -5,6 +5,7 @@ import { PageHead } from "../../ui-elements/page-layout/PageHead"
 import useProfile from "../../../services/hooks/profile/useProfile"
 import { AvatarImage } from "../../ui-elements/profile/AvatarImage"
 import { SocialLinks } from "../../ui-elements/profile/SocialLinks"
+import { BuddyPostsOfUser } from "../../ui-elements/buddy-posts/BuddyPostsOfUser"
 
 function UserPage({
   params,
@@ -59,6 +60,12 @@ function UserPage({
               <div className="card-body">
                 <h4>About me</h4>
                 {user.about_text}
+              </div>
+            </div>
+            <div className="card">
+              <div className="card-body">
+                <h4>Was buddy at:</h4>
+                <BuddyPostsOfUser profileId={user.id}></BuddyPostsOfUser>
               </div>
             </div>
           </div>

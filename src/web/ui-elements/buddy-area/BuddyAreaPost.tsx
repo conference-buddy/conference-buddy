@@ -38,7 +38,10 @@ function BuddyAreaPost({ post, currentProfile }: BuddyAreaPostProp) {
           {currentProfileIsPoster ? (
             <i>You</i>
           ) : (
-            <TextLink to={`/user/`} internal={true}>
+            <TextLink
+              to={`/user/${publicProfilePoster?.username}`}
+              internal={true}
+            >
               {publicProfilePoster?.username}
             </TextLink>
           )}
