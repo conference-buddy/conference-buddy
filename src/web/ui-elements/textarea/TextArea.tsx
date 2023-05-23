@@ -3,26 +3,30 @@ import { v4 as uuidv4 } from "uuid"
 import { FieldValues, Path, UseFormRegister } from "react-hook-form"
 
 type TextAreaProps<T extends FieldValues> = {
-  register: UseFormRegister<T>
-  name: Path<T>
-  label: string
-  placeholder: string
-  error?: string
-  validated?: boolean
-  labelSROnly?: boolean
-  required?: boolean
+  additionalClasses?: string
   disabled?: boolean
+  error?: string
+  label: string
+  labelSROnly?: boolean
+  name: Path<T>
+  placeholder: string
+  register: UseFormRegister<T>
+  required?: boolean
+  rows?: number
+  validated?: boolean
 }
 
 function TextArea<T extends FieldValues>({
-  label,
-  register,
-  name,
-  placeholder,
-  labelSROnly,
-  required,
+  additionalClasses,
   disabled,
   error,
+  label,
+  labelSROnly,
+  name,
+  placeholder,
+  register,
+  required,
+  rows,
   validated,
 }: TextAreaProps<T>): ReactElement {
   const idForTextAreaInput = uuidv4()
@@ -30,10 +34,12 @@ function TextArea<T extends FieldValues>({
   const validClass = validated && !error ? "is-valid" : ""
 
   return (
-    <div className={"mb-3"}>
+    <div className={`${additionalClasses ? additionalClasses : "mb-3"}`}>
       <label
         htmlFor={idForTextAreaInput}
-        className="form-label col-form-label mb-0"
+        className={
+          labelSROnly ? "visually-hidden" : "form-label col-form-label mb-0"
+        }
       >
         <span className={labelSROnly ? "visually-hidden" : ""}>{label}</span>
       </label>
@@ -44,8 +50,8 @@ function TextArea<T extends FieldValues>({
         aria-required={required}
         aria-invalid={Boolean(error)}
         disabled={disabled}
-        rows={5}
-        className={`form-control ${invalidClass} ${validClass}`}
+        rows={rows || 5}
+        className={`form-control ${invalidClass} ${validClass} `}
         placeholder={placeholder}
       />
       <div className="valid-feedback">Looks good!</div>

@@ -19,6 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 
 type BuddyAreaProps = {
   conferenceId: string
+  conferenceName: string | undefined
 }
 
 const schema = z.object({
@@ -29,7 +30,7 @@ const schema = z.object({
 })
 
 type FormSchema = z.infer<typeof schema>
-function BuddyArea({ conferenceId }: BuddyAreaProps) {
+function BuddyArea({ conferenceId, conferenceName }: BuddyAreaProps) {
   const queryClient = useQueryClient()
   const [showPostError, setShowPostError] = useState(false)
   const {
@@ -102,10 +103,16 @@ function BuddyArea({ conferenceId }: BuddyAreaProps) {
   }
 
   return (
-    <div className={"border border-1 mt-5 "}>
+    <div className={"border border-1 mt-3 rounded-3"}>
+      <div className="text-center bg-white">
+        <h1 className="h2 m-0 py-2 rounded-3">
+          <i>Buddy area:</i> {conferenceName}
+        </h1>
+      </div>
+
       <div
         className={
-          "bg-primary bg-opacity-10 rounded border border-5 border-white"
+          "bg-primary bg-opacity-10 rounded border border-5 border-white border-top-0"
         }
       >
         {isLoadingPosts && <div className={"spinner"}></div>}
@@ -117,7 +124,7 @@ function BuddyArea({ conferenceId }: BuddyAreaProps) {
             className={
               "list-unstyled d-flex flex-column-reverse overflow-auto mb-0 border-bottom border-white border-5"
             }
-            style={{ maxHeight: "50vh" }}
+            style={{ maxHeight: "65vh" }}
           >
             {posts.map((post: DiscussionPost, index: number) => {
               return (
@@ -133,49 +140,60 @@ function BuddyArea({ conferenceId }: BuddyAreaProps) {
           </ul>
         )}
         <form
-          className={"mx-md-5 p-3 has-validation"}
+          className={"mx-md-4 p-2 has-validation"}
           onSubmit={handleSubmit(onSubmit, onError)}
         >
-          <TextArea<FormSchema>
-            register={register}
-            name={"text"}
-            required={true}
-            label={"Write a message (min 20 characters)"}
-            placeholder={"Write something to your fellow Conference Buddies."}
-            validated={Boolean(touchedFields.text)}
-            error={errors?.text?.message as string}
-            disabled={isLoadingCreatePost}
-          />
-          <div className={"mt-2 me-2 d-flex justify-content-end"}>
-            <button
-              type={"submit"}
+          <div className="d-flex">
+            <TextArea<FormSchema>
+              register={register}
+              name={"text"}
+              rows={3}
+              required={true}
+              labelSROnly={true}
+              additionalClasses="flex-grow-1"
+              label={"Write a message (min 20 characters)"}
+              placeholder={"Write something to your fellow Conference Buddies."}
+              validated={Boolean(touchedFields.text)}
+              error={errors?.text?.message as string}
+              disabled={isLoadingCreatePost}
+            />
+            <div
               className={
-                "btn btn-primary btn-sm me-2 d-flex align-items-center"
+                "pt-2 pb-2 d-flex justify-content-between flex-column ps-2"
               }
-              disabled={isLoadingCreatePost}
             >
-              {isLoadingCreatePost ? (
-                <>
-                  <span
-                    className={"spinner spinner-border spinner-border-sm me-2"}
-                  />{" "}
-                  Sending...
-                </>
-              ) : (
-                <span>Send message</span>
-              )}
-            </button>
-            <button
-              type={"button"}
-              className={"btn btn-outline-danger btn-sm"}
-              onClick={() => {
-                reset({ text: "" })
-                setShowPostError(false)
-              }}
-              disabled={isLoadingCreatePost}
-            >
-              Cancel
-            </button>
+              <button
+                type={"submit"}
+                className={
+                  "btn btn-primary btn-sm mb-1 d-flex align-items-center flex-grow-1"
+                }
+                disabled={isLoadingCreatePost}
+              >
+                {isLoadingCreatePost ? (
+                  <>
+                    <span
+                      className={
+                        "spinner spinner-border spinner-border-sm me-2"
+                      }
+                    />{" "}
+                    Sending...
+                  </>
+                ) : (
+                  <span>Send message</span>
+                )}
+              </button>
+              <button
+                type="button"
+                className="btn btn-outline-danger btn-sm"
+                onClick={() => {
+                  reset({ text: "" })
+                  setShowPostError(false)
+                }}
+                disabled={isLoadingCreatePost}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
           {showPostError && (
             <div className="alert alert-danger mt-3" role="alert">

@@ -17,14 +17,16 @@ export default function Index({
   const { data: conference } = useConference({ id: conferenceId })
 
   return (
-    <div className="container">
-      <h1>Buddy area {conference?.name}</h1>
+    <div className="container flex-grow-1">
       <TextLink internal={true} to={`/conference/${conferenceId}`}>
         &larr; Back to conference
       </TextLink>
-      <div className={"mt-3"}>
-        {params?.id && <BuddyArea conferenceId={params?.id} />}
-      </div>
+      {params?.id && (
+        <BuddyArea
+          conferenceId={params?.id}
+          conferenceName={conference?.name}
+        />
+      )}
     </div>
   )
 }
