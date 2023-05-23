@@ -6,6 +6,8 @@ import useProfile from "../../../services/hooks/profile/useProfile"
 import { AvatarImage } from "../../ui-elements/profile/AvatarImage"
 import { SocialLinks } from "../../ui-elements/profile/SocialLinks"
 import { BuddyPostsOfUser } from "../../ui-elements/buddy-posts/BuddyPostsOfUser"
+import MDEditor from "@uiw/react-md-editor"
+import rehypeSanitize from "rehype-sanitize"
 
 function UserPage({
   params,
@@ -59,7 +61,14 @@ function UserPage({
             <div className="card mb-3">
               <div className="card-body">
                 <h4>About me</h4>
-                {user.about_text}
+                <div data-color-mode="light">
+                  <MDEditor.Markdown
+                    source={user.about_text}
+                    previewOptions={{
+                      rehypePlugins: [[rehypeSanitize]],
+                    }}
+                  />
+                </div>
               </div>
             </div>
             <div className="card">

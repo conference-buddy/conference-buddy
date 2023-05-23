@@ -2,6 +2,8 @@ import React, { ReactElement } from "react"
 import { TextLink } from "../text-link/TextLink"
 import { formatDateString } from "../../../services/string-formatter/format-date"
 import { IconClockHour2 } from "@tabler/icons-react"
+import MDEditor from "@uiw/react-md-editor"
+import rehypeSanitize from "rehype-sanitize"
 
 function BuddyPostOfUser({
   conferenceId,
@@ -19,7 +21,7 @@ function BuddyPostOfUser({
   return (
     <div className="row">
       <div className="col">
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between mb-3">
           {conferenceId && (
             <TextLink to={`/conference/${conferenceId}`} internal={true}>
               {conferenceName}
@@ -30,7 +32,14 @@ function BuddyPostOfUser({
           </div>
         </div>
 
-        <p className="card-text pt-2">{text}</p>
+        <div data-color-mode="light">
+          <MDEditor.Markdown
+            source={text}
+            previewOptions={{
+              rehypePlugins: [[rehypeSanitize]],
+            }}
+          />
+        </div>
       </div>
     </div>
   )

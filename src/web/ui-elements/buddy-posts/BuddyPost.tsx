@@ -3,6 +3,8 @@ import { TextLink } from "../text-link/TextLink"
 import { formatDateString } from "../../../services/string-formatter/format-date"
 import { AvatarImage } from "../profile/AvatarImage"
 import { IconClockHour2 } from "@tabler/icons-react"
+import MDEditor from "@uiw/react-md-editor"
+import rehypeSanitize from "rehype-sanitize"
 
 function BuddyPost({
   avatarUrl,
@@ -29,7 +31,7 @@ function BuddyPost({
             </div>
           )}
           <div className="col">
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between mb-3">
               <TextLink to={`/user/${username}`} internal={true}>
                 {username}
               </TextLink>
@@ -38,7 +40,14 @@ function BuddyPost({
               </div>
             </div>
 
-            <p className="card-text pt-2">{text}</p>
+            <div data-color-mode="light">
+              <MDEditor.Markdown
+                source={text}
+                previewOptions={{
+                  rehypePlugins: [[rehypeSanitize]],
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
