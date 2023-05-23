@@ -34,30 +34,24 @@ function SignIn({ standAlone }: { standAlone?: boolean }): ReactElement {
   }
 
   return (
-    <div>
+    <>
       {!profile ? (
-        <TextLink
-          to={`/profile/create`}
-          internal={true}
-          light={true}
-          additionalClasses="me-3"
-        >
-          Create profile
-        </TextLink>
+        <li>
+          <a href="/profile/create" className="nav-link me-3">
+            Create profile
+          </a>
+        </li>
       ) : (
-        <TextLink
-          to={`/profile`}
-          internal={true}
-          light={true}
-          additionalClasses="me-3"
-        >
-          Profile
-        </TextLink>
+        <li>
+          <a href="/profile" className="nav-link me-3">
+            Profile
+          </a>
+        </li>
       )}
       <button className="btn btn-outline-light btn-sm" onClick={signOut}>
         Sign out
       </button>
-    </div>
+    </>
   )
 }
 export { SignIn }
