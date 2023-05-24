@@ -6,7 +6,7 @@ type TextAreaProps<T extends FieldValues> = {
   additionalClasses?: string
   disabled?: boolean
   error?: string
-  label: string
+  label: ReactElement
   labelSROnly?: boolean
   name: Path<T>
   placeholder: string
