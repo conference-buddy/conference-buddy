@@ -99,7 +99,7 @@ function Header(): ReactElement {
                 <Link
                   className="nav-link link-light"
                   activeClassName={"text-decoration-underline"}
-                  to={"/does-not-exist-yet-2"}
+                  to={"/feedback"}
                 >
                   Feedback
                 </Link>

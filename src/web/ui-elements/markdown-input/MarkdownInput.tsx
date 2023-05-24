@@ -47,7 +47,7 @@ function MarkdownInput(props: MarkDownInputProps): ReactElement {
         htmlFor={idForMarkdownInput}
         className="form-label col-form-label col-form-label-lg mb-0 d-block"
       >
-        <IconFilePencil />
+        <IconFilePencil aria-hidden={true} />
         {label} <span className={"visually-hidden"}>, markdown editor</span>
       </label>
       <div
