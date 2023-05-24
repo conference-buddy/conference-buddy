@@ -30,6 +30,8 @@ function BuddyAreaPost({ post, currentProfile }: BuddyAreaPostProp) {
         <AvatarImage
           avatarUrl={publicProfilePoster?.avatar_url}
           circle={true}
+          width={60}
+          height={60}
         ></AvatarImage>
       </div>
 

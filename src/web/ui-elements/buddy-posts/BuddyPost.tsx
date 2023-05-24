@@ -27,7 +27,12 @@ function BuddyPost({
         <div className="row">
           {avatarUrl && (
             <div className="col-sm-2 col-xl-1 order-2 order-sm-1">
-              <AvatarImage avatarUrl={avatarUrl} circle={true}></AvatarImage>
+              <AvatarImage
+                avatarUrl={avatarUrl}
+                circle={true}
+                height={60}
+                width={60}
+              ></AvatarImage>
             </div>
           )}
           <div className="col-12 col-sm-10 col-xl-11 order-1 order-sm-2">

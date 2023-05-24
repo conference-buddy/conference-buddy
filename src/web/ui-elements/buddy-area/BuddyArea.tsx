@@ -123,13 +123,13 @@ function BuddyArea({ conferenceId, conferenceName, profile }: BuddyAreaProps) {
         {posts.length > 0 && profile && (
           <ul
             className={
-              "list-unstyled d-flex flex-column-reverse overflow-auto mb-0 border-bottom border-white border-5"
+              "list-unstyled d-flex flex-column-reverse overflow-auto mb-0"
             }
             style={{ maxHeight: "65vh" }}
           >
             {posts.map((post: DiscussionPost, index: number) => {
               return (
-                <li key={`${post.id}-${index}`} className={"p-4"}>
+                <li key={`${post.id}-${index}`} className={"px-2 py-3"}>
                   <BuddyAreaPost
                     post={post}
                     currentProfile={profile}
@@ -141,7 +141,7 @@ function BuddyArea({ conferenceId, conferenceName, profile }: BuddyAreaProps) {
           </ul>
         )}
         <form
-          className={"mx-md-4 p-2 has-validation"}
+          className={"mx-md-2 mt-3 p-2 has-validation"}
           onSubmit={handleSubmit(onSubmit, onError)}
         >
           <div className="d-flex">

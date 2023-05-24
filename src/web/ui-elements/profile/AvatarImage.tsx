@@ -26,7 +26,7 @@ function AvatarImage({
             width={width || 80}
             height={height || 80}
             placeholder="blurred"
-            className={imageClass}
+            className={`${imageClass} border border-3 border-primary bg-white`}
           />
         </picture>
       ) : (

@@ -63,18 +63,9 @@ export default function ProfilePage() {
       </div>
 
       <div className={"pt-5"}>
-        <h3>
-          <StaticImage
-            aria-hidden={true}
-            src="../../assets/images/icon.png"
-            alt={"Conference buddy logo"}
-            width={40}
-            className="me-2"
-          />
-          You are a Conference Buddy
-        </h3>
         <div className="card">
           <div className="card-body">
+            <h3>Conference Buddy at</h3>
             <BuddyPostsOfUser
               profileId={(profile as Profile).id}
             ></BuddyPostsOfUser>

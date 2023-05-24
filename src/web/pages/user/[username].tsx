@@ -56,6 +56,7 @@ function UserPage({
                     avatarUrl={user.avatar_url}
                     height={200}
                     width={200}
+                    circle={true}
                   ></AvatarImage>
                   <div className="mt-3">
                     <h4>{user?.name}</h4>
@@ -85,7 +86,7 @@ function UserPage({
             </div>
             <div className="card">
               <div className="card-body">
-                <h4>Was buddy at:</h4>
+                <h4>Conference Buddy at</h4>
                 <BuddyPostsOfUser profileId={user.id}></BuddyPostsOfUser>
               </div>
             </div>

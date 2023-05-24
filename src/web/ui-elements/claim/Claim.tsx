@@ -4,7 +4,7 @@ function Claim(): ReactElement {
   return (
     <header>
       <div
-        className="Claim h1 my-3 my-md-5"
+        className="Claim h1 my-3 my-md-3"
         aria-hidden="true"
         data-testid={"claim-animation"}
       >
