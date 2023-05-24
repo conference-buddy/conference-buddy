@@ -32,7 +32,7 @@ function UpdateAvatar(props: UpdateAvatarProps): ReactElement {
 
   return (
     <>
-      <div className={"text-success p-2"}>
+      <div className={"text-success p-2 text-center"}>
         {(isSuccessUpload || isSuccessDelete) && (
           <>
             <IconCircleCheck aria-hidden={true} /> That worked!
