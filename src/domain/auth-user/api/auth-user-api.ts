@@ -12,9 +12,13 @@ type authUserEventCallback = {
 
 async function getAuthUser(): Promise<SupaBaseUser | null> {
   const {
-    data: { user },
-  } = await supabase.auth.getUser()
-  return user
+    data: { session },
+  } = await supabase.auth.getSession()
+
+  if (!session || !session.user) {
+    return null
+  }
+  return session.user
 }
 
 function handleAuthUserEvents(callback: authUserEventCallback) {
