@@ -9,7 +9,6 @@ import { User } from "@supabase/supabase-js"
 import { getAuthUser } from "../../domain/auth-user"
 import { handleAuthUserEvents } from "../../domain/auth-user/api/auth-user-api"
 
-//eslint-disable-next-line
 export const AuthUserContext = createContext<{
   authUser: User | null
   isLoading: boolean
@@ -31,9 +30,7 @@ export function AuthUserProvider({ children }: { children: ReactNode }) {
     }
     initAuth()
 
-    handleAuthUserEvents(async (event, session) => {
-      console.log("event", event)
-      console.log("session", session)
+    handleAuthUserEvents(async (_event, session) => {
       setAuthUser(session?.user ?? null)
     })
   }, [])

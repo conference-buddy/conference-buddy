@@ -175,6 +175,7 @@ export interface Database {
           id: string
           linkedin: string | null
           mastodon: string | null
+          profile_id: string
           twitter: string | null
           website: string | null
         }
@@ -184,6 +185,7 @@ export interface Database {
           id: string
           linkedin?: string | null
           mastodon?: string | null
+          profile_id: string
           twitter?: string | null
           website?: string | null
         }
@@ -193,6 +195,7 @@ export interface Database {
           id?: string
           linkedin?: string | null
           mastodon?: string | null
+          profile_id?: string
           twitter?: string | null
           website?: string | null
         }

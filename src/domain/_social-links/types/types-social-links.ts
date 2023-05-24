@@ -5,7 +5,7 @@ type SocialLinksDB = Prettify<
 >
 
 type SocialLink = Prettify<{
-  platform: keyof Omit<SocialLinksDB, "id">
+  platform: keyof Omit<SocialLinksDB, "id" | "profile_id">
   platformName: string
   address: string | null
 }>

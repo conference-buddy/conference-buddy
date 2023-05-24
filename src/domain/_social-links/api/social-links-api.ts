@@ -6,12 +6,14 @@ function createSocialLinks({
   socialLinks,
 }: {
   profileId: string
-  socialLinks: Omit<SocialLinksDB, "id">
+  socialLinks: Omit<SocialLinksDB, "id" | "profile_id">
 }) {
   const socialLinksForDB: SocialLinksDB = {
-    id: profileId,
     ...socialLinks,
+    profile_id: profileId,
   }
+
+  console.log("socialLinks", socialLinks)
 
   return supabase.from("profiles_social_links").insert([socialLinksForDB])
 }
@@ -20,8 +22,8 @@ function createSocialLinks({
 function getSocialLinksProfile(profileId: string) {
   return supabase
     .from("profiles_social_links")
-    .select()
-    .eq("id", profileId)
+    .select("github, gitlab, mastodon, twitter, website, linkedin")
+    .eq("profile_id", profileId)
     .single()
 }
 

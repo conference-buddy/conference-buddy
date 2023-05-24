@@ -41,8 +41,8 @@ async function getProfile(user: User | null): Promise<Profile | null> {
 
   const { data: socialLinks, error: socialLinksError } = await supabase
     .from("profiles_social_links")
-    .select()
-    .eq("id", user.id)
+    .select("github, gitlab, mastodon, twitter, website, linkedin")
+    .eq("profile_id", user.id)
     .single()
 
   if (socialLinksError) {
@@ -102,7 +102,7 @@ async function updateProfile(profile: ProfileUpdate) {
   const { error: socialLinksError } = await supabase
     .from("profiles_social_links")
     .update({ ...profile.social_links })
-    .eq("id", profile.id)
+    .eq("profile_id", profile.id)
     .select()
 
   if (socialLinksError || profileError) {
