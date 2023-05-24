@@ -55,7 +55,7 @@ export default function ProfilePage() {
             </div>
           </div>
           <div className="mt-3 mt-md-0 col-12 col-md-2">
-            <Link className={"btn btn-primary"} to={`edit`}>
+            <Link className="btn btn-primary w-100" to={`edit`}>
               Edit profile
             </Link>
           </div>

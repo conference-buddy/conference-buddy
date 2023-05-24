@@ -35,7 +35,7 @@ export default function FeedbackPage(): ReactElement {
                   "https://github.com/conference-buddy/conference-buddy/discussions/categories/ideas-for-features"
                 }
               >
-                GitHub discussion
+                &nbsp;GitHub discussion
               </TextLink>
               .
             </li>
