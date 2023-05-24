@@ -26,11 +26,11 @@ function BuddyPost({
       <div className="card-body">
         <div className="row">
           {avatarUrl && (
-            <div className="col-1">
-              <AvatarImage avatarUrl={avatarUrl}></AvatarImage>
+            <div className="col-sm-2 col-xl-1 order-2 order-sm-1">
+              <AvatarImage avatarUrl={avatarUrl} circle={true}></AvatarImage>
             </div>
           )}
-          <div className="col">
+          <div className="col-12 col-sm-10 col-xl-11 order-1 order-sm-2">
             <div className="d-flex justify-content-between mb-3">
               <TextLink to={`/user/${username}`} internal={true}>
                 {username}
@@ -39,15 +39,17 @@ function BuddyPost({
                 <IconClockHour2 aria-hidden={true} /> {formattedPostingDate}
               </div>
             </div>
-
-            <div data-color-mode="light">
-              <MDEditor.Markdown
-                source={text}
-                previewOptions={{
-                  rehypePlugins: [[rehypeSanitize]],
-                }}
-              />
-            </div>
+          </div>
+          <div
+            data-color-mode="light"
+            className="col-12 offset-sm-2 col-sm-10 offset-xl-1 col-xl-11 order-3"
+          >
+            <MDEditor.Markdown
+              source={text}
+              previewOptions={{
+                rehypePlugins: [[rehypeSanitize]],
+              }}
+            />
           </div>
         </div>
       </div>
