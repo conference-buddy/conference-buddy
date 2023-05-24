@@ -25,6 +25,7 @@ function handleAuthUserEvents(callback: authUserEventCallback) {
   const {
     data: { subscription },
   } = supabase.auth.onAuthStateChange(callback)
+
   return () => {
     subscription?.unsubscribe()
   }

@@ -31,7 +31,9 @@ export function AuthUserProvider({ children }: { children: ReactNode }) {
     }
     initAuth()
 
-    handleAuthUserEvents(async (_event, session) => {
+    handleAuthUserEvents(async (event, session) => {
+      console.log("event", event)
+      console.log("session", session)
       setAuthUser(session?.user ?? null)
     })
   }, [])
