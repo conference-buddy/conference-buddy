@@ -5,6 +5,7 @@ import { ConferenceDates } from "../elements/ConferenceDates"
 import { TextLink } from "../../text-link/TextLink"
 import { useBuddyCount } from "../../../../services/hooks/buddy-post/useBuddyPosts"
 import { StaticImage } from "gatsby-plugin-image"
+import { IconWorld } from "@tabler/icons-react"
 
 type ConferenceSingleProps = {
   conference: Conference
@@ -30,9 +31,7 @@ function ConferenceSingle({ conference }: ConferenceSingleProps) {
           <h1 className="mt-2 mb-3">{conference.name}</h1>
           {conference.url && (
             <p className="mb-1">
-              <span aria-hidden="true" className="me-2">
-                🌐
-              </span>
+              <IconWorld aria-hidden="true" />
               <TextLink to={conference.url} internal={false}>
                 {conference.url}
               </TextLink>

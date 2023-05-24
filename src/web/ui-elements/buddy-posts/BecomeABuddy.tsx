@@ -8,6 +8,7 @@ import { BuddyPostForm } from "./BuddyPostForm"
 import useProfile from "../../../services/hooks/profile/useProfile"
 import { TextLink } from "../text-link/TextLink"
 import { StaticImage } from "gatsby-plugin-image"
+import { IconInfoCircle } from "@tabler/icons-react"
 
 function BecomeABuddy({ conferenceId }: { conferenceId: string }) {
   const [isLoading, setIsLoading] = useState(true)
@@ -47,8 +48,9 @@ function BecomeABuddy({ conferenceId }: { conferenceId: string }) {
                     You are a Conference Buddy for this event
                   </h3>
                   <div className="alert alert-info" role="alert">
-                    ℹ️ If you don't want to be a Conference Buddy anymore, you
-                    can delete you post: &nbsp;&nbsp;
+                    <IconInfoCircle aria-hidden={"true"} className={"me-2"} />
+                    If you don't want to be a Conference Buddy anymore, you can
+                    delete you post: &nbsp;&nbsp;
                     <button
                       className="btn btn-outline-danger btn-sm"
                       onClick={() =>
@@ -84,9 +86,10 @@ function BecomeABuddy({ conferenceId }: { conferenceId: string }) {
                 <>
                   <h3>Become a Conference Buddy</h3>
                   <div className="alert alert-primary" role="alert">
-                    ℹ️ To build trust and establish a comfortable space, we
-                    require users to make a post before they can see other
-                    content on the platform.
+                    <IconInfoCircle aria-hidden={"true"} className={"me-2"} />
+                    To build trust and establish a comfortable space, we require
+                    users to make a post before they can see other content on
+                    the platform.
                   </div>
                 </>
               )}

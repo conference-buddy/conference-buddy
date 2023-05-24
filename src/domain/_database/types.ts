@@ -182,7 +182,7 @@ export interface Database {
         Insert: {
           github?: string | null
           gitlab?: string | null
-          id: string
+          id?: string
           linkedin?: string | null
           mastodon?: string | null
           profile_id: string
