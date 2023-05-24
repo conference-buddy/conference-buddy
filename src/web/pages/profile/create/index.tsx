@@ -4,6 +4,7 @@ import useProfile from "../../../../services/hooks/profile/useProfile"
 import { navigate } from "gatsby"
 import { useAuthUserContext } from "../../../../services/hooks/auth-user/useAuthUserContext"
 import { PageHead } from "../../../ui-elements/page-layout/PageHead"
+import { TextLink } from "../../../ui-elements/text-link/TextLink"
 
 export default function CreateProfilePage() {
   const { data: profile, isLoading: profileIsLoading } = useProfile()
@@ -21,17 +22,21 @@ export default function CreateProfilePage() {
 
   return (
     <div className="container">
-      <h2>Create new Profile</h2>
-      <p>💜 Thank you for joining Conference Buddy! </p>
+      <div className="mb-3">
+        <TextLink internal={true} to={"/"}>
+          Home
+        </TextLink>
+        <span className={"mx-1"}>/</span>
+        <span>Create profile</span>
+      </div>
+
+      <h1>Create profile</h1>
       <p>
-        In order to make it more comfortable to find a Conference Buddy, we feel
-        it is important that users offer at more information about them. Feel
-        free to add as much information as you feel good with!
+        💜 Thank you for joining Conference Buddy! Add as much information as
+        you feel comfortable with.
       </p>
 
-      <div className="mt-5">
-        {!profile && authUser && <CreateProfile authUser={authUser} />}
-      </div>
+      <div>{!profile && authUser && <CreateProfile authUser={authUser} />}</div>
     </div>
   )
 }

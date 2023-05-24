@@ -40,9 +40,22 @@ export default function Index({
     <>
       {params?.id && isBuddy && profile && (
         <div className="container flex-grow-1">
-          <TextLink internal={true} to={`/conference/${conferenceId}`}>
-            &larr; Back to conference
-          </TextLink>
+          <div className="mb-3">
+            <TextLink internal={true} to={"/"}>
+              Home
+            </TextLink>
+            <span className={"mx-1"}>/</span>
+            <TextLink internal={true} to={"/conferences"}>
+              Conferences
+            </TextLink>
+            <span className={"mx-1"}>/</span>
+            <TextLink internal={true} to={`/conference/${conferenceId}`}>
+              {conference?.name ? conference.name : "Details"}
+            </TextLink>
+            <span className={"mx-1"}>/</span>
+            <span>Buddy area</span>
+          </div>
+
           <BuddyArea
             conferenceId={params?.id}
             conferenceName={conference?.name}

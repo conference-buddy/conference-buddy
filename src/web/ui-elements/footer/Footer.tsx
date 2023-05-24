@@ -18,7 +18,7 @@ function Footer() {
       </div>
       <div className="container small bg-dark text-light d-flex flex-column flex-md-row justify-content-between">
         <ul
-          className="list-unstyled d-flex m-0 text-center pb-5 pb-md-0"
+          className="list-unstyled d-flex m-0 text-center pb-2 pb-md-0"
           aria-label="Links to our social media"
         >
           <li className="me-3">
@@ -49,24 +49,19 @@ function Footer() {
             </TextLink>
           </li>
         </ul>
-        <p className="m-0 pb-5 pb-md-0">
+        <p className="m-0 pb-2 pb-md-0">
           Made with ❤️ lots of ☕️ and an awesome ⌨️
         </p>
 
-        <ul
-          className="list-unstyled m-0 pb-3 pb-md-0"
-          aria-label="Misc links about us"
-        >
-          <li>
-            <TextLink
-              internal={false}
-              light={true}
-              to="https://www.iubenda.com/privacy-policy/44138766"
-            >
-              <IconSpy /> Privacy Policy
-            </TextLink>
-          </li>
-        </ul>
+        <div className="m-0 pb-3 pb-md-0">
+          <TextLink
+            internal={false}
+            light={true}
+            to="https://www.iubenda.com/privacy-policy/44138766"
+          >
+            <IconSpy /> Privacy Policy
+          </TextLink>
+        </div>
       </div>
     </footer>
   )

@@ -16,9 +16,15 @@ const ConferenceSinglePage = (props: ConferencePageProps) => {
   return (
     <div className="container">
       <div className="mb-3">
-        <TextLink internal={true} to={"/conferences"}>
-          &larr; Back to Conferences
+        <TextLink internal={true} to={"/"}>
+          Home
         </TextLink>
+        <span className={"mx-1"}>/</span>
+        <TextLink internal={true} to={"/conferences"}>
+          Conferences
+        </TextLink>
+        <span className={"mx-1"}>/</span>
+        <span>{conference.name}</span>
       </div>
       <ConferenceSingle conference={conference} />
       <BecomeABuddy conferenceId={conference.id} />

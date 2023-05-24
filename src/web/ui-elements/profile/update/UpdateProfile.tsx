@@ -165,8 +165,8 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
   }
 
   return (
-    <div className="mb-5">
-      <h2>Update Profile</h2>
+    <div>
+      <h1 className={"mb-2"}>Edit profile</h1>
 
       <section className="card p-3 mb-3">
         <h3>Your picture</h3>

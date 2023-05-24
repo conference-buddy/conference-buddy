@@ -8,6 +8,7 @@ import { SocialLinks } from "../../ui-elements/profile/SocialLinks"
 import { BuddyPostsOfUser } from "../../ui-elements/buddy-posts/BuddyPostsOfUser"
 import MDEditor from "@uiw/react-md-editor"
 import rehypeSanitize from "rehype-sanitize"
+import { TextLink } from "../../ui-elements/text-link/TextLink"
 
 function UserPage({
   params,
@@ -38,6 +39,14 @@ function UserPage({
   return (
     <>
       <div className="container">
+        <div className="mb-3">
+          <TextLink internal={true} to={"/"}>
+            Home
+          </TextLink>
+          <span className={"mx-1"}>/</span>
+          <span>User: {user?.username}</span>
+        </div>
+        <h1 className={"visually-hidden"}>User page of {user?.username}</h1>
         <div className="row">
           <div className="col-lg-4 mb-3">
             <div className="card">
@@ -53,7 +62,10 @@ function UserPage({
                   </div>
                 </div>
                 <hr className="text-confbuddy-pink" />
-                <SocialLinks socialLinks={user?.social_links}></SocialLinks>
+                <SocialLinks
+                  username={user.username}
+                  socialLinks={user?.social_links}
+                ></SocialLinks>
               </div>
             </div>
           </div>

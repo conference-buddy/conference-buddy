@@ -27,6 +27,13 @@ export default function ProfilePage() {
   }
   return (
     <div className="container">
+      <div className="mb-3">
+        <TextLink internal={true} to={"/"}>
+          Home
+        </TextLink>
+        <span className={"mx-1"}>/</span>
+        <span>Profile</span>
+      </div>
       <h1>My Profile</h1>
 
       <div className={"card"}>

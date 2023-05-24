@@ -6,17 +6,28 @@ import {
   IconBrandLinkedin,
   IconBrandMastodon,
   IconBrandTwitter,
+  IconUserCircle,
   IconWorld,
 } from "@tabler/icons-react"
 
 function SocialLinks({
   socialLinks,
+  username,
 }: {
   socialLinks: SocialLink[] | undefined
+  username: string
 }): ReactElement {
   return (
     <>
       <ul className="list-group list-group-flush">
+        <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+          <h6 className="mb-0">
+            <IconUserCircle className="me-2" aria-hidden="true" />
+            Username
+          </h6>
+          {username}
+        </li>
+
         {socialLinks?.map((socialLink: SocialLink, index: number) => {
           if (!socialLink.address) return
 
@@ -31,7 +42,9 @@ function SocialLinks({
                     <IconBrandGithub className="me-2" aria-hidden="true" />
                     {socialLink.platformName}
                   </h6>
-                  <span className="text-secondary">{socialLink.address}</span>
+                  <a href={socialLink.address} className="text-secondary">
+                    {socialLink.address}
+                  </a>
                 </li>
               )
             case "gitlab":
@@ -48,7 +61,9 @@ function SocialLinks({
                     />
                     {socialLink.platformName}
                   </h6>
-                  <span className="text-secondary">{socialLink.address}</span>
+                  <a href={socialLink.address} className="text-secondary">
+                    {socialLink.address}
+                  </a>
                 </li>
               )
             case "mastodon":
@@ -65,7 +80,9 @@ function SocialLinks({
                     />
                     {socialLink.platformName}
                   </h6>
-                  <span className="text-secondary">{socialLink.address}</span>
+                  <a href={socialLink.address} className="text-secondary">
+                    {socialLink.address}
+                  </a>
                 </li>
               )
             case "twitter":
@@ -82,7 +99,9 @@ function SocialLinks({
                     />
                     {socialLink.platformName}
                   </h6>
-                  <span className="text-secondary">{socialLink.address}</span>
+                  <a href={socialLink.address} className="text-secondary">
+                    {socialLink.address}
+                  </a>
                 </li>
               )
             case "website":
@@ -95,11 +114,7 @@ function SocialLinks({
                     <IconWorld className="me-2" aria-hidden="true" />
                     {socialLink.platformName}
                   </h6>
-                  <a
-                    href={socialLink.address}
-                    className="text-secondary"
-                    target="_blank"
-                  >
+                  <a href={socialLink.address} className="text-secondary">
                     {socialLink.address}
                   </a>
                 </li>
@@ -118,7 +133,9 @@ function SocialLinks({
                     />
                     {socialLink.platformName}
                   </h6>
-                  <span className="text-secondary">{socialLink.address}</span>
+                  <a href={socialLink.address} className="text-secondary">
+                    {socialLink.address}
+                  </a>
                 </li>
               )
             default:
