@@ -13,8 +13,6 @@ function createSocialLinks({
     profile_id: profileId,
   }
 
-  console.log("socialLinks", socialLinks)
-
   return supabase.from("profiles_social_links").insert([socialLinksForDB])
 }
 
