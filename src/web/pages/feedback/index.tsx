@@ -23,7 +23,12 @@ export default function FeedbackPage(): ReactElement {
           <ul>
             <li>
               Technical problem? Open a{" "}
-              <TextLink internal={false} to={""}>
+              <TextLink
+                internal={false}
+                to={
+                  "https://github.com/conference-buddy/conference-buddy/issues/new"
+                }
+              >
                 GitHub issue
               </TextLink>
               .
