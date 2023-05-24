@@ -57,8 +57,7 @@ function BuddyPostForm({
         onBlur={text => {
           setValue(text)
         }}
-        label={"Create your BuddyPost"}
-        placeholder="Tell others a bit about yourself."
+        label={"Add a post"}
         required={false}
         validated={false}
         error={""}

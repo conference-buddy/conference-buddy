@@ -18,6 +18,7 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
     conferences.forEach(conference => {
       const nodeMeta = {
         id: conference.id,
+
         parent: null,
         children: [],
         internal: {

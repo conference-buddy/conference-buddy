@@ -90,9 +90,9 @@ function Header(): ReactElement {
                 <Link
                   className="nav-link link-light"
                   activeClassName={"text-decoration-underline"}
-                  to={"/does-not-exist-yet-2"}
+                  to={"/how-to"}
                 >
-                  How it works
+                  How to
                 </Link>
               </li>
               <li className="nav-item">
@@ -108,9 +108,9 @@ function Header(): ReactElement {
                 <Link
                   className="nav-link link-light"
                   activeClassName={"text-decoration-underline"}
-                  to={"/does-not-exist-yet-3"}
+                  to={"/code-of-conduct"}
                 >
-                  Code of Conduct
+                  CoC
                 </Link>
               </li>
               <span

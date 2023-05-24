@@ -37,8 +37,8 @@ export default function ProfilePage() {
       <h1>My Profile</h1>
 
       <div className={"card"}>
-        <div className="card-body row">
-          <div className={"d-flex align-items-center col-12 col-md-10"}>
+        <div className="card-body row d-flex">
+          <div className={"d-flex align-items-center col-12 col-md-8"}>
             <AvatarImage
               avatarUrl={(profile as Profile).avatar_url}
               circle={true}
@@ -54,7 +54,7 @@ export default function ProfilePage() {
               </TextLink>
             </div>
           </div>
-          <div className="mt-3 mt-md-0 col-12 col-md-2">
+          <div className="mt-3 mt-md-0 col-12 col-md-4">
             <Link className="btn btn-primary w-100" to={`edit`}>
               Edit profile
             </Link>

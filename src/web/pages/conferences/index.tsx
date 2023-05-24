@@ -25,6 +25,11 @@ export default function ConferenceListPage(props: ConferenceListPage) {
         If you want to be a Conference Buddy at one of these conferences, visit
         the details page. There you can become a buddy.
       </p>
+      <p>
+        <TextLink internal={true} to={"add"}>
+          Add a conference
+        </TextLink>
+      </p>
       <ConferenceList conferences={conferences} />
     </div>
   )

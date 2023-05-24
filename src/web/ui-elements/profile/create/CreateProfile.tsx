@@ -88,29 +88,42 @@ type FormSchema = z.infer<typeof schema>
 
 const socialLinksMap: Record<
   SocialLink["platform"],
-  { name: SocialLink["platformName"]; icon: () => React.ReactElement }
+  {
+    name: SocialLink["platformName"]
+    icon: () => React.ReactElement
+    pattern: string
+  }
 > = {
   github: {
     name: "GitHub",
     icon: () => <IconBrandGithub aria-hidden="true" />,
+    pattern: "https://github.com/username",
   },
   gitlab: {
     name: "GitLab",
     icon: () => <IconBrandGitlab color="#fc6d26" aria-hidden="true" />,
+    pattern: "https://github.com/username",
   },
   mastodon: {
     name: "Mastodon",
     icon: () => <IconBrandMastodon color="#595aff" aria-hidden="true" />,
+    pattern: "https://instance.io/@username",
   },
   linkedin: {
     name: "LinkedIn",
     icon: () => <IconBrandLinkedin color="#0A66C2" aria-hidden="true" />,
+    pattern: "https://www.linkedin.com/in/username",
   },
   twitter: {
     name: "Twitter",
     icon: () => <IconBrandTwitter color="#1DA1F2" aria-hidden="true" />,
+    pattern: "https://twitter.com/username",
   },
-  website: { name: "Website", icon: () => <IconWorld aria-hidden="true" /> },
+  website: {
+    name: "Website",
+    icon: () => <IconWorld aria-hidden="true" />,
+    pattern: "you@email.provider",
+  },
 }
 function getSocialLinkIcon(
   platform: string | SocialLink["platform"]
@@ -125,6 +138,15 @@ function getSocialLinkName(platform: string | SocialLink["platform"]): string {
     ? socialLinksMap[platform as SocialLink["platform"]].name
     : ""
 }
+
+function getSocialLinkPattern(
+  platform: string | SocialLink["platform"]
+): string {
+  return socialLinksMap.hasOwnProperty(platform)
+    ? socialLinksMap[platform as SocialLink["platform"]].pattern
+    : ""
+}
+
 function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
   const {
     control,
@@ -195,7 +217,7 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
         <h3>Your picture</h3>
         <p>
           You can upload a profile picture if you want. Otherwise, you will keep
-          the 🐶placeholder :)
+          the 🐶 placeholder :)
         </p>
         <div className="row d-flex align-items-center mb-5 p-3">
           <Controller<FormSchema>
@@ -218,7 +240,7 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
         </div>
         <h3>Personal</h3>
         <div className="mb-3">
-          <div className="row d-flex align-items-center">
+          <div className="row d-flex align-items-center mb-3">
             <div className="col-md-6">
               <TextInput<FormSchema>
                 register={register}
@@ -235,9 +257,10 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
                 required={true}
               />
             </div>
-            <div className="col-md-6">
-              We're <b>not</b> displaying your email anywhere. It is used to
-              notify you about new post for conferences you're subscribed to.
+            <div className="col-md-6 small ">
+              We're <b>not</b> displaying your email anywhere. We want to add
+              optional notifications per email later. You won't be subscribed to
+              this notifications without your consent!
             </div>
           </div>
           <div className="row">
@@ -326,7 +349,7 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
                         {getSocialLinkName(platform)}{" "}
                       </>
                     }
-                    placeholder="you@email.provider"
+                    placeholder={getSocialLinkPattern(platform)}
                   />
                 </div>
               )

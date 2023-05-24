@@ -5,6 +5,13 @@ import { TextLink } from "../../ui-elements/text-link/TextLink"
 export default function FeedbackPage(): ReactElement {
   return (
     <div className="container">
+      <div className={"mb-3"}>
+        <TextLink internal={true} to={"/"}>
+          Home
+        </TextLink>
+        <span className={"mx-1"}>/</span>
+        <span>Feedback</span>
+      </div>
       <h1>Feedback</h1>
       <p>
         Conference Buddy grows in small iterations. Feedback about the current
