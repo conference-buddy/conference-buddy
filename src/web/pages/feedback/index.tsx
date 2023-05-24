@@ -1,11 +1,5 @@
 import React, { ReactElement } from "react"
 import { PageHead } from "../../ui-elements/page-layout/PageHead"
-import { IconFilePencil, IconId, IconMail } from "@tabler/icons-react"
-import * as z from "zod"
-import { FieldErrors, useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { TextInput } from "../../ui-elements/text-input/TextInput"
-import { TextArea } from "../../ui-elements/textarea/TextArea"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
 
 export default function FeedbackPage(): ReactElement {
