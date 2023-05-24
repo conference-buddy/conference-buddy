@@ -4,6 +4,7 @@ import useUpdateAvatar from "../../../services/hooks/profile/useUpdateAvatar"
 import { getPublicAvatarUrl } from "../../../services/storage/avatar"
 import { ImageObject } from "../../../services/storage/create-image-object"
 import useDeleteAvatar from "../../../services/hooks/profile/useDeleteAvatar"
+import { IconCircleCheck } from "@tabler/icons-react"
 
 type UpdateAvatarProps = {
   profileId: string
@@ -34,7 +35,7 @@ function UpdateAvatar(props: UpdateAvatarProps): ReactElement {
       <div className={"text-success p-2"}>
         {(isSuccessUpload || isSuccessDelete) && (
           <>
-            <span aria-hidden={true}> ✅ </span>That worked!
+            <IconCircleCheck aria-hidden={true} /> That worked!
           </>
         )}
       </div>

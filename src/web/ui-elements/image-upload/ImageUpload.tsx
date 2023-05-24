@@ -37,20 +37,25 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
   }
 
   return (
-    <div className={"form-control text-center p-3"}>
+    <div className={"text-center"}>
       <div>
         {props.imagePublicUrl && (
           <img
-            className="rounded"
+            className="rounded-circle border border-3 border-primary"
             alt="Avatar"
+            width={200}
+            height={200}
             src={props.imagePublicUrl}
             loading="lazy"
-            style={{ maxWidth: props.maxWidth }}
+            style={{ maxWidth: props.maxWidth, objectFit: "cover" }}
           />
         )}
         {!props.imagePublicUrl && (
           <StaticImage
-            className="rounded"
+            className="rounded-circle border border-3 border-primary"
+            width={200}
+            height={200}
+            style={{ maxWidth: props.maxWidth, objectFit: "cover" }}
             src={`../../assets/images/avatar_placeholder.png`}
             alt="placeholder"
           />
@@ -69,7 +74,7 @@ function ImageUpload(props: ImageUploadProps): ReactElement {
           </label>
         )}
         {props.imagePublicUrl && (
-          <button className="btn btn-primary" onClick={handleDeleteImage}>
+          <button className="btn btn-danger" onClick={handleDeleteImage}>
             Delete
           </button>
         )}

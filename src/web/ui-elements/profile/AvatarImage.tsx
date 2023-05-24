@@ -27,15 +27,17 @@ function AvatarImage({
             height={height || 80}
             placeholder="blurred"
             className={`${imageClass} border border-3 border-primary bg-white`}
+            style={{ objectFit: "cover" }}
           />
         </picture>
       ) : (
         <StaticImage
           src={"../../assets/images/avatar_placeholder.png"}
           alt={"Placeholder image"}
-          width={100}
+          width={80}
           placeholder="blurred"
-          className={imageClass}
+          className={`${imageClass} border border-3 border-primary bg-white`}
+          style={{ objectFit: "cover" }}
         />
       )}
     </>
