@@ -18,7 +18,7 @@ export default function FeedbackPage(): ReactElement {
         version is very much appreciated and helps the project to go in the best
         direction. ❤️
       </p>
-      <div className={"row card mt-3"}>
+      <div className={"card mt-3"}>
         <div className={"card-body"}>
           <h2>Ways to give feedback</h2>
           <ul>

@@ -14,7 +14,7 @@ export default function CodeOfConduct(): ReactElement {
       </div>
 
       <h1>Code of Conduct</h1>
-      <div className={"card mt-3"}>
+      <div className={"card mt-3 mb-3"}>
         <div className={"card-body"}>
           <h2>Our Pledge</h2>
           <p>

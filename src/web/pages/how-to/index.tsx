@@ -15,11 +15,9 @@ export default function HowToPage(): ReactElement {
       </div>
       <h1>How to become a Conference Buddy</h1>
       <p>First: Thanks for wanting to become a Conference Buddy!</p>
-      <div className={"row card mb-3"}>
+      <div className="card mb-3">
         <div className={"card-body"}>
           <section className={"mb-4"}>
-            <h2>This is how it works</h2>
-
             <h3 className={"h5"}>1. Sign in and create a profile</h3>
             <p>
               We're using third part oAuth provider, for not GitHub and GitLab:{" "}
