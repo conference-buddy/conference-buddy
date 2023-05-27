@@ -2,9 +2,15 @@ import { supabase } from "../../_database/supabaseClient"
 import { Conference } from "../types/conference-interface"
 
 async function getConferences(): Promise<Conference[]> {
+  // @TODO needs to be filtered by date based on timezone
+  // otherwise there's a chance that conferences disappear from
+  // the list that are still happening.
+  // Since deploying happens manually, this is ok for now.
+  const currentDay = new Date().toISOString()
   const { data, error } = await supabase
     .from("conferences")
     .select("*")
+    .gte("end_date", currentDay)
     .order("start_date", { ascending: true })
 
   if (error) {
@@ -21,9 +27,15 @@ async function getConferences(): Promise<Conference[]> {
 }
 
 async function getConference(id: string): Promise<Conference> {
+  // @TODO needs to be filtered by date based on timezone
+  // otherwise there's a chance that conferences disappear from
+  // the list that are still happening.
+  // Since deploying happens manually, this is ok for now.
+  const currentDay = new Date().toISOString()
   const { data, error } = await supabase
     .from("conferences")
     .select()
+    .gte("end_date", currentDay)
     .eq("id", id)
     .single()
 

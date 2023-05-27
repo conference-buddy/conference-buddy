@@ -21,7 +21,7 @@ function ConferenceCard({ conference }: ConferenceCardProps) {
         />
         <ConferenceDates
           startDate={conference.start_date}
-          endDate={conference.start_date}
+          endDate={conference.end_date}
         />
       </div>
       <div className="card-body">
