@@ -1,37 +1,45 @@
 import React, { ReactElement } from "react"
 import { v4 as uuidv4 } from "uuid"
-import { FieldValues, Path, UseFormRegister } from "react-hook-form"
 
-type TextAreaProps<T extends FieldValues> = {
-  additionalClasses?: string
-  disabled?: boolean
-  error?: string
+type TextAreaProps = {
   label: ReactElement
-  labelSROnly?: boolean
-  name: Path<T>
   placeholder: string
-  register: UseFormRegister<T>
+  errorText: string
+  validated: boolean
+  hasError: boolean
   required?: boolean
   rows?: number
-  validated?: boolean
+  labelSROnly?: boolean
+  disabled?: boolean
+  additionalClasses?: string
+} & typeof defaultProps
+
+const defaultProps = {
+  required: false,
+  rows: 5,
+  labelSROnly: false,
+  disabled: false,
 }
 
-function TextArea<T extends FieldValues>({
+// Note: to enable correct validation styling,
+// the class has-validation needs to be added
+// to the FORM element this input is part of
+// see: https://getbootstrap.com/docs/5.3/forms/validation/
+function TextArea({
   additionalClasses,
   disabled,
-  error,
+  errorText,
+  hasError,
   label,
   labelSROnly,
-  name,
   placeholder,
-  register,
   required,
   rows,
   validated,
-}: TextAreaProps<T>): ReactElement {
+}: TextAreaProps): ReactElement {
   const idForTextAreaInput = uuidv4()
-  const invalidClass = error ? `is-invalid` : ""
-  const validClass = validated && !error ? "is-valid" : ""
+  const invalidClass = hasError ? `is-invalid` : ""
+  const validClass = validated && !hasError ? "is-valid" : ""
 
   return (
     <div className={`${additionalClasses ? additionalClasses : "mb-3"}`}>
@@ -44,20 +52,21 @@ function TextArea<T extends FieldValues>({
         <span className={labelSROnly ? "visually-hidden" : ""}>{label}</span>
       </label>
       <textarea
-        {...register(name)}
         id={idForTextAreaInput}
         required={required}
         aria-required={required}
-        aria-invalid={Boolean(error)}
+        aria-invalid={hasError}
         disabled={disabled}
-        rows={rows || 5}
+        rows={rows}
         className={`form-control ${invalidClass} ${validClass} `}
         placeholder={placeholder}
       />
       <div className="valid-feedback">Looks good!</div>
-      <div className={"invalid-feedback"}>{error}</div>
+      <div className={"invalid-feedback"}>{errorText}</div>
     </div>
   )
 }
 
+TextArea.defaultProps = defaultProps
 export { TextArea }
+export type { TextAreaProps }
