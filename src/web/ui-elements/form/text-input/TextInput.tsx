@@ -1,50 +1,53 @@
-import React, { ReactElement } from "react"
+import React, { forwardRef, ReactElement, Ref } from "react"
 import { v4 as uuidv4 } from "uuid"
+import { Prettify } from "../../../../services/type-utils/type-utils"
 
 type TextInputTypes = "text" | "url" | "date" | "email"
 
-type TextInputProps = {
-  label: ReactElement
-  placeholder: string
-  errorText: string
-  validated: boolean
-  hasError: boolean
-  ariaDescription?: string
-  required?: boolean
-  disabled?: boolean
-  type?: TextInputTypes
-  list?: string[]
-} & typeof defaultProps
-
-const defaultProps = {
-  required: false,
-  disabled: false,
-  type: "text",
-}
+type TextInputProps = Prettify<
+  Omit<React.InputHTMLAttributes<HTMLInputElement>, "list"> & {
+    label: ReactElement
+    placeholder: string
+    errorText: string
+    validated: boolean
+    hasError: boolean
+    ariaDescription?: string
+    required?: boolean
+    disabled?: boolean
+    type?: TextInputTypes
+    list?: string[]
+  }
+>
 
 // Note: to enable correct validation styling,
 // the class has-validation needs to be added
 // to the FORM element this input is part of
 // see: https://getbootstrap.com/docs/5.3/forms/validation/
-function TextInput(props: TextInputProps): ReactElement {
+
+const TextInput = forwardRef(function TextInput(
+  props: TextInputProps,
+  ref?: Ref<HTMLInputElement>
+): ReactElement {
   const {
     ariaDescription,
-    disabled,
     hasError,
-    errorText,
     label,
     list,
-    placeholder,
-    required,
-    type,
     validated,
+    required = false,
+    type = "text",
+    disabled = false,
+    errorText,
+    ...propsToPass
   } = props
+
   const idForTextInput = uuidv4()
   const idForDescription = uuidv4()
   const idForDataList = uuidv4()
 
   const invalidClass = hasError ? `is-invalid` : ""
   const validClass = validated && !hasError ? "is-valid" : ""
+
   return (
     <div className="mb-3">
       <label
@@ -59,6 +62,8 @@ function TextInput(props: TextInputProps): ReactElement {
         </div>
       )}
       <input
+        {...propsToPass}
+        ref={ref}
         list={list && idForDataList}
         id={idForTextInput}
         aria-describedby={ariaDescription && idForDescription}
@@ -67,7 +72,6 @@ function TextInput(props: TextInputProps): ReactElement {
         disabled={disabled}
         type={type || "text"}
         className={`form-control  ${invalidClass} ${validClass}`}
-        placeholder={placeholder}
       />
 
       <div style={{ height: "16px" }} className="valid-feedback">
@@ -90,7 +94,7 @@ function TextInput(props: TextInputProps): ReactElement {
       )}
     </div>
   )
-}
+})
 
-TextInput.defaultProps = defaultProps
 export { TextInput }
+export type { TextInputProps }

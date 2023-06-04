@@ -1,7 +1,7 @@
-import React, { ReactElement } from "react"
+import React, { forwardRef, ReactElement } from "react"
 import { v4 as uuidv4 } from "uuid"
 
-type TextAreaProps = {
+type TextAreaProps = React.InputHTMLAttributes<HTMLTextAreaElement> & {
   label: ReactElement
   placeholder: string
   errorText: string
@@ -12,31 +12,27 @@ type TextAreaProps = {
   labelSROnly?: boolean
   disabled?: boolean
   additionalClasses?: string
-} & typeof defaultProps
-
-const defaultProps = {
-  required: false,
-  rows: 5,
-  labelSROnly: false,
-  disabled: false,
 }
-
 // Note: to enable correct validation styling,
 // the class has-validation needs to be added
 // to the FORM element this input is part of
 // see: https://getbootstrap.com/docs/5.3/forms/validation/
-function TextArea({
-  additionalClasses,
-  disabled,
-  errorText,
-  hasError,
-  label,
-  labelSROnly,
-  placeholder,
-  required,
-  rows,
-  validated,
-}: TextAreaProps): ReactElement {
+const TextArea = forwardRef(function TextArea(
+  props: TextAreaProps,
+  ref
+): ReactElement {
+  const {
+    additionalClasses,
+    validated,
+    errorText,
+    hasError,
+    label,
+    placeholder,
+    labelSROnly = false,
+    required = false,
+    rows = 5,
+    disabled = false,
+  } = props
   const idForTextAreaInput = uuidv4()
   const invalidClass = hasError ? `is-invalid` : ""
   const validClass = validated && !hasError ? "is-valid" : ""
@@ -52,6 +48,7 @@ function TextArea({
         <span className={labelSROnly ? "visually-hidden" : ""}>{label}</span>
       </label>
       <textarea
+        {...ref}
         id={idForTextAreaInput}
         required={required}
         aria-required={required}
@@ -65,8 +62,7 @@ function TextArea({
       <div className={"invalid-feedback"}>{errorText}</div>
     </div>
   )
-}
+})
 
-TextArea.defaultProps = defaultProps
 export { TextArea }
 export type { TextAreaProps }

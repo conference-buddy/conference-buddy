@@ -10,7 +10,7 @@ import {
   DiscussionPost,
   DiscussionPostCreate,
 } from "../../../domain/discussion/types/discussion-types"
-import { TextArea } from "../textarea/TextArea"
+import { TextArea } from "../form/textarea/TextArea"
 import * as z from "zod"
 import { FieldErrors, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
