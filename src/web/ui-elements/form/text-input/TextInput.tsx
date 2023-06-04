@@ -1,46 +1,50 @@
 import React, { ReactElement } from "react"
 import { v4 as uuidv4 } from "uuid"
-import { FieldValues, Path, UseFormRegister } from "react-hook-form"
 
 type TextInputTypes = "text" | "url" | "date" | "email"
 
-type TextInputProps<T extends FieldValues> = {
-  register: UseFormRegister<T>
-  name: Path<T>
+type TextInputProps = {
   label: ReactElement
   placeholder: string
-  error: string
+  errorText: string
+  validated: boolean
+  hasError: boolean
+  ariaDescription?: string
   required?: boolean
   disabled?: boolean
   type?: TextInputTypes
   list?: string[]
-  ariaDescription?: string
-  validated: boolean
+} & typeof defaultProps
+
+const defaultProps = {
+  required: false,
+  disabled: false,
+  type: "text",
 }
 
-function TextInput<T extends FieldValues>(
-  props: TextInputProps<T>
-): ReactElement {
+// Note: to enable correct validation styling,
+// the class has-validation needs to be added
+// to the FORM element this input is part of
+// see: https://getbootstrap.com/docs/5.3/forms/validation/
+function TextInput(props: TextInputProps): ReactElement {
   const {
     ariaDescription,
     disabled,
-    error,
+    hasError,
+    errorText,
     label,
     list,
     placeholder,
-    register,
     required,
     type,
-    name,
-
     validated,
   } = props
   const idForTextInput = uuidv4()
   const idForDescription = uuidv4()
   const idForDataList = uuidv4()
 
-  const invalidClass = error ? `is-invalid` : ""
-  const validClass = validated && !error ? "is-valid" : ""
+  const invalidClass = hasError ? `is-invalid` : ""
+  const validClass = validated && !hasError ? "is-valid" : ""
   return (
     <div className="mb-3">
       <label
@@ -55,12 +59,11 @@ function TextInput<T extends FieldValues>(
         </div>
       )}
       <input
-        {...register(name)}
         list={list && idForDataList}
         id={idForTextInput}
         aria-describedby={ariaDescription && idForDescription}
         aria-required={required}
-        aria-invalid={Boolean(error)}
+        aria-invalid={hasError}
         disabled={disabled}
         type={type || "text"}
         className={`form-control  ${invalidClass} ${validClass}`}
@@ -71,10 +74,10 @@ function TextInput<T extends FieldValues>(
         Looks good!
       </div>
       <div style={{ height: "16px" }} className={"invalid-feedback"}>
-        {error}
+        {errorText}
       </div>
 
-      {list?.length && (
+      {list?.length && list?.length >= 0 && (
         <datalist id={idForDataList}>
           {list.map((entry, index) => {
             return (
@@ -89,4 +92,5 @@ function TextInput<T extends FieldValues>(
   )
 }
 
+TextInput.defaultProps = defaultProps
 export { TextInput }
