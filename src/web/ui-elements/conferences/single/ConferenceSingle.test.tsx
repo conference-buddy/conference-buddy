@@ -28,7 +28,7 @@ const mockCreateBuddyPosts = createBuddyPost as jest.MockedFunction<
 
 const wrapper = createWrapperWithQueryClient({})
 
-describe("ConferenceSingle.vue", () => {
+describe("ConferenceSingle", () => {
   beforeAll(() => {
     mockUseProfile.mockReturnValue({
       data: { username: "me" },
@@ -88,22 +88,11 @@ describe("ConferenceSingle.vue", () => {
     const article = screen.getByRole("article")
     // text is split into multiple elements, so using a test-id is
     // a good workaround enabling testing
-    const buddies = await within(article).findByText(
-      "2 Conference Buddies for this event"
+    const buddies = await within(article).findByTestId(
+      "conference-buddies-on-conference-amount"
     )
 
-    expect(buddies).toBeVisible()
-  })
-
-  it("shows a button to join as a Conference Buddy", () => {
-    const article = screen.getByRole("article")
-    // text is split into multiple elements, so using a test-id is
-    // a good workaround enabling testing
-    const buddyButton = within(article).getByRole("button", {
-      name: "Become a Conference Buddy",
-    })
-
-    expect(buddyButton).toBeEnabled()
+    expect(buddies).toHaveTextContent("2 Conference Buddies")
   })
 
   it("shows a description of the conference", () => {

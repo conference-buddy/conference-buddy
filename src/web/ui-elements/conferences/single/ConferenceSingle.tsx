@@ -39,7 +39,10 @@ function ConferenceSingle({ conference }: ConferenceSingleProps) {
           )}
           <p className="mt-5">{conference.description}</p>
         </div>
-        <div className="card-footer lead text-pr text-center border-0">
+        <div
+          className="card-footer lead text-pr text-center border-0"
+          data-testid={"conference-buddies-on-conference-amount"}
+        >
           <StaticImage
             aria-hidden={true}
             src="../../../assets/images/icon.png"

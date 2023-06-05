@@ -55,8 +55,12 @@ describe("ConferenceCard", () => {
   })
 
   it("shows information about the amount of buddies", async () => {
-    const buddies = await screen.findByText("2 buddies for this event")
+    // text is split into multiple elements, so using a test-id is
+    // a good workaround enabling testing
+    const buddies = await screen.findByTestId(
+      "conference-buddies-on-conference-amount"
+    )
 
-    expect(buddies).toBeVisible()
+    expect(buddies).toHaveTextContent("2 Conference Buddies")
   })
 })

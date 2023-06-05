@@ -49,10 +49,16 @@ function Header(): ReactElement {
               placeholder="none"
               aria-hidden={true}
             />
-            <span className="text-white d-block d-sm-none d-flex align-items-center">
+            <span
+              aria-hidden={true}
+              className="text-white d-block d-sm-none d-flex align-items-center"
+            >
               Conference Buddy
             </span>
-            <span className="text-white d-none d-sm-block fs-3">
+            <span
+              aria-hidden={true}
+              className="text-white d-none d-sm-block fs-3"
+            >
               Conference Buddy
             </span>
           </Link>
