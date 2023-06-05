@@ -78,7 +78,7 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
   }
 
   return (
-    <Form {...form} onSubmit={onSubmitForm}>
+    <Form {...form} onSubmit={onSubmitForm} ariaLabel={"Create your profile"}>
       <section className="card p-3 mb-3">
         <h3>Your picture</h3>
         <p>

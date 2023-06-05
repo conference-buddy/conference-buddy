@@ -197,6 +197,7 @@ describe("MarkdownInput", () => {
       await user.type(editor, "Test")
 
       expect(mockOnChange).toHaveBeenCalledTimes(4)
+      expect(editor).toHaveValue("Test")
     })
   })
 })

@@ -14,6 +14,7 @@ type MarkDownInputProps = {
   required?: boolean
   disabled?: boolean
   value?: string
+  onBlur?: (event: any) => void
 }
 
 const defaultProps = {
@@ -31,6 +32,7 @@ function MarkdownInput(props: MarkDownInputProps): ReactElement {
     validated,
     hasError,
     errorText,
+    onBlur,
   } = props
   const idForMarkdownInput = uuidv4()
 
@@ -62,9 +64,15 @@ function MarkdownInput(props: MarkDownInputProps): ReactElement {
           id={idForMarkdownInput}
           value={value}
           aria-label={label}
-          placeholder={placeholder}
-          aria-invalid={hasError}
           onChange={e => onChange(e)}
+          onBlur={event => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            const value = event.target.value as string
+            if (value) {
+              onBlur && onBlur(value)
+            }
+          }}
           previewOptions={{
             rehypePlugins: [[rehypeSanitize]],
           }}
@@ -75,6 +83,9 @@ function MarkdownInput(props: MarkDownInputProps): ReactElement {
           textareaProps={{
             disabled: disabled,
             required: required,
+            "aria-invalid": hasError,
+            placeholder: placeholder,
+            defaultValue: "",
           }}
         />
       </div>

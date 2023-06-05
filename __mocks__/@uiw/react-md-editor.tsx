@@ -6,11 +6,9 @@ const MDEditor = (props: any) => {
  return <textarea
      data-testid={"markdown-editor-stub"}
      id={props.id}
-     value={props.value}
-     placeholder={props.placeholder}
-     onChange={props.onChange}
+     onChange={(event) => props.onChange(event.target.value)}
+     onBlur={(event) => props.onBlur(event)}
      aria-label={props['aria-label']}
-     aria-invalid={props['aria-invalid']}
      {...props.textareaProps}
  />;
 }

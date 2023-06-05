@@ -29,8 +29,8 @@ type UseFormProps<T extends FieldValues = FieldValues> = Omit<
 
 type FormProps<T extends FieldValues = FieldValues> = UseFormReturn<T> & {
   onSubmit: SubmitHandler<T>
+  ariaLabel: string
   onError?: SubmitErrorHandler<T>
-  ariaLabel?: string
   className?: string
 }
 
@@ -102,10 +102,6 @@ function _FormTextInput<T extends FieldValues>({
     ? Boolean(fieldTouched)
     : Boolean(form.getValues(name) && fieldTouched)
 
-  if (name === "social_links.github") {
-    console.log("name", name)
-    console.log("error")
-  }
   return (
     <TextInput
       {...props}
@@ -142,15 +138,24 @@ function _FormMarkdownEditor<T extends FieldValues>({
         return (
           <MarkdownInput
             {...props}
-            value={field.value as string | undefined}
+            value={field.value as string}
             onChange={text => {
-              const value = text ? (text as string) : undefined
-              form.setValue(name, value as any, {
-                shouldTouch: true,
+              form.setValue(name, text as any, {
                 shouldValidate: true,
+                shouldTouch: !!text,
               })
             }}
-            validated={Boolean(fieldState.isTouched && field.value)}
+            onBlur={text => {
+              form.setValue(name, text as any, {
+                shouldValidate: true,
+                shouldTouch: !!text,
+              })
+            }}
+            validated={
+              props.required
+                ? fieldState.isTouched
+                : Boolean(field.value && fieldState.isTouched)
+            }
             errorText={fieldState.error?.message || ""}
             hasError={Boolean(fieldState.error)}
           />
