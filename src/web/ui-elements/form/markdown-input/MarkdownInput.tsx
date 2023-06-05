@@ -85,7 +85,6 @@ function MarkdownInput(props: MarkDownInputProps): ReactElement {
             required: required,
             "aria-invalid": hasError,
             placeholder: placeholder,
-            defaultValue: "",
           }}
         />
       </div>

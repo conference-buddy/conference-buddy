@@ -187,8 +187,9 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
       </section>
 
       <div className="row mb-3">
-        <div className="col-md-6 col-sm-12 offset-md-3"></div>
-        <SubmitButton text={"Create profile"} />
+        <div className="col-md-6 col-sm-12 offset-md-3">
+          <SubmitButton text={"Create profile"} />
+        </div>
       </div>
     </Form>
   )

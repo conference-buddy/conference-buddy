@@ -52,7 +52,12 @@ const createProfileSchema = z.object({
   }),
 })
 
-type CreateProfileFormSchema = z.infer<typeof createProfileSchema>
+const updateProfileSchema = createProfileSchema
+  .omit({ id: true, avatar_image: true, username: true, provider: true })
+  .merge(z.object({ avatar_url: z.string().optional() }))
 
-export { createProfileSchema }
-export type { CreateProfileFormSchema }
+type CreateProfileFormSchema = z.infer<typeof createProfileSchema>
+type UpdateProfileFormSchema = z.infer<typeof updateProfileSchema>
+
+export { createProfileSchema, updateProfileSchema }
+export type { CreateProfileFormSchema, UpdateProfileFormSchema }
