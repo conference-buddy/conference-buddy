@@ -195,7 +195,7 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
           </fieldset>
           <div className="row mb-3">
             <div className="col-md-6 col-sm-12 offset-md-3">
-              <SubmitButton text={"Update profile"} />
+              <SubmitButton className={"btn-lg"} text={"Update profile"} />
             </div>
           </div>
         </section>

@@ -19,6 +19,7 @@ import {
 } from "../markdown-input/MarkdownInput"
 import React, { memo } from "react"
 import { Prettify } from "../../../../services/type-utils/type-utils"
+import { TextArea, TextAreaProps } from "../textarea/TextArea"
 
 type UseFormProps<T extends FieldValues = FieldValues> = Omit<
   _UseFormProps<T>,
@@ -122,6 +123,52 @@ function FormTextInput<T extends FieldValues>(
   return <FormTextInputMemo formContext={ctx} {...props} />
 }
 
+type TextAreaAdapted = Prettify<
+  Omit<TextAreaProps, "errorText" | "hasError" | "validated">
+>
+function _FormTextArea<T extends FieldValues>({
+  name,
+  formContext: form,
+  isNested,
+  ...props
+}: TextAreaAdapted & { isNested?: boolean } & FormInputProps<T> &
+  FormRegisterProps<T>) {
+  const { errors, touchedFields } = form.formState
+
+  const error = !isNested
+    ? (errors[name]?.message as string)
+    : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      (errors[name.split(".")[0]]?.[name.split(".")[1]]?.message as string)
+
+  const fieldTouched = !isNested
+    ? touchedFields[name]
+    : touchedFields[name.split(".")[0]]?.[name.split(".")[1]]
+
+  const isValidated = props.required
+    ? Boolean(fieldTouched)
+    : Boolean(form.getValues(name) && fieldTouched)
+
+  return (
+    <TextArea
+      {...props}
+      {...form.register(name)}
+      errorText={error}
+      hasError={Boolean(error)}
+      validated={isValidated}
+    />
+  )
+}
+
+const FormTextAreaMemo = memo(_FormTextArea) as typeof _FormTextArea
+
+function FormTextArea<T extends FieldValues>(
+  props: FormInputProps<T> & TextAreaAdapted & { isNested?: boolean }
+): React.ReactElement<FormInputProps<T> & TextAreaAdapted> {
+  const ctx = useFormContext<T>()
+  return <FormTextAreaMemo formContext={ctx} {...props} />
+}
+
 type FormMarkdownEditoPropsAdpated = Prettify<
   Omit<MarkDownInputProps, "errorText" | "hasError" | "validated" | "onChange">
 >
@@ -177,12 +224,16 @@ function FormMarkdownEditor<T extends FieldValues>(
 
 type SubmitButtonProps = {
   text: string
+  className?: string
 }
 function _SubmitButton<T extends FieldValues>({
   ...props
 }: SubmitButtonProps & FormRegisterProps<T>) {
   return (
-    <button type="submit" className="btn btn-primary btn-lg w-100">
+    <button
+      type="submit"
+      className={`btn btn-primary w-100 ${props.className}`}
+    >
       {props.text}
     </button>
   )
@@ -203,7 +254,14 @@ function SubmitButton<T extends FieldValues>(
   return <SubmitButtonMemo formContext={ctx} {...props} />
 }
 
-export { useForm, Form, SubmitButton, FormTextInput, FormMarkdownEditor }
+export {
+  useForm,
+  Form,
+  SubmitButton,
+  FormTextInput,
+  FormTextArea,
+  FormMarkdownEditor,
+}
 
 // ✨✨  The implementation is based on ✨ ✨
 // https://github.com/aiven/klaw/blob/main/coral/src/app/components/Form.tsx
