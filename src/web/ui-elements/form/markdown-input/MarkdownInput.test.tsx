@@ -105,9 +105,9 @@ describe("MarkdownInput", () => {
       })
 
       it("does not show info for invalid user input", () => {
-        // eslint-disable-next-line testing-library/no-node-access
         const editorWrapper = screen.getByRole("textbox", {
           name: testLabel,
+          // eslint-disable-next-line testing-library/no-node-access
         }).parentElement
         const invalidFeedback = screen.getByText(requiredProps.errorText)
 
@@ -145,6 +145,7 @@ describe("MarkdownInput", () => {
       it("does show error for invalid user input", () => {
         const editorWrapper = screen.getByRole("textbox", {
           name: testLabel,
+          // eslint-disable-next-line testing-library/no-node-access
         }).parentElement
         const invalidFeedback = screen.getByText(requiredProps.errorText)
 

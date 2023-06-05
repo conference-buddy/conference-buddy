@@ -15,10 +15,10 @@ export default function CreateProfilePage() {
     return
   }
 
-  // if (!profileIsLoading && profile) {
-  //   navigate("/")
-  //   return
-  // }
+  if (!profileIsLoading && profile) {
+    navigate("/")
+    return
+  }
 
   return (
     <div className="container">
@@ -36,7 +36,7 @@ export default function CreateProfilePage() {
         you feel comfortable with.
       </p>
 
-      <div>{authUser && <CreateProfile authUser={authUser} />}</div>
+      <div>{authUser && !profile && <CreateProfile authUser={authUser} />}</div>
     </div>
   )
 }
