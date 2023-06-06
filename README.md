@@ -12,7 +12,9 @@ You can look for one or more person with whom you can attend a conference togeth
 
 At the same time, you have the opportunity to help others to feel better! Let’s make tech events more approachable - one Buddy at a time.
 
-## Local development
+## Local development 
+
+⚠️ at the moment, there is no public available script for a initializing database tables. 
 
 1. Install [supabase-cli](https://supabase.com/docs/guides/cli)
 2. Install [Docker](https://docs.docker.com/get-docker/) (needed for supabase-cli)
