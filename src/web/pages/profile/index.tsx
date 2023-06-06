@@ -6,7 +6,6 @@ import { BuddyPostsOfUser } from "../../ui-elements/buddy-posts/BuddyPostsOfUser
 import { AvatarImage } from "../../ui-elements/profile/AvatarImage"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
 import { Profile } from "../../../domain/profiles"
-import { StaticImage } from "gatsby-plugin-image"
 
 export default function ProfilePage() {
   const { data: profile, isLoading } = useProfile()

@@ -2,146 +2,39 @@ import React, { ReactElement } from "react"
 import { Profile, SocialLink } from "../../../../domain/profiles"
 import useUpdateProfile from "../../../../services/hooks/profile/useUpdateProfile"
 import { UpdateAvatar } from "../../image-upload/UpdateAvatar"
-import * as z from "zod"
-import { Controller, FieldErrors, useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { TextInput } from "../../text-input/TextInput"
-import { MarkdownInput } from "../../markdown-input/MarkdownInput"
 import { navigate } from "gatsby"
 import { SocialLinksDB } from "../../../../domain/_social-links/types/types-social-links"
 import { ProfileUpdate } from "../../../../domain/profiles/types/types-profiles"
+import { IconId, IconMail, IconWritingSign } from "@tabler/icons-react"
 import {
-  IconBrandGithub,
-  IconBrandGitlab,
-  IconBrandLinkedin,
-  IconBrandMastodon,
-  IconBrandTwitter,
-  IconId,
-  IconMail,
-  IconWorld,
-  IconWritingSign,
-} from "@tabler/icons-react"
-
-const schema = z.object({
-  about_text: z.string().optional(),
-  email: z
-    .string()
-    .nonempty("Please add a email address for notification.")
-    .email("This does not look like a valid email."),
-  name: z.string().min(1, { message: "Please add a name." }),
-  avatar_url: z.string().optional(),
-  social_links: z.object({
-    github: z
-      .string()
-      .url({ message: "This does not look like a valid url." })
-      .optional()
-      .or(z.literal("")),
-    gitlab: z
-      .string()
-      .url({ message: "This does not look like a valid url." })
-      .optional()
-      .or(z.literal("")),
-    mastodon: z
-      .string()
-      .url({ message: "This does not look like a valid url." })
-      .optional()
-      .or(z.literal("")),
-    linkedin: z
-      .string()
-      .url({ message: "This does not look like a valid url." })
-      .optional()
-      .or(z.literal("")),
-    twitter: z
-      .string()
-      .url({ message: "This does not look like a valid url." })
-      .optional()
-      .or(z.literal("")),
-    website: z
-      .string()
-      .url({ message: "This does not look like a valid url." })
-      .optional()
-      .or(z.literal("")),
-  }),
-})
-
-type FormSchema = z.infer<typeof schema>
-
-const socialLinksMap: Record<
-  SocialLink["platform"],
-  {
-    name: SocialLink["platformName"]
-    icon: () => React.ReactElement
-    pattern: string
-  }
-> = {
-  github: {
-    name: "GitHub",
-    icon: () => <IconBrandGithub aria-hidden="true" />,
-    pattern: "https://github.com/username",
-  },
-  gitlab: {
-    name: "GitLab",
-    icon: () => <IconBrandGitlab color="#fc6d26" aria-hidden="true" />,
-    pattern: "https://github.com/username",
-  },
-  mastodon: {
-    name: "Mastodon",
-    icon: () => <IconBrandMastodon color="#595aff" aria-hidden="true" />,
-    pattern: "https://instance.io/@username",
-  },
-  linkedin: {
-    name: "LinkedIn",
-    icon: () => <IconBrandLinkedin color="#0A66C2" aria-hidden="true" />,
-    pattern: "https://www.linkedin.com/in/username",
-  },
-  twitter: {
-    name: "Twitter",
-    icon: () => <IconBrandTwitter color="#1DA1F2" aria-hidden="true" />,
-    pattern: "https://twitter.com/username",
-  },
-  website: {
-    name: "Website",
-    icon: () => <IconWorld aria-hidden="true" />,
-    pattern: "you@email.provider",
-  },
-}
-function getSocialLinkIcon(
-  platform: string | SocialLink["platform"]
-): () => React.ReactElement {
-  return socialLinksMap.hasOwnProperty(platform)
-    ? socialLinksMap[platform as SocialLink["platform"]].icon
-    : () => <IconWorld aria-hidden="true" />
-}
-
-function getSocialLinkPattern(
-  platform: string | SocialLink["platform"]
-): string {
-  return socialLinksMap.hasOwnProperty(platform)
-    ? socialLinksMap[platform as SocialLink["platform"]].pattern
-    : ""
-}
-
-function getSocialLinkName(platform: string | SocialLink["platform"]): string {
-  return socialLinksMap.hasOwnProperty(platform)
-    ? socialLinksMap[platform as SocialLink["platform"]].name
-    : ""
-}
+  UpdateProfileFormSchema,
+  updateProfileSchema,
+} from "../create/form-schema"
+import {
+  Form,
+  FormMarkdownEditor,
+  FormTextInput,
+  SubmitButton,
+  useForm,
+} from "../../form/form-wrapper/Form"
+import {
+  getSocialLinkIcon,
+  getSocialLinkName,
+  getSocialLinkPattern,
+  socialLinksMap,
+} from "../profile-helper/profile-helper"
+import { FieldErrors } from "react-hook-form"
 
 function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
-  const socialLinkMap = profile.social_links.reduce((acc, curr) => {
-    return { ...acc, [curr.platform]: curr.address }
-  }, {} as Record<SocialLink["platform"], string | null>)
+  const socialLinkMap = profile.social_links.reduce(
+    (acc: Record<SocialLink["platform"], string | null>, curr: SocialLink) => {
+      return { ...acc, [curr.platform]: curr.address }
+    },
+    {} as Record<SocialLink["platform"], string | null>
+  )
 
-  const {
-    control,
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
-    formState: { errors, touchedFields },
-  } = useForm<FormSchema>({
-    resolver: zodResolver(schema),
-    mode: "onTouched",
+  const form = useForm<UpdateProfileFormSchema>({
+    schema: updateProfileSchema,
     defaultValues: {
       email: profile.email,
       about_text: profile.about_text || undefined,
@@ -158,31 +51,37 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
     },
   })
 
-  const { mutate: updateProfile, isSuccess } = useUpdateProfile()
+  const { mutate: updateProfile, isSuccess, isError } = useUpdateProfile()
 
-  const onSubmit = async (data: FormSchema) => {
+  async function onSubmitForm(userInput: UpdateProfileFormSchema) {
     const newProfile: ProfileUpdate = {
-      about_text: data.about_text ? data.about_text : null,
-      email: data.email,
+      about_text: userInput.about_text ? userInput.about_text : null,
+      email: userInput.email,
       id: profile.id,
-      name: data.name,
-      social_links: Object.entries(data.social_links).reduce(
+      name: userInput.name,
+      social_links: Object.entries(userInput.social_links).reduce(
         (acc, [key, value]) => {
           return { ...acc, [key]: value ? value : null }
         },
         {} as Omit<SocialLinksDB, "id">
       ),
     }
-    updateProfile(newProfile)
+
+    await updateProfile(newProfile)
   }
 
-  const onError = (errors: FieldErrors<FormSchema>) => {
+  const onError = (errors: FieldErrors<UpdateProfileFormSchema>) => {
     //@todo add better error handling
     console.log(errors)
   }
 
   if (isSuccess) {
     navigate(`/profile`)
+  }
+
+  if (isError) {
+    //@todo add better error handling
+    console.log(errors)
   }
 
   return (
@@ -202,21 +101,20 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
         />
       </section>
 
-      <form
-        className="has-validation pt-5"
-        onSubmit={handleSubmit(onSubmit, onError)}
+      <Form
+        {...form}
+        onSubmit={onSubmitForm}
+        onError={onError}
+        ariaLabel={"Update your profile"}
       >
         <section className="card p-3 mb-3">
           <h3>Personal</h3>
           <div className=" mb-3">
             <div className="row d-flex align-items-center">
               <div className="col-md-6">
-                <TextInput<FormSchema>
-                  register={register}
+                <FormTextInput<UpdateProfileFormSchema>
                   name={"email"}
                   type={"email"}
-                  validated={Boolean(touchedFields.email)}
-                  error={errors?.email?.message as string}
                   label={
                     <>
                       <IconMail aria-hidden="true" /> Email (only visible for
@@ -234,11 +132,8 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
             </div>
             <div className="row">
               <div className="col-md-6">
-                <TextInput<FormSchema>
-                  register={register}
+                <FormTextInput<UpdateProfileFormSchema>
                   name={"name"}
-                  validated={Boolean(touchedFields.name)}
-                  error={errors?.name?.message as string}
                   label={
                     <>
                       <IconId aria-hidden="true" /> Full Name
@@ -266,35 +161,10 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
                 </div>
               </div>
             </div>
-            <Controller<FormSchema>
-              name="about_text"
-              control={control}
-              render={({ field, fieldState }) => {
-                return (
-                  <MarkdownInput
-                    value={field.value as string | undefined}
-                    onChange={text => {
-                      const value = text ? (text as string) : undefined
-                      setValue("about_text", value, {
-                        shouldTouch: true,
-                        shouldValidate: true,
-                      })
-                    }}
-                    onBlur={text => {
-                      const value = text ? (text as string) : undefined
-                      setValue("about_text", value, {
-                        shouldTouch: true,
-                        shouldValidate: true,
-                      })
-                    }}
-                    label={"About me"}
-                    placeholder="Tell others a bit about yourself."
-                    required={false}
-                    validated={Boolean(fieldState.isTouched && field.value)}
-                    error={errors?.about_text?.message as string}
-                  />
-                )
-              }}
+            <FormMarkdownEditor<UpdateProfileFormSchema>
+              name={"about_text"}
+              label={"About me"}
+              placeholder="Tell others a bit about yourself."
             />
           </div>
 
@@ -302,20 +172,14 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
             <h3>Social links</h3>
             <div className="row">
               {Object.keys(socialLinksMap).map((key, index) => {
-                const platform = key as keyof FormSchema["social_links"]
+                const platform =
+                  key as keyof UpdateProfileFormSchema["social_links"]
                 return (
                   <div className={"col-12 col-md-6"} key={index}>
-                    <TextInput<FormSchema>
-                      register={register}
+                    <FormTextInput<UpdateProfileFormSchema>
                       name={`social_links.${platform}`}
+                      isNested={true}
                       type={"text"}
-                      validated={Boolean(
-                        getValues(`social_links.${platform}`) &&
-                          touchedFields?.social_links?.[platform]
-                      )}
-                      error={
-                        errors?.social_links?.[platform]?.message as string
-                      }
                       label={
                         <>
                           {getSocialLinkIcon(platform)()}{" "}
@@ -331,13 +195,11 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
           </fieldset>
           <div className="row mb-3">
             <div className="col-md-6 col-sm-12 offset-md-3">
-              <button type="submit" className="btn btn-primary btn-lg w-100">
-                Update profile
-              </button>
+              <SubmitButton className={"btn-lg"} text={"Update profile"} />
             </div>
           </div>
         </section>
-      </form>
+      </Form>
     </div>
   )
 }

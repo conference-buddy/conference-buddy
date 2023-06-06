@@ -1,7 +1,6 @@
 import React from "react"
 import { PageHead } from "../../../ui-elements/page-layout/PageHead"
 import { TextLink } from "../../../ui-elements/text-link/TextLink"
-import { TextInput } from "../../../ui-elements/text-input/TextInput"
 
 export default function ConferenceAdd() {
   return (

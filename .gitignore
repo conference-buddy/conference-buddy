@@ -65,3 +65,10 @@ public
 # IDE/Editors
 .idea/
 
+
+# Local development
+supabase/.branches
+supabase/.temp
+supabase/migrations/**
+
+

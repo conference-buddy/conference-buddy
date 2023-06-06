@@ -10,11 +10,15 @@ import {
   DiscussionPost,
   DiscussionPostCreate,
 } from "../../../domain/discussion/types/discussion-types"
-import { TextArea } from "../textarea/TextArea"
 import * as z from "zod"
-import { FieldErrors, useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
+import { FieldErrors } from "react-hook-form"
 import { Profile } from "../../../domain/profiles"
+import {
+  Form,
+  FormTextArea,
+  SubmitButton,
+  useForm,
+} from "../form/form-wrapper/Form"
 
 type BuddyAreaProps = {
   conferenceId: string
@@ -48,30 +52,23 @@ function BuddyArea({ conferenceId, conferenceName, profile }: BuddyAreaProps) {
     }
   )
 
+  const form = useForm<FormSchema>({
+    schema: schema,
+  })
+
   const { mutate: createPost, isLoading: isLoadingCreatePost } = useMutation(
     (newPost: DiscussionPostCreate) => createDiscussionPost(newPost),
     {
       onSuccess: async () => {
         await queryClient.invalidateQueries(["discussion_posts"])
-        reset()
+        form.reset()
       },
       onError() {
         setShowPostError(true)
-        setError("text", { message: " " })
+        form.setError("text", { message: " " })
       },
     }
   )
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    setError,
-    formState: { errors, touchedFields },
-  } = useForm<FormSchema>({
-    resolver: zodResolver(schema),
-    mode: "onTouched",
-  })
 
   if ((!discussionId && isLoadingDiscussionId) || (!posts && isLoadingPosts)) {
     return (
@@ -87,15 +84,15 @@ function BuddyArea({ conferenceId, conferenceName, profile }: BuddyAreaProps) {
     return <>Something went wrong :/.</>
   }
 
-  const onSubmit = (data: FormSchema) => {
-    if (!data || !data.text || !profile || !discussionId) return
+  async function onSubmitForm(userInput: FormSchema) {
+    if (!userInput || !userInput.text || !profile || !discussionId) return
 
     const newPost: DiscussionPostCreate = {
-      text: data.text,
+      text: userInput.text,
       profile_id: profile.id,
       discussion_id: discussionId,
     }
-    createPost(newPost)
+    await createPost(newPost)
   }
 
   const onError = (errors: FieldErrors<FormSchema>) => {
@@ -140,22 +137,21 @@ function BuddyArea({ conferenceId, conferenceName, profile }: BuddyAreaProps) {
             })}
           </ul>
         )}
-        <form
-          className={"mx-md-2 mt-3 p-2 has-validation"}
-          onSubmit={handleSubmit(onSubmit, onError)}
+        <Form
+          {...form}
+          onSubmit={onSubmitForm}
+          onError={onError}
+          ariaLabel={"Add a post to become a buddy"}
         >
           <div className="d-flex">
-            <TextArea<FormSchema>
-              register={register}
+            <FormTextArea<FormSchema>
               name={"text"}
               rows={3}
+              additionalClasses={"flex-grow-1"}
               required={true}
+              label={<>Write a message (min 20 characters</>}
               labelSROnly={true}
-              additionalClasses="flex-grow-1"
-              label={"Write a message (min 20 characters)"}
               placeholder={"Write something to your fellow Conference Buddies."}
-              validated={Boolean(touchedFields.text)}
-              error={errors?.text?.message as string}
               disabled={isLoadingCreatePost}
             />
             <div
@@ -163,14 +159,14 @@ function BuddyArea({ conferenceId, conferenceName, profile }: BuddyAreaProps) {
                 "pt-2 pb-2 d-flex justify-content-between flex-column ps-2"
               }
             >
-              <button
-                type={"submit"}
-                className={
-                  "btn btn-primary btn-sm mb-1 d-flex align-items-center flex-grow-1"
-                }
-                disabled={isLoadingCreatePost}
-              >
-                {isLoadingCreatePost ? (
+              {isLoadingCreatePost && (
+                <button
+                  type={"submit"}
+                  className={
+                    "btn btn-primary btn-sm mb-1 d-flex align-items-center flex-grow-1"
+                  }
+                  disabled={true}
+                >
                   <>
                     <span
                       className={
@@ -179,15 +175,22 @@ function BuddyArea({ conferenceId, conferenceName, profile }: BuddyAreaProps) {
                     />{" "}
                     Sending...
                   </>
-                ) : (
-                  <span>Send message</span>
-                )}
-              </button>
+                </button>
+              )}
+              {!isLoadingCreatePost && (
+                <SubmitButton
+                  className={
+                    "btn-sm mb-1 d-flex align-items-center flex-grow-1"
+                  }
+                  text={"Send message"}
+                />
+              )}
+
               <button
                 type="button"
                 className="btn btn-outline-danger btn-sm"
                 onClick={() => {
-                  reset({ text: "" })
+                  form.reset({ text: "" })
                   setShowPostError(false)
                 }}
                 disabled={isLoadingCreatePost}
@@ -204,7 +207,7 @@ function BuddyArea({ conferenceId, conferenceName, profile }: BuddyAreaProps) {
               message.
             </div>
           )}
-        </form>
+        </Form>
       </div>
     </div>
   )

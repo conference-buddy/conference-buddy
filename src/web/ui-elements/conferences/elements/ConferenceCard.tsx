@@ -37,7 +37,10 @@ function ConferenceCard({ conference }: ConferenceCardProps) {
           </p>
         </div>
       </div>
-      <div className="card-footer border-0">
+      <div
+        className="card-footer border-0"
+        data-testid={"conference-buddies-on-conference-amount"}
+      >
         <StaticImage
           aria-hidden={true}
           src="../../../assets/images/icon.png"

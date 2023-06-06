@@ -1,180 +1,51 @@
 import React, { ReactElement } from "react"
-import {
-  ProfileCreate,
-  SocialLink,
-  usernameExists,
-} from "../../../../domain/profiles"
+import { ProfileCreate, usernameExists } from "../../../../domain/profiles"
 import { AuthUser } from "@supabase/supabase-js"
-import { Controller, FieldErrors, useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { TextInput } from "../../text-input/TextInput"
-import { MarkdownInput } from "../../markdown-input/MarkdownInput"
 import { SocialLinksDB } from "../../../../domain/_social-links/types/types-social-links"
 import useCreateProfile from "../../../../services/hooks/profile/useCreateProfile"
 import { CreateAvatar } from "../../image-upload/CreateAvatar"
 import { ImageObject } from "../../../../services/storage/create-image-object"
 import { uploadAvatar } from "../../../../services/storage/avatar"
 import { navigate } from "gatsby"
+import { IconId, IconMail, IconWritingSign } from "@tabler/icons-react"
 import {
-  IconBrandGithub,
-  IconBrandGitlab,
-  IconBrandLinkedin,
-  IconBrandMastodon,
-  IconBrandTwitter,
-  IconId,
-  IconMail,
-  IconWorld,
-  IconWritingSign,
-} from "@tabler/icons-react"
+  Form,
+  FormMarkdownEditor,
+  FormTextInput,
+  SubmitButton,
+  useForm,
+} from "../../form/form-wrapper/Form"
+import { Controller } from "react-hook-form"
+import { CreateProfileFormSchema, createProfileSchema } from "./form-schema"
+import {
+  getSocialLinkIcon,
+  getSocialLinkName,
+  getSocialLinkPattern,
+  socialLinksMap,
+} from "../profile-helper/profile-helper"
 
 type CreateProfileProps = {
   authUser: AuthUser
 }
 
-const userNameRegex = /^[a-zA-Z0-9_-]+$/
-
-const schema = z.object({
-  about_text: z.string().optional(),
-  email: z
-    .string()
-    .nonempty("Please add a email address for notification.")
-    .email("This does not look like a valid email."),
-  id: z.string(),
-  name: z.string().min(1, { message: "Please add a name." }),
-  provider: z.string(),
-  username: z
-    .string()
-    .min(3, { message: "Please add a user name with at least 3 characters." })
-    .regex(userNameRegex, {
-      message: "Username can only contain letters, numbers, underscore, dash.",
-    }),
-  avatar_image: z.any().optional(),
-  social_links: z.object({
-    github: z
-      .string()
-      .url({ message: "This does not look like a valid url." })
-      .optional()
-      .or(z.literal("")),
-    gitlab: z
-      .string()
-      .url({ message: "This does not look like a valid url." })
-      .optional()
-      .or(z.literal("")),
-    mastodon: z
-      .string()
-      .url({ message: "This does not look like a valid url." })
-      .optional()
-      .or(z.literal("")),
-    linkedin: z
-      .string()
-      .url({ message: "This does not look like a valid url." })
-      .optional()
-      .or(z.literal("")),
-    twitter: z
-      .string()
-      .url({ message: "This does not look like a valid url." })
-      .optional()
-      .or(z.literal("")),
-    website: z
-      .string()
-      .url({ message: "This does not look like a valid url." })
-      .optional()
-      .or(z.literal("")),
-  }),
-})
-
-type FormSchema = z.infer<typeof schema>
-
-const socialLinksMap: Record<
-  SocialLink["platform"],
-  {
-    name: SocialLink["platformName"]
-    icon: () => React.ReactElement
-    pattern: string
-  }
-> = {
-  github: {
-    name: "GitHub",
-    icon: () => <IconBrandGithub aria-hidden="true" />,
-    pattern: "https://github.com/username",
-  },
-  gitlab: {
-    name: "GitLab",
-    icon: () => <IconBrandGitlab color="#fc6d26" aria-hidden="true" />,
-    pattern: "https://github.com/username",
-  },
-  mastodon: {
-    name: "Mastodon",
-    icon: () => <IconBrandMastodon color="#595aff" aria-hidden="true" />,
-    pattern: "https://instance.io/@username",
-  },
-  linkedin: {
-    name: "LinkedIn",
-    icon: () => <IconBrandLinkedin color="#0A66C2" aria-hidden="true" />,
-    pattern: "https://www.linkedin.com/in/username",
-  },
-  twitter: {
-    name: "Twitter",
-    icon: () => <IconBrandTwitter color="#1DA1F2" aria-hidden="true" />,
-    pattern: "https://twitter.com/username",
-  },
-  website: {
-    name: "Website",
-    icon: () => <IconWorld aria-hidden="true" />,
-    pattern: "you@email.provider",
-  },
-}
-function getSocialLinkIcon(
-  platform: string | SocialLink["platform"]
-): () => React.ReactElement {
-  return socialLinksMap.hasOwnProperty(platform)
-    ? socialLinksMap[platform as SocialLink["platform"]].icon
-    : () => <IconWorld aria-hidden="true" />
-}
-
-function getSocialLinkName(platform: string | SocialLink["platform"]): string {
-  return socialLinksMap.hasOwnProperty(platform)
-    ? socialLinksMap[platform as SocialLink["platform"]].name
-    : ""
-}
-
-function getSocialLinkPattern(
-  platform: string | SocialLink["platform"]
-): string {
-  return socialLinksMap.hasOwnProperty(platform)
-    ? socialLinksMap[platform as SocialLink["platform"]].pattern
-    : ""
-}
-
 function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
-  const {
-    control,
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
-    setError,
-    watch,
-    formState: { errors, touchedFields },
-  } = useForm<FormSchema>({
-    resolver: zodResolver(schema),
-    mode: "onTouched",
+  const form = useForm<CreateProfileFormSchema>({
+    schema: createProfileSchema,
     defaultValues: {
       id: authUser.id,
       provider: authUser.app_metadata.provider,
     },
   })
 
-  watch("social_links")
+  form.watch("social_links")
 
   const { mutate: createProfile, isSuccess } = useCreateProfile()
 
-  const onSubmit = async (data: FormSchema) => {
-    const userNameTaken = await usernameExists(data.username)
+  async function onSubmitForm(userInput: CreateProfileFormSchema) {
+    const userNameTaken = await usernameExists(userInput.username)
 
     if (userNameTaken) {
-      setError(
+      form.setError(
         "username",
         {
           message:
@@ -184,14 +55,14 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
       )
     } else {
       let avatarUrl: null | string = null
-      if (data.avatar_image) {
-        avatarUrl = await uploadAvatar(data.avatar_image)
+      if (userInput.avatar_image) {
+        avatarUrl = await uploadAvatar(userInput.avatar_image)
       }
       const newProfile: ProfileCreate = {
-        ...data,
-        about_text: data.about_text ? data.about_text : null,
+        ...userInput,
+        about_text: userInput.about_text ? userInput.about_text : null,
         avatar_url: avatarUrl,
-        social_links: Object.entries(data.social_links).reduce(
+        social_links: Object.entries(userInput.social_links).reduce(
           (acc, [key, value]) => {
             return { ...acc, [key]: value ? value : null }
           },
@@ -202,17 +73,12 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
     }
   }
 
-  const onError = (errors: FieldErrors<FormSchema>) => {
-    //@todo add better error handling
-    console.log(errors)
-  }
-
   if (isSuccess) {
-    navigate(`/user/${getValues("username")}`)
+    navigate(`/user/${form.getValues("username")}`)
   }
 
   return (
-    <form className="has-validation" onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form {...form} onSubmit={onSubmitForm} ariaLabel={"Create your profile"}>
       <section className="card p-3 mb-3">
         <h3>Your picture</h3>
         <p>
@@ -220,15 +86,15 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
           the 🐶 placeholder :)
         </p>
         <div className="row d-flex align-items-center mb-5 p-3">
-          <Controller<FormSchema>
+          <Controller<CreateProfileFormSchema>
             name="avatar_image"
-            control={control}
+            control={form.control}
             render={({ field }) => {
               return (
                 <CreateAvatar
                   imageFile={field.value as ImageObject | undefined}
                   onChange={newImage => {
-                    setValue("avatar_image", newImage, {
+                    form.setValue("avatar_image", newImage, {
                       shouldTouch: true,
                       shouldValidate: true,
                     })
@@ -242,12 +108,9 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
         <div className="mb-3">
           <div className="row d-flex align-items-center mb-3">
             <div className="col-md-6">
-              <TextInput<FormSchema>
-                register={register}
+              <FormTextInput<CreateProfileFormSchema>
                 name={"email"}
                 type={"email"}
-                validated={Boolean(touchedFields.email)}
-                error={errors?.email?.message as string}
                 label={
                   <>
                     <IconMail aria-hidden="true" /> Email (only visible for you)
@@ -265,11 +128,8 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
           </div>
           <div className="row">
             <div className="col-md-6">
-              <TextInput<FormSchema>
-                register={register}
+              <FormTextInput<CreateProfileFormSchema>
                 name={"name"}
-                validated={Boolean(touchedFields.name)}
-                error={errors?.name?.message as string}
                 label={
                   <>
                     <IconId aria-hidden="true" /> Full Name
@@ -280,11 +140,8 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
               />
             </div>
             <div className="col-md-6">
-              <TextInput
-                register={register}
+              <FormTextInput
                 name={"username"}
-                validated={Boolean(touchedFields.username)}
-                error={errors?.username?.message as string}
                 label={
                   <>
                     <IconWritingSign aria-hidden="true" /> Username
@@ -295,35 +152,10 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
               />
             </div>
           </div>
-          <Controller<FormSchema>
-            name="about_text"
-            control={control}
-            render={({ field, fieldState }) => {
-              return (
-                <MarkdownInput
-                  value={field.value as string | undefined}
-                  onChange={text => {
-                    const value = text ? (text as string) : undefined
-                    setValue("about_text", value, {
-                      shouldTouch: true,
-                      shouldValidate: true,
-                    })
-                  }}
-                  onBlur={text => {
-                    const value = text ? (text as string) : undefined
-                    setValue("about_text", value, {
-                      shouldTouch: true,
-                      shouldValidate: true,
-                    })
-                  }}
-                  label={"About me"}
-                  placeholder="Tell others a bit about yourself."
-                  required={false}
-                  validated={Boolean(fieldState.isTouched && field.value)}
-                  error={errors?.about_text?.message as string}
-                />
-              )
-            }}
+          <FormMarkdownEditor<CreateProfileFormSchema>
+            name={"about_text"}
+            label={"About me"}
+            placeholder="Tell others a bit about yourself."
           />
         </div>
 
@@ -331,18 +163,14 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
           <h3>Social links</h3>
           <div className="row">
             {Object.keys(socialLinksMap).map((key, index) => {
-              const platform = key as keyof FormSchema["social_links"]
+              const platform =
+                key as keyof CreateProfileFormSchema["social_links"]
               return (
                 <div className={"col-12 col-md-6"} key={index}>
-                  <TextInput<FormSchema>
-                    register={register}
+                  <FormTextInput<CreateProfileFormSchema>
                     name={`social_links.${platform}`}
+                    isNested={true}
                     type={"text"}
-                    validated={Boolean(
-                      getValues(`social_links.${platform}`) &&
-                        touchedFields?.social_links?.[platform]
-                    )}
-                    error={errors?.social_links?.[platform]?.message as string}
                     label={
                       <>
                         {getSocialLinkIcon(platform)()}{" "}
@@ -360,12 +188,10 @@ function CreateProfile({ authUser }: CreateProfileProps): ReactElement {
 
       <div className="row mb-3">
         <div className="col-md-6 col-sm-12 offset-md-3">
-          <button type="submit" className="btn btn-primary btn-lg w-100">
-            Create profile
-          </button>
+          <SubmitButton className={"btn-lg"} text={"Create profile"} />
         </div>
       </div>
-    </form>
+    </Form>
   )
 }
 

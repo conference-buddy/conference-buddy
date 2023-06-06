@@ -6,16 +6,21 @@ import { IconFilePencil } from "@tabler/icons-react"
 
 type MarkDownInputProps = {
   onChange: Dispatch<SetStateAction<string | undefined>>
-  value: string | undefined
   label: string
   placeholder: string
-  onBlur?: (value: string) => void
+  validated: boolean
+  errorText: string
+  hasError: boolean
   required?: boolean
   disabled?: boolean
-  validated: boolean
-  error: string
+  value?: string
+  onBlur?: (event: any) => void
 }
 
+const defaultProps = {
+  required: false,
+  disabled: false,
+}
 function MarkdownInput(props: MarkDownInputProps): ReactElement {
   const {
     value,
@@ -25,7 +30,9 @@ function MarkdownInput(props: MarkDownInputProps): ReactElement {
     required,
     disabled,
     validated,
-    error,
+    hasError,
+    errorText,
+    onBlur,
   } = props
   const idForMarkdownInput = uuidv4()
 
@@ -36,8 +43,8 @@ function MarkdownInput(props: MarkDownInputProps): ReactElement {
   }
 
   const defaultClass = !validated ? "p-0 m-1 border-0" : ""
-  const invalidClass = error ? `is-invalid` : ""
-  const validClass = validated && !error ? "is-valid p-1 border-2" : ""
+  const invalidClass = hasError ? `is-invalid` : ""
+  const validClass = validated && !hasError ? "is-valid p-1 border-2" : ""
 
   return (
     <div data-color-mode="light">
@@ -57,22 +64,36 @@ function MarkdownInput(props: MarkDownInputProps): ReactElement {
           id={idForMarkdownInput}
           value={value}
           aria-label={label}
-          placeholder={placeholder}
-          aria-required={required}
-          aria-disabled={disabled}
           onChange={e => onChange(e)}
+          onBlur={event => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            const value = event.target.value as string
+            if (value) {
+              onBlur && onBlur(value)
+            }
+          }}
           previewOptions={{
             rehypePlugins: [[rehypeSanitize]],
           }}
           draggable={false}
           preview="edit"
+          hideToolbar={!!disabled}
           commandsFilter={cmd => removeCommands(cmd)}
+          textareaProps={{
+            disabled: disabled,
+            required: required,
+            "aria-invalid": hasError,
+            placeholder: placeholder,
+          }}
         />
       </div>
       <div className="valid-feedback">Looks good!</div>
-      <div className={"invalid-feedback"}>{error}</div>
+      <div className={"invalid-feedback"}>{errorText}</div>
     </div>
   )
 }
 
+MarkdownInput.defaultProps = defaultProps
 export { MarkdownInput }
+export type { MarkDownInputProps }

@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from "react"
-import { MarkdownInput } from "../markdown-input/MarkdownInput"
+import { MarkdownInput } from "../form/markdown-input/MarkdownInput"
 import { createBuddyPost } from "../../../domain/buddy-posts/api/buddy-posts-api"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 

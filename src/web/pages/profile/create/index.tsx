@@ -36,7 +36,7 @@ export default function CreateProfilePage() {
         you feel comfortable with.
       </p>
 
-      <div>{!profile && authUser && <CreateProfile authUser={authUser} />}</div>
+      <div>{authUser && !profile && <CreateProfile authUser={authUser} />}</div>
     </div>
   )
 }
