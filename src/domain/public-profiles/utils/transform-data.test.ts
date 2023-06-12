@@ -24,6 +24,7 @@ const publicProfilesFromDB: PublicProfileDB[] = [
 
 const socialLinksFromDB: SocialLinksDB[] = [
   {
+    profile_id: "none",
     id: "97e55ee6-831a-46f1-a0e0-dce2c817f711",
     website: null,
     github: null,
@@ -33,6 +34,7 @@ const socialLinksFromDB: SocialLinksDB[] = [
     mastodon: null,
   },
   {
+    profile_id: "none",
     id: "anothersuserid",
     website: null,
     github: "someusername",
@@ -42,6 +44,7 @@ const socialLinksFromDB: SocialLinksDB[] = [
     mastodon: null,
   },
   {
+    profile_id: "none",
     id: "934233523523-234234-234234--2351fgk",
     website: "nicewebsite.de",
     github: null,

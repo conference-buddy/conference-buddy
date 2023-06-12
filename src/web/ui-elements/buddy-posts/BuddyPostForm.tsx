@@ -60,7 +60,9 @@ function BuddyPostForm({
         label={"Add a post"}
         required={false}
         validated={false}
-        error={""}
+        errorText={""}
+        hasError={false}
+        placeholder={""}
       />
       <div className="mt-2 mb-2 d-flex justify-content-end">
         <button

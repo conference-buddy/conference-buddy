@@ -33,12 +33,7 @@ function BuddyPostOfUser({
         </div>
 
         <div data-color-mode="light">
-          <MDEditor.Markdown
-            source={text}
-            previewOptions={{
-              rehypePlugins: [[rehypeSanitize]],
-            }}
-          />
+          <MDEditor.Markdown source={text} rehypePlugins={[rehypeSanitize]} />
         </div>
       </div>
     </div>

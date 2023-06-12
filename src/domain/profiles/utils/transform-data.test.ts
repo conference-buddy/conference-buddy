@@ -15,6 +15,7 @@ const profileFromDB: ProfileDB = {
 }
 
 const socialLinksFromDB: SocialLinksDB = {
+  profile_id: "none",
   id: "string",
   website: "somewebsite",
   github: "@name",

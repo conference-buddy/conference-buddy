@@ -51,7 +51,12 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
     },
   })
 
-  const { mutate: updateProfile, isSuccess, isError } = useUpdateProfile()
+  const {
+    mutate: updateProfile,
+    isSuccess,
+    isError,
+    error,
+  } = useUpdateProfile()
 
   async function onSubmitForm(userInput: UpdateProfileFormSchema) {
     const newProfile: ProfileUpdate = {
@@ -81,7 +86,7 @@ function UpdateProfile({ profile }: { profile: Profile }): ReactElement {
 
   if (isError) {
     //@todo add better error handling
-    console.log(errors)
+    console.log(error)
   }
 
   return (
