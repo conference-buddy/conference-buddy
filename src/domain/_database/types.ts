@@ -31,6 +31,20 @@ export interface Database {
           profile_id?: string
           text?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: "buddy_posts_conference_id_fkey"
+            columns: ["conference_id"]
+            referencedRelation: "conferences"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "buddy_posts_profile_id_fkey"
+            columns: ["profile_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       conferences: {
         Row: {
@@ -72,6 +86,7 @@ export interface Database {
           updated_at?: string | null
           url?: string
         }
+        Relationships: []
       }
       conferences_tags_junction: {
         Row: {
@@ -92,6 +107,20 @@ export interface Database {
           id?: string
           tag_id?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: "conferences_tags_junction_conference_id_fkey"
+            columns: ["conference_id"]
+            referencedRelation: "conferences"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "conferences_tags_junction_tag_id_fkey"
+            columns: ["tag_id"]
+            referencedRelation: "tags"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       discussion_posts: {
         Row: {
@@ -115,6 +144,20 @@ export interface Database {
           profile_id?: string
           text?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: "discussion_posts_discussion_id_fkey"
+            columns: ["discussion_id"]
+            referencedRelation: "discussions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "discussion_posts_profile_id_fkey"
+            columns: ["profile_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       discussions: {
         Row: {
@@ -132,6 +175,14 @@ export interface Database {
           created_at?: string | null
           id?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: "discussions_conference_id_fkey"
+            columns: ["conference_id"]
+            referencedRelation: "conferences"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       profiles: {
         Row: {
@@ -167,6 +218,14 @@ export interface Database {
           updated_at?: string | null
           username?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_id_fkey"
+            columns: ["id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       profiles_social_links: {
         Row: {
@@ -199,6 +258,14 @@ export interface Database {
           twitter?: string | null
           website?: string | null
         }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_social_links_profile_id_fkey"
+            columns: ["profile_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       subscriptions: {
         Row: {
@@ -222,6 +289,26 @@ export interface Database {
           id?: string
           profile_id?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_conference_id_fkey"
+            columns: ["conference_id"]
+            referencedRelation: "conferences"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscriptions_discussion_id_fkey"
+            columns: ["discussion_id"]
+            referencedRelation: "discussions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscriptions_profile_id_fkey"
+            columns: ["profile_id"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       tags: {
         Row: {
@@ -245,6 +332,7 @@ export interface Database {
           id?: string
           name?: string
         }
+        Relationships: []
       }
     }
     Views: {
