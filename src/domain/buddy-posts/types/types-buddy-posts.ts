@@ -1,4 +1,5 @@
 import { Database } from "../../_database/types"
+import { Prettify } from "../../../services/type-utils/type-utils"
 
 type BuddyPostDB = Database["public"]["Tables"]["buddy_posts"]["Row"]
 

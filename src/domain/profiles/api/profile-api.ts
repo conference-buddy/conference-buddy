@@ -41,7 +41,9 @@ async function getProfile(user: User | null): Promise<Profile | null> {
 
   const { data: socialLinks, error: socialLinksError } = await supabase
     .from("profiles_social_links")
-    .select("github, gitlab, mastodon, twitter, website, linkedin")
+    .select(
+      "github, gitlab, mastodon, twitter, website, linkedin, id, profile_id"
+    )
     .eq("profile_id", user.id)
     .single()
 

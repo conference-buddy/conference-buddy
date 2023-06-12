@@ -3,6 +3,7 @@ import {
   SocialLinksDB,
 } from "../../_social-links/types/types-social-links"
 import { Database } from "../../_database/types"
+import { Prettify } from "../../../services/type-utils/type-utils"
 
 type ProfileDB = Prettify<Database["public"]["Tables"]["profiles"]["Row"]>
 

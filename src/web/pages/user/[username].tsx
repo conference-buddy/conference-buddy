@@ -76,10 +76,8 @@ function UserPage({
                 <h4>About me</h4>
                 <div data-color-mode="light">
                   <MDEditor.Markdown
-                    source={user.about_text}
-                    previewOptions={{
-                      rehypePlugins: [[rehypeSanitize]],
-                    }}
+                    source={user.about_text || undefined}
+                    rehypePlugins={[rehypeSanitize]}
                   />
                 </div>
               </div>

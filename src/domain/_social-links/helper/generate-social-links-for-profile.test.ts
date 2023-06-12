@@ -5,6 +5,7 @@ import {
 import { SocialLink, SocialLinksDB } from "../types/types-social-links"
 
 const socialLinksFromDB: SocialLinksDB = {
+  profile_id: "none",
   github: "@programmiri",
   gitlab: "@programmiri",
   id: "97e55ee6-831a-46f1-a0e0-dce2c817f711",

@@ -47,12 +47,7 @@ function BuddyPost({
             data-color-mode="light"
             className="col-12 offset-sm-2 col-sm-10 offset-xl-1 col-xl-11 order-3"
           >
-            <MDEditor.Markdown
-              source={text}
-              previewOptions={{
-                rehypePlugins: [[rehypeSanitize]],
-              }}
-            />
+            <MDEditor.Markdown source={text} rehypePlugins={[rehypeSanitize]} />
           </div>
         </div>
       </div>

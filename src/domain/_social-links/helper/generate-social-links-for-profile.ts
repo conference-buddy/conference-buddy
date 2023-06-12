@@ -25,7 +25,7 @@ function generateSocialLink({
   platform,
   address,
 }: {
-  platform: keyof Omit<SocialLinksDB, "id">
+  platform: keyof Omit<SocialLinksDB, "id" | "profile_id">
   address: string
 }): SocialLink {
   return {
@@ -45,7 +45,7 @@ function generateSocialLinks(socialLinksFromDB: SocialLinksDB): SocialLink[] {
     // in this case we don't want an entry for this social link
     // BUT gatsby graphql has problems handling optional fields
     // so until that's easier to do, set an empty string as value
-    if (key !== "id") {
+    if (key !== "id" && key !== "profile_id") {
       const newLink = generateSocialLink({
         platform: key,
         address: value || "",
