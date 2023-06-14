@@ -1,0 +1,63 @@
+# Workflow is called for every pull request regardless which branch its targets
+# when it's marked as ready for review. It checks for changes in the database
+# updated types if necessary and runs the TS compiler if needed.
+# @TODO replace this with e.g. webhook to be triggered by database
+
+
+name: Update types from supabase
+
+on:
+  pull_request:
+    types:
+      - ready_for_review
+
+jobs:
+  check-for-database-changes:
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          fetch-depth: 0
+
+      - name: Create env file
+        run: |
+          touch .env.development
+          echo "GATSBY_APP_SUPABASE_PROJECT_ID=${{ secrets.GATSBY_APP_SUPABASE_PROJECT_ID }}" >> .env.development
+          echo "GATSBY_APP_SUPABASE_ACCESS_TOKEN=${{ secrets.GATSBY_APP_SUPABASE_ACCESS_TOKEN }}" >> .env.development
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Update types
+        run: |
+          pnpm update-types || { echo "Failed to update types"; exit 1; }
+
+      - name: Check for changes
+        id: database-changes
+        run: |
+          git fetch origin ${{ github.head_ref }}
+          if git diff --name-only FETCH_HEAD | grep -q 'src/domain/_database/types.ts'; then
+            echo "Database changes. Beep... generating new TypeScript types now 🤖"
+            echo "::set-output name=change_detected::true"
+          else
+            echo "No database changes. Ending workflow 👋"
+            exit 0
+          fi
+
+      - name: Run TypeScript compiler
+        if: steps.database-changes.outputs.change_detected == 'true'
+        run: pnpm tsc
+
+      - name: Add changed file
+        if: steps.database-changes.outputs.change_detected == 'true'
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add .
+          git commit -m "🤖 Auto-update API types for TypeScript usage"
+          git push origin HEAD:${{ github.head_ref }}
