@@ -16,7 +16,7 @@ const command = `npx supabase gen types typescript --project-id "${projectId}" >
 exec(command, (err, stdout, stderr) => {
   if (err) {
     console.error(err)
-    return
+    process.exit(1)
   }
 
   console.log(`stdout: ${stdout}`)
