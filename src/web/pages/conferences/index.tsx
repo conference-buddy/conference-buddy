@@ -4,12 +4,38 @@ import { Conference } from "../../../domain/conferences"
 import { ConferenceList } from "../../ui-elements/conferences/list/ConferenceList"
 import { PageHead } from "../../ui-elements/page-layout/PageHead"
 import { TextLink } from "../../ui-elements/text-link/TextLink"
+import queryString from "query-string"
+import { useQuery } from "@tanstack/react-query"
+import { getConferencesSearchResult } from "../../../domain/conferences/api/conferences-api"
 
 type ConferenceListPage = {
-  data: { allConference: { nodes: Conference[] } }
+  data: {
+    allConference: { nodes: Conference[] }
+  }
+  location: Location
 }
 export default function ConferenceListPage(props: ConferenceListPage) {
   const conferences = props.data.allConference.nodes
+
+  function getSearchTerm(): string {
+    const searchParam = queryString.parse(location.search).search
+    if (typeof searchParam === "string") {
+      return searchParam
+    }
+    return ""
+  }
+
+  const { data: conferencesSearchResults } = useQuery(
+    ["conferences-search"],
+    () => getConferencesSearchResult(getSearchTerm()),
+    {
+      enabled: getSearchTerm().length > 0,
+    }
+  )
+
+  // useEffect(() => {
+  //
+  // }, [searchParam])
 
   return (
     <div className="container">
@@ -30,7 +56,7 @@ export default function ConferenceListPage(props: ConferenceListPage) {
           Add a conference
         </TextLink>
       </p>
-      <ConferenceList conferences={conferences} />
+      <ConferenceList conferences={conferencesSearchResults || conferences} />
     </div>
   )
 }

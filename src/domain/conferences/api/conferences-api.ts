@@ -16,6 +16,7 @@ async function getConferences(): Promise<Conference[]> {
   if (error) {
     //@TODO proper error handling
     console.error(error)
+    throw new Error("Something went wrong")
   }
 
   if (!data) {
@@ -26,39 +27,21 @@ async function getConferences(): Promise<Conference[]> {
   return data
 }
 
+// NOTE: EXPERIMENTAL
 async function getConferencesSearchResult(
   searchTerm: string
 ): Promise<Conference[]> {
   // @TODO needs to be filtered by date based on timezone
-  // currently CURRENT_DATE is used in database
-  // when creating index
+  // CURRENT_DATE can be used in database
+  // when creating index until then
 
   const { data, error } = await supabase.rpc("search_conferences", {
     conference_search_term: searchTerm,
   })
 
-  if (error) {
+  if (error || !data) {
     console.error(error)
-    return
-  }
-
-  console.log(data)
-
-  if (error) {
-    console.error(error)
-    return
-  }
-
-  console.log(data)
-
-  if (error) {
-    //@TODO proper error handling
-    console.error(error)
-  }
-
-  if (!data) {
-    //@TODO proper error handling
-    throw new Error("Conferences not found")
+    throw new Error("Something went wrong")
   }
 
   return data
