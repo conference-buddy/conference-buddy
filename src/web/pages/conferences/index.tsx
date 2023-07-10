@@ -27,6 +27,11 @@ export default function ConferenceListPage(props: ConferenceListPage) {
     () => getConferencesSearchResult(searchTerm),
     {
       enabled: searchTerm.length > 0,
+      // conferences are currently not dynamically updated
+      // so once the data for a search term is fetched,
+      // there's no need to update it in this session
+      staleTime: Infinity,
+      cacheTime: Infinity,
     }
   )
 
