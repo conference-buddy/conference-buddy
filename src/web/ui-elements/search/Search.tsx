@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { v4 as uuidv4 } from "uuid"
 import { IconSearch } from "@tabler/icons-react"
 import { navigate } from "gatsby"
@@ -19,23 +19,21 @@ function Search({
   className,
 }: SearchProps) {
   const idSearchInput = uuidv4()
+  const idSearchDescription = uuidv4()
 
-  const [currentSearch, setCurrentSearch] = useState("")
+  const [currentSearch, setCurrentSearch] = useState(searchTerm)
 
-  useEffect(() => {
-    if (currentSearch.length > 0 && searchTerm.length === 0) {
-      navigate("/conferences/")
-    }
-    setCurrentSearch(searchTerm)
-  }, [searchTerm])
   function onSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const currentSearchTerm = currentSearch.trim()
+    setSearchTerm(currentSearchTerm)
+
     if (currentSearchTerm.length > 0) {
       const query = new URLSearchParams({ search: currentSearchTerm })
-      navigate(`?${query}`)
+      navigate(`?${query.toString()}`)
+    } else {
+      navigate("/conferences/")
     }
-    setSearchTerm(currentSearchTerm)
   }
 
   function handleKeyUp(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -50,6 +48,7 @@ function Search({
       onSubmit={onSearchSubmit}
       aria-label={searchLabel}
       className={className}
+      aria-describedby={idSearchDescription}
     >
       <div className={"input-group"}>
         <input
@@ -61,18 +60,20 @@ function Search({
           className={"form-control rounded-start-2"}
         />
         <label className={"visually-hidden"} htmlFor={idSearchInput}>
-          {searchLabel} Press escape to delete search. Press submit button or
-          enter to start search.
+          Press submit button or enter to start your search. Press escape to
+          delete search.
         </label>
         <button
           className={"btn btn-primary btn-sm input-group-text"}
           type={"submit"}
         >
           <span className={"visually-hidden"}>Start search</span>
-          <IconSearch aria-hidden="true" />
+          <IconSearch data-testid="search-icon" aria-hidden="true" />
         </button>
       </div>
-      <div className="form-text text-end">{searchDescription}</div>
+      <div className="form-text text-end" id={idSearchDescription}>
+        {searchDescription}
+      </div>
     </form>
   )
 }

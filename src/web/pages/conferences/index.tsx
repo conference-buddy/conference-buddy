@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
-import { graphql, Link, navigate } from "gatsby"
+import React, { useState } from "react"
+import { graphql } from "gatsby"
 import { Conference } from "../../../domain/conferences"
 import { ConferenceList } from "../../ui-elements/conferences/list/ConferenceList"
 import { PageHead } from "../../ui-elements/page-layout/PageHead"
