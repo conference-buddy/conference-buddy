@@ -18,6 +18,7 @@ type ConferenceListPage = {
 export default function ConferenceListPage(props: ConferenceListPage) {
   const initialSearch: string =
     (queryString.parse(props.location.search).search as string) || ""
+
   const conferences = props.data.allConference.nodes
   const [searchTerm, setSearchTerm] = useState<string>(initialSearch)
 

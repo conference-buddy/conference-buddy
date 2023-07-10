@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { v4 as uuidv4 } from "uuid"
 import { IconSearch } from "@tabler/icons-react"
 import { navigate } from "gatsby"
@@ -23,23 +23,33 @@ function Search({
 
   const [currentSearch, setCurrentSearch] = useState(searchTerm)
 
-  function onSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const currentSearchTerm = currentSearch.trim()
-    setSearchTerm(currentSearchTerm)
+  useEffect(() => {
+    if (searchTerm.length === 0) {
+      updateSearchQuery("")
+      setCurrentSearch("")
+    }
+  }, [searchTerm])
 
-    if (currentSearchTerm.length > 0) {
-      const query = new URLSearchParams({ search: currentSearchTerm })
+  function updateSearchQuery(search: string) {
+    if (search.length > 0) {
+      const query = new URLSearchParams({ search: search })
       navigate(`?${query.toString()}`)
     } else {
       navigate("/conferences/")
     }
   }
 
+  function onSearchSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const currentSearchTerm = currentSearch.trim()
+    updateSearchQuery(currentSearchTerm)
+    setSearchTerm(currentSearchTerm)
+  }
+
   function handleKeyUp(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key !== "Escape") return
+    updateSearchQuery("")
     setSearchTerm("")
-    navigate("/conferences/")
   }
 
   return (
