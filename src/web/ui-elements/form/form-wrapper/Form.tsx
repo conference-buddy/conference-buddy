@@ -187,12 +187,14 @@ function _FormMarkdownEditor<T extends FieldValues>({
             {...props}
             value={field.value as string}
             onChange={text => {
+              //eslint-disable-next-line @typescript-eslint/no-explicit-any
               form.setValue(name, text as any, {
                 shouldValidate: true,
                 shouldTouch: !!text,
               })
             }}
             onBlur={text => {
+              //eslint-disable-next-line @typescript-eslint/no-explicit-any
               form.setValue(name, text as any, {
                 shouldValidate: true,
                 shouldTouch: !!text,
