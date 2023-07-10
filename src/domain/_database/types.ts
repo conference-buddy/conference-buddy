@@ -339,7 +339,24 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      search_conferences: {
+        Args: {
+          conference_search_term: string
+        }
+        Returns: {
+          city: string
+          country: string
+          created_at: string
+          description: string
+          end_date: string
+          id: string
+          name: string
+          slug: string
+          start_date: string
+          updated_at: string | null
+          url: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

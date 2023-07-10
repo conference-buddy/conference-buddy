@@ -14,7 +14,7 @@ type MarkDownInputProps = {
   required?: boolean
   disabled?: boolean
   value?: string
-  onBlur?: (event: any) => void
+  onBlur?: (value: string) => void
 }
 
 const defaultProps = {
